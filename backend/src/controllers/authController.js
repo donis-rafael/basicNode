@@ -14,12 +14,32 @@ controller.iniciarSesion = async (req, res) => {
     const { user, password } = req.body;
 
     // VALIDAR TOKEN
-    let cadenaCompara = helper.cadenaCompara();
+    let cadenaCompara = helper.cadenaCompara(user);
     const match = await helper.comparaPassword(cadenaCompara, token);
 
     let mensaje, estado, data;
 
     if (match) {
+        let sesion = await appService.obtenerTodasLasMaquinas();
+
+        let dataSesion = sesion.datos;
+
+        if (sesion.mensaje == 'Exito') {
+            mensaje = 'Exito';
+            estado = 200;
+        } else if (sesion.mensaje == 'Error') {
+            mensaje = 'Error';
+            estado = 500;
+        } else {
+            mensaje = 'Error';
+            estado = 300;
+            dataSesion = ''
+        }
+
+        data = {
+            mensaje: mensaje,
+            datos: dataSesion
+        };
     } else {
         estado = 500;
         data = {

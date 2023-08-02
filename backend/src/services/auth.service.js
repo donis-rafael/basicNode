@@ -39,4 +39,45 @@ service.registrarNuevoUsuario = async (user, password, nombreUsuario, correo, ro
     return respuesta;
 }
 
+service.iniciarSesion = async (usuario, contrasenia) => {
+    let respuesta;
+    let credencial = await adminRepository.login(usuario);
+
+    if(credencial.message != 'error'){
+        let sesion = credencial.cuerpo;
+
+        const matchPass = await helper.comparaPassword(contrasenia, sesion.contrasenia);
+        const matchTok = await helper.comparaPassword((usuario + "_" + sesion.contrasenia), sesion.token);
+
+        if (matchPass && matchTok) {
+            respuesta = {
+                mensaje: 'Exito',
+                datos: {
+                    mensaje: 'Sesión Correcta',
+                    content: sesion.user
+                }
+            };
+        } else {
+            respuesta = {
+                mensaje: 'Error',
+                datos: {
+                    mensaje: 'Error iniciando sesión',
+                    content: 'Contraseña incorrecta'
+                }
+            };
+        }
+
+    }else{
+        respuesta = {
+            mensaje: 'Error',
+            datos: {
+                mensaje: 'Error iniciando sesión',
+                content: `No fue posible iniciar con el usuario ${usuario}`
+            }
+        };
+    }
+
+    return respuesta;
+}
+
 module.exports = service;
