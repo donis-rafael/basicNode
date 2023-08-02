@@ -14,6 +14,9 @@ var routes_app = require('../rotes/appRoutes');
 var routes_reportes = require('../rotes/reportesRoutes');
 var routes_consultas = require('../rotes/consultasRoutes');
 
+app.get('/', (req, res) => {
+    res.status(200).send('is working');
+});
 app.use('/api/auth', routes_auth);
 app.use('/api/admin', routes_admin);
 app.use('/api/app-movil', routes_app);
