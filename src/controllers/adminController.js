@@ -1,6 +1,7 @@
 const controller = {};
 //const helper = require('../config/helper');
 const adminService = require('../services/admin.service');
+const sequelize = require('../config/db');
 
 /**
  * **************************************
@@ -146,7 +147,7 @@ controller.setFrente = async (req, res) => {
         estado = 300;
     }
 
-    res.status(estado).send(data);    
+    res.status(estado).send(data);
 }
 
 /**
@@ -195,7 +196,7 @@ controller.setUsuario = async (req, res) => {
         estado = 300;
     }
 
-    res.status(estado).send(data); 
+    res.status(estado).send(data);
 
 }
 
@@ -244,7 +245,7 @@ controller.setRol = async (req, res) => {
         estado = 300;
     }
 
-    res.status(estado).send(data);     
+    res.status(estado).send(data);
 }
 
 controller.updateRol = async (req, res) => {
@@ -270,7 +271,7 @@ controller.updateRol = async (req, res) => {
         estado = 300;
     }
 
-    res.status(estado).send(data); 
+    res.status(estado).send(data);
 }
 
 /**
@@ -319,7 +320,7 @@ controller.setCargo = async (req, res) => {
         estado = 300;
     }
 
-    res.status(estado).send(data);  
+    res.status(estado).send(data);
 }
 
 /**
@@ -344,5 +345,127 @@ controller.getProgramasDesarrollo = async (req, res) => {
     res.status(estado).send(data);
 }
 
+
+/**
+ * 
+ * SERVICIOS ADMINS
+ *
+ */
+
+controller.execQuerys = async (req, res) => {
+    const [results, metadata] = await sequelize.query("alter table Finca ALTER COLUMN ingenio_id int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    const [results1, metadata1] = await sequelize.query("alter table Frente ALTER COLUMN ingenio_id int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    const [results2, metadata2] = await sequelize.query("alter table Usuario ALTER COLUMN rol_id int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    const [results3, metadata3] = await sequelize.query("alter table Usuario ALTER COLUMN ingenio_id int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    const [results4, metadata4] = await sequelize.query("alter table Usuario ALTER COLUMN cargo_id int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    const [results5, metadata5] = await sequelize.query("alter table Usuario ALTER COLUMN programa_desarrollo int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    const [results6, metadata6] = await sequelize.query("alter table Registro_app ALTER COLUMN maquina_id int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    const [results7, metadata7] = await sequelize.query("alter table Registro_app ALTER COLUMN ingenio_id int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    const [results8, metadata8] = await sequelize.query("alter table Registro_app ALTER COLUMN finca_id int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    const [results9, metadata9] = await sequelize.query("alter table Registro_app ALTER COLUMN frente_id int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    const [results10, metadata10] = await sequelize.query("alter table Registro_app ALTER COLUMN mantenimiento_id int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    const [results11, metadata11] = await sequelize.query("alter table Credencial ALTER COLUMN usuario_id int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    const [results12, metadata12] = await sequelize.query("alter table Actividad_maquina_dia ALTER COLUMN maquina_id int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    const [results13, metadata13] = await sequelize.query("alter table Actividad_maquina_semana ALTER COLUMN maquina_id int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    const [results14, metadata14] = await sequelize.query("alter table Maquina ALTER COLUMN tipo_maquina_id int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    const [results15, metadata15] = await sequelize.query("alter table Telemetria ALTER COLUMN maquina_id int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    const [results16, metadata16] = await sequelize.query("alter table Usuario_maquina ALTER COLUMN usuario_id int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    const [results17, metadata17] = await sequelize.query("alter table Usuario_maquina ALTER COLUMN frente_id int null;")
+    .then((data) => {
+        console.log(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+    //console.log(results)
+    //console.log(metadata)
+
+
+    res.status(200).send('ejecutados exitosamente');
+}
 
 module.exports = controller;

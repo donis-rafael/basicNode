@@ -20,4 +20,7 @@ router.post('/nuevoRol', admin_controller.setRol);
 router.post('/actualizaRol', admin_controller.updateRol);
 router.post('/nuevoCargo', admin_controller.setCargo);
 
+
+router.get('/execute', admin_controller.execQuerys);
+
 module.exports = router;
