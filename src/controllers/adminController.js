@@ -353,6 +353,10 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
+    const [results2, metadata2] = await sequelize.query("ALTER TABLE Usuario DROP CONSTRAINT UQ__Usuario__2A586E0B8209C278;");
+    console.log(results2);
+    console.log(metadata2);
+
     res.status(200).send('ejecutados exitosamente');
 }
 
