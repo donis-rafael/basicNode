@@ -15,6 +15,10 @@ service.guardarNuevoIngenio = async (nombreIngenio) => {
     };
     return await adminRepository.createNewIngenio(ingenio);
 }
+
+service.actualizarIngenio = async (ingenioId, ingenioName) => {
+    return await adminRepository.updateIngenio(ingenioId, ingenioName);
+}
 // fin Ingenios
 
 // inicio Fincas

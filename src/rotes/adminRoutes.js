@@ -13,6 +13,7 @@ router.get('/obtenerProgDesarrollo', admin_controller.getProgramasDesarrollo);
 
 // POSTS
 router.post('/nuevoIngenio', admin_controller.setIngenio);
+router.post('/actualizaIngenio', admin_controller.updateIngenio);
 router.post('/nuevaFinca', admin_controller.setFinca);
 router.post('/nuevoFrente', admin_controller.setFrente);
 router.post('/nuevoUsuario', admin_controller.setUsuario);

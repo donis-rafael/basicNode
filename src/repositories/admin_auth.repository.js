@@ -128,6 +128,34 @@ repository.createNewIngenio = async (ingenio) => {
     return respuesta;
 }
 
+repository.updateIngenio = async (ingenioId, ingenioName) => {
+    let respuesta;
+
+    // Actualiza el Ingenio en la BD
+    await Ingenio.update(
+        {
+            nombre_ingenio: ingenioName
+        },
+        {
+            where: {
+                ingenio_id: ingenioId
+            }
+        }
+    ).then(data => {
+        respuesta = {
+            mensaje: 'Exito',
+            datos: data
+        }
+    }).catch(err => {
+        respuesta = {
+            mensaje: 'Error',
+            datos: err.message
+        };
+    });
+
+    return respuesta;
+}
+
 /**
  * ************************************
  * ************** FINCAS **************

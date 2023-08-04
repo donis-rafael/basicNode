@@ -54,6 +54,32 @@ controller.setIngenio = async (req, res) => {
     res.status(estado).send(data);
 }
 
+controller.updateIngenio = async (req, res) => {
+    if (!req.body.ingenioId) {
+        res.status(400).send({
+            message: "No se pueden obtener datos nulos"
+        });
+        return;
+    }
+
+    const { ingenioId, ingenioName } = req.body;
+
+    let ingenioActualizado = await adminService.actualizarIngenio(ingenioId, ingenioName);
+
+    let data = ingenioActualizado.datos;
+    let estado;
+
+    if (ingenioActualizado.mensaje == 'Exito') {
+        estado = 200;
+    } else if (ingenioActualizado.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
 /**
  * ************************************
  * ************** FINCAS **************
@@ -353,9 +379,6 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const [results2, metadata2] = await sequelize.query("ALTER TABLE Usuario DROP CONSTRAINT UQ__Usuario__2A586E0B8209C278;");
-    console.log(results2);
-    console.log(metadata2);
 
     res.status(200).send('ejecutados exitosamente');
 }
