@@ -406,12 +406,13 @@ controller.execQuerys = async (req, res) => {
     console.log(results16);
     console.log(metadata16);
     console.log(results17);
-    console.log(metadata17);*/
+    console.log(metadata17);
 
     const [results, metadata] = await sequelize.query("DELETE from Usuario WHERE usuario_id = 6;");
     console.log(results);
-    console.log(metadata);
-    const [results1, metadata1] = await sequelize.query("DBCC CHECKIDENT ('Usuario', RESEED, new_value);");
+    console.log(metadata);*/
+    
+    const [results1, metadata1] = await sequelize.query("DBCC CHECKIDENT ('Usuario', RESEED, 0);");
     console.log(results1);
     console.log(metadata1);
 
