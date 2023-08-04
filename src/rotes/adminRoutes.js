@@ -17,6 +17,7 @@ router.post('/nuevaFinca', admin_controller.setFinca);
 router.post('/nuevoFrente', admin_controller.setFrente);
 router.post('/nuevoUsuario', admin_controller.setUsuario);
 router.post('/nuevoRol', admin_controller.setRol);
+router.post('/actualizaRol', admin_controller.updateRol);
 router.post('/nuevoCargo', admin_controller.setCargo);
 
 module.exports = router;

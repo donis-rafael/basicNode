@@ -408,6 +408,34 @@ repository.createNewRol = async (nuevoRol) => {
     return respuesta;
 }
 
+repository.updateRol = async (rolId, rolName) => {
+    let respuesta;
+
+    // Guarda el Rol en la BD
+    await Rol.update(
+        {
+            nombre_rol: rolName
+        },
+        {
+            where: {
+                rol_id: rolId
+            }
+        }
+    ).then(data => {
+        respuesta = {
+            mensaje: 'Exito',
+            datos: data
+        }
+    }).catch(err => {
+        respuesta = {
+            mensaje: 'Error',
+            datos: err.message
+        };
+    });
+
+    return respuesta;
+}
+
 /**
  * ************************************
  * ************** CARGOS **************

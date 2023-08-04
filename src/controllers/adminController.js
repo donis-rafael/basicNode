@@ -247,6 +247,32 @@ controller.setRol = async (req, res) => {
     res.status(estado).send(data);     
 }
 
+controller.updateRol = async (req, res) => {
+    if (!req.body.rolId) {
+        res.status(400).send({
+            message: "No se pueden obtener datos nulos"
+        });
+        return;
+    }
+
+    const { rolId, nombreRol } = req.body;
+
+    let rolActualizado = await adminService.actualizarRol(rolId, nombreRol);
+
+    let data = rolActualizado.datos;
+    let estado;
+
+    if (rolActualizado.mensaje == 'Exito') {
+        estado = 200;
+    } else if (rolActualizado.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data); 
+}
+
 /**
  * ************************************
  * ************** CARGOS **************

@@ -64,6 +64,10 @@ service.guardarNuevoRol = async (nombreRol) => {
 
     return await adminRepository.createNewRol(rol);
 }
+
+service.actualizarRol = async (rolId, rolName) => {
+    return await adminRepository.updateRol(rolId, rolName);
+}
 // fin Roles
 
 // inicio Cargos
