@@ -308,7 +308,7 @@ controller.getUsuariosAppMovil = async (req, res) => {
     // VALIDAR TOKEN
     let cadenaCompara = helper.cadenaCompara(user);
     const match = await helper.comparaPassword(cadenaCompara, token);
-    const rol = 'appMovil';
+    const rol = 'AppMovil';
 
     let mensaje, estado, data;
 
