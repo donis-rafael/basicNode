@@ -457,17 +457,10 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const d = await sequelize.query("select * from Cargo;");
+    
     console.log('inicia dop column');
 
-    await sequelize.query("Alter table Cargo Drop Column cargo_id;")
-    .then(data => {
-        console.log('exito');
-    }).catch((err) => {
-        console.log(err);
-        console.log('error ----> '+err.message);
-        err.forEach(e => console.log('err --> '+e));
-    });
+    await sequelize.query("Alter table Cargo Drop Column cargo_id;");
     /*console.log(results4);
     console.log(metadata4);
     
