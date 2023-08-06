@@ -458,22 +458,28 @@ controller.getProgramasDesarrollo = async (req, res) => {
 
 controller.execQuerys = async (req, res) => {
 
-    /*const [results, metadata] = await sequelize.query("DELETE from Usuario WHERE usuario_id = 6;");
-    console.log(results);
-    console.log(metadata);
+    const a = await sequelize.query("DELETE from Credencial WHERE usuario_id = 4;");
+    console.log(a);
 
-    const [results3, metadata3] = await sequelize.query("ALTER TABLE Usuario DROP CONSTRAINT FK_CargoUsuario;");
-    console.log(results3);
-    console.log(metadata3);*/
+    const b = await sequelize.query("DELETE from Usuario WHERE usuario_id = 1;");
+    console.log(b);
 
-    const [results4, metadata4] = await sequelize.query("Alter table Cargo Drop Column cargo_id;")
+    const c = await sequelize.query("DELETE from Usuario WHERE usuario_id = 4;");
+    console.log(c);
+
+    const [results1, metadata1] = await sequelize.query("DBCC CHECKIDENT ('Usuario', RESEED, 0);");
+    console.log(results1);
+    console.log(metadata1);
+    console.log('inicia dop column');
+
+    await sequelize.query("Alter table Cargo Drop Column cargo_id;")
     .then(data => {
         console.log('exito');
     }).catch((err) => {
         console.log(err);
         console.log('error ----> '+err.message);
     });
-    console.log(results4);
+    /*console.log(results4);
     console.log(metadata4);
     
     /*const [results5, metadata5] = await sequelize.query("alter table Usuario ALTER COLUMN programa_desarrollo int null;");
