@@ -457,19 +457,7 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-
-    const a = await sequelize.query("DELETE from Credencial WHERE usuario_id = 4;");
-    console.log(a);
-
-    const b = await sequelize.query("DELETE from Usuario WHERE usuario_id = 1;");
-    console.log(b);
-
-    const c = await sequelize.query("DELETE from Usuario WHERE usuario_id = 4;");
-    console.log(c);
-
-    const [results1, metadata1] = await sequelize.query("DBCC CHECKIDENT ('Usuario', RESEED, 0);");
-    console.log(results1);
-    console.log(metadata1);
+    const d = await sequelize.query("select * from Cargo;");
     console.log('inicia dop column');
 
     await sequelize.query("Alter table Cargo Drop Column cargo_id;")
