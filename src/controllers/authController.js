@@ -20,7 +20,7 @@ controller.iniciarSesion = async (req, res) => {
     let mensaje, estado, data;
 
     if (match) {
-        let sesion = await appService.obtenerTodasLasMaquinas();
+        let sesion = await authService.iniciarSesion(user, password);
 
         let dataSesion = sesion.datos;
 
