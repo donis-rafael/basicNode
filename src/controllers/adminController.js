@@ -457,11 +457,8 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const e = await sequelize.query("ALTER TABLE Usuario DROP CONSTRAINT FK_CargoUsuario;");
-    console.log(e);
-    
-    const f = await sequelize.query("Alter Table Usuario Drop Column cargo_id;");
-    console.log(f);
+    const g = await sequelize.query("SELECT c.name, c.definition FROM sys.default_constraints c JOIN sys.objects o ON o.object_id = c.parent_object_id WHERE o.name ='Cargo';");
+    console.log(g);
     
     console.log('inicia dop column');
 
