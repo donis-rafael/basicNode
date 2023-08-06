@@ -466,6 +466,7 @@ controller.execQuerys = async (req, res) => {
     }).catch((err) => {
         console.log(err);
         console.log('error ----> '+err.message);
+        err.forEach(e => console.log('err --> '+e));
     });
     /*console.log(results4);
     console.log(metadata4);
