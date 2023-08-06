@@ -457,7 +457,7 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const g = await sequelize.query("SELECT c.name, c.definition FROM sys.default_constraints c JOIN sys.objects o ON o.object_id = c.parent_object_id WHERE o.name ='Cargo';");
+    const g = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Cargo';");
     console.log(g);
     
     console.log('inicia dop column');
