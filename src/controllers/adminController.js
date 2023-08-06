@@ -466,7 +466,12 @@ controller.execQuerys = async (req, res) => {
     console.log(results3);
     console.log(metadata3);*/
 
-    const [results4, metadata4] = await sequelize.query("Alter Table Cargo Drop Column cargo_id;");
+    const [results4, metadata4] = await sequelize.query("Alter Table Cargo Drop Column cargo_id;")
+    .then(data => {
+        console.log('exito');
+    }).catch((err) => {
+        console.log(err);
+    });
     console.log(results4);
     console.log(metadata4);
     
