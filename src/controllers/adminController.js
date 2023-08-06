@@ -457,16 +457,18 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
+    const e = await sequelize.query("ALTER TABLE Usuario DROP CONSTRAINT FK_CargoUsuario;");
+    console.log(e);
+    
+    const f = await sequelize.query("Alter Table Usuario Drop Column cargo_id;");
+    console.log(f);
     
     console.log('inicia dop column');
 
-    await sequelize.query("Alter table Cargo Drop Column cargo_id;");
-    /*console.log(results4);
-    console.log(metadata4);
-    
-    /*const [results5, metadata5] = await sequelize.query("alter table Usuario ALTER COLUMN programa_desarrollo int null;");
-    console.log(results5);
-    console.log(metadata5);*/
+    await sequelize.query("Alter table Cargo Drop Column cargo_id;")
+    .catch(err => {
+        console.log(err);
+    });
 
     res.status(200).send('ejecutados exitosamente');
 }
