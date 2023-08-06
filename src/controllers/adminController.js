@@ -457,14 +457,6 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const i = await sequelize.query("Alter Table Cargo Add cargo_id INT IDENTITY(1,1) NOT NULL PRIMARY KEY;");
-    console.log(i);
-
-    const j = await sequelize.query("Alter Table Usuario Add cargo_id int null;");
-    console.log(j);
-
-    const k = await sequelize.query("ALTER TABLE Usuario ADD CONSTRAINT FK_CargoUsuario FOREIGN KEY ([cargo_id]) REFERENCES [dbo].[Cargo]([cargo_id]);");
-    console.log(k);
 
     res.status(200).send('ejecutados exitosamente');
 }
