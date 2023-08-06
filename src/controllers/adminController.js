@@ -457,8 +457,8 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const g = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Cargo';");
-    console.log(g);
+    const h = await sequelize.query("ALTER TABLE Cargo DROP CONSTRAINT PK__Cargo__982828C4483886FE");
+    console.log(h);
     
     console.log('inicia dop column');
 
