@@ -55,16 +55,16 @@ controller.setIngenio = async (req, res) => {
 }
 
 controller.updateIngenio = async (req, res) => {
-    if (!req.body.ingenioId) {
+    if (!req.body.idIngenio) {
         res.status(400).send({
             message: "No se pueden obtener datos nulos"
         });
         return;
     }
 
-    const { ingenioId, ingenioName } = req.body;
+    const { idIngenio, nombreIngenio } = req.body;
 
-    let ingenioActualizado = await adminService.actualizarIngenio(ingenioId, ingenioName);
+    let ingenioActualizado = await adminService.actualizarIngenio(idIngenio, nombreIngenio);
 
     let data = ingenioActualizado.datos;
     let estado;
@@ -128,6 +128,32 @@ controller.setFinca = async (req, res) => {
     res.status(estado).send(data);
 }
 
+controller.updateFinca = async (req, res) => {
+    if (!req.body.idFinca) {
+        res.status(400).send({
+            message: "No se pueden obtener datos nulos"
+        });
+        return;
+    }
+
+    const { idFinca, nombreFinca } = req.body;
+
+    let fincaActualizado = await adminService.actualizarFinca(idFinca, nombreFinca);
+
+    let data = fincaActualizado.datos;
+    let estado;
+
+    if (fincaActualizado.mensaje == 'Exito') {
+        estado = 200;
+    } else if (fincaActualizado.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
 /**
  * *************************************
  * ************** FRENTES **************
@@ -168,6 +194,32 @@ controller.setFrente = async (req, res) => {
     if (newFrente.mensaje == 'Exito') {
         estado = 200;
     } else if (newFrente.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
+controller.updateFrente = async (req, res) => {
+    if (!req.body.idFrente) {
+        res.status(400).send({
+            message: "No se pueden obtener datos nulos"
+        });
+        return;
+    }
+
+    const { idFrente, nombreFrente } = req.body;
+
+    let frenteActualizado = await adminService.actualizarFrente(idFrente, nombreFrente);
+
+    let data = frenteActualizado.datos;
+    let estado;
+
+    if (frenteActualizado.mensaje == 'Exito') {
+        estado = 200;
+    } else if (frenteActualizado.mensaje == 'Error') {
         estado = 500;
     } else {
         estado = 300;
@@ -275,16 +327,16 @@ controller.setRol = async (req, res) => {
 }
 
 controller.updateRol = async (req, res) => {
-    if (!req.body.rolId) {
+    if (!req.body.idRol) {
         res.status(400).send({
             message: "No se pueden obtener datos nulos"
         });
         return;
     }
 
-    const { rolId, nombreRol } = req.body;
+    const { idRol, nombreRol } = req.body;
 
-    let rolActualizado = await adminService.actualizarRol(rolId, nombreRol);
+    let rolActualizado = await adminService.actualizarRol(idRol, nombreRol);
 
     let data = rolActualizado.datos;
     let estado;
@@ -349,6 +401,32 @@ controller.setCargo = async (req, res) => {
     res.status(estado).send(data);
 }
 
+controller.updateCargo = async (req, res) => {
+    if (!req.body.idCargo) {
+        res.status(400).send({
+            message: "No se pueden obtener datos nulos"
+        });
+        return;
+    }
+
+    const { idCargo, nombreCargo } = req.body;
+
+    let cargoActualizado = await adminService.actualizarCargo(idCargo, nombreCargo);
+
+    let data = cargoActualizado.datos;
+    let estado;
+
+    if (cargoActualizado.mensaje == 'Exito') {
+        estado = 200;
+    } else if (cargoActualizado.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
 /**
  * **********************************************
  * ************** PROG. DESARROLLO **************
@@ -379,6 +457,22 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
+
+    /*const [results, metadata] = await sequelize.query("DELETE from Usuario WHERE usuario_id = 6;");
+    console.log(results);
+    console.log(metadata);
+
+    const [results3, metadata3] = await sequelize.query("ALTER TABLE Usuario DROP CONSTRAINT FK_CargoUsuario;");
+    console.log(results3);
+    console.log(metadata3);*/
+
+    const [results4, metadata4] = await sequelize.query("Alter Table Cargo Drop Column cargo_id;");
+    console.log(results4);
+    console.log(metadata4);
+    
+    /*const [results5, metadata5] = await sequelize.query("alter table Usuario ALTER COLUMN programa_desarrollo int null;");
+    console.log(results5);
+    console.log(metadata5);*/
 
     res.status(200).send('ejecutados exitosamente');
 }

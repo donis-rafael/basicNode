@@ -70,4 +70,21 @@ controller.registro = async (req, res) => {
     res.status(estado).send(data);
 }
 
+controller.getAllCredenciales = async (req, res) => {
+    let creds = await authService.obtenerCredenciales();
+
+    let data = creds.datos;
+    let estado;
+
+    if ((creds.mensaje == 'Exito') || (creds.mensaje == 'Sin Datos')) {
+        estado = 200;
+    } else if (creds.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
 module.exports = controller;

@@ -80,4 +80,10 @@ service.iniciarSesion = async (usuario, contrasenia) => {
     return respuesta;
 }
 
+service.obtenerCredenciales = async () => {
+    creds = await adminRepository.findAllCreds();
+
+    return creds;
+}
+
 module.exports = service;

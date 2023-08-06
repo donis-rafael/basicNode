@@ -35,6 +35,10 @@ service.guardarNuevaFinca = async (nombreFinca, ingenio) => {
     };
     return await adminRepository.createNewFinca(finca, ingenio);
 }
+
+service.actualizarFinca = async (fincaId, fincaName) => {
+    return await adminRepository.updateFinca(fincaId, fincaName);
+}
 // fin Fincas
 
 // inicio Frentes
@@ -50,6 +54,10 @@ service.guardarNuevoFrente = async (nombreFrente, ingenio) => {
         nombre_frente: nombreFrente
     };
     return await adminRepository.createNewFrente(frente, ingenio);
+}
+
+service.actualizarFrente = async (frenteId, frenteName) => {
+    return await adminRepository.updateFrente(frenteId, frenteName);
 }
 // fin Frentes
 
@@ -88,6 +96,10 @@ service.guardarNuevoCargo = async (nombreCargo) => {
     };
 
     return await adminRepository.createNewCargo(cargo);
+}
+
+service.actualizarCargo = async (cargoId, cargoName) => {
+    return await adminRepository.updateCargo(cargoId, cargoName);
 }
 // fin Cargos
 

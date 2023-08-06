@@ -262,6 +262,34 @@ repository.createNewFinca = async (nuevaFinca, ingenio) => {
     return respuesta;
 }
 
+repository.updateFinca = async (fincaId, fincaName) => {
+    let respuesta;
+
+    // Actualiza el Finca en la BD
+    await Finca.update(
+        {
+            nombre_finca: fincaName
+        },
+        {
+            where: {
+                finca_id: fincaId
+            }
+        }
+    ).then(data => {
+        respuesta = {
+            mensaje: 'Exito',
+            datos: data
+        }
+    }).catch(err => {
+        respuesta = {
+            mensaje: 'Error',
+            datos: err.message
+        };
+    });
+
+    return respuesta;
+}
+
 /**
  * *************************************
  * ************** FRENTES **************
@@ -364,6 +392,34 @@ repository.createNewFrente = async (nuevoFrente, ingenio) => {
             }
         };
     }
+
+    return respuesta;
+}
+
+repository.updateFrente = async (frenteId, frenteName) => {
+    let respuesta;
+
+    // Actualiza el Frente en la BD
+    await Frente.update(
+        {
+            nombre_frente: frenteName
+        },
+        {
+            where: {
+                frente_id: frenteId
+            }
+        }
+    ).then(data => {
+        respuesta = {
+            mensaje: 'Exito',
+            datos: data
+        }
+    }).catch(err => {
+        respuesta = {
+            mensaje: 'Error',
+            datos: err.message
+        };
+    });
 
     return respuesta;
 }
@@ -528,6 +584,34 @@ repository.createNewCargo = async (nuevoCargo) => {
                 datos: err.message
             };
         });
+
+    return respuesta;
+}
+
+repository.updateCargo = async (cargoId, cargoName) => {
+    let respuesta;
+
+    // Actualiza el Cargo en la BD
+    await Cargo.update(
+        {
+            nombre_cargo: cargoName
+        },
+        {
+            where: {
+                cargo_id: cargoId
+            }
+        }
+    ).then(data => {
+        respuesta = {
+            mensaje: 'Exito',
+            datos: data
+        }
+    }).catch(err => {
+        respuesta = {
+            mensaje: 'Error',
+            datos: err.message
+        };
+    });
 
     return respuesta;
 }
@@ -861,6 +945,32 @@ repository.createEmptyCredencialAsync = async (newCredential) => {
         });
 
     return mensajeReturn;
+}
+
+repository.findAllCreds = async () => {
+    let respuesta, vacio = false;
+    await Credencial.findAll()
+        .then(data => {
+            if (data.length <= 0) {
+                vacio = true;
+                data = {
+                    mensaje: 'sin datos'
+                }
+            }
+            respuesta = {
+                mensaje: !vacio ? 'Exito' : 'Sin Datos',
+                datos: data
+            }
+
+        }).catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                datos: err.message || "Ocurrió un error al consultar Credenciales."
+            };
+        });
+
+
+    return respuesta;
 }
 
 /**
