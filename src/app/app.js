@@ -1,5 +1,4 @@
 const express = require('express');
-const cors = require('cors');
 var logger = require('morgan');
 
 const app = express();
@@ -8,9 +7,6 @@ app.use(logger('dev'));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors({
-    origin: 'http://localhost:3000'
-}));
 
 var routes_auth = require('../rotes/authRoutes');
 var routes_admin = require('../rotes/adminRoutes');
