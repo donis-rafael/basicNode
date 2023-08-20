@@ -7,6 +7,8 @@ controller.getInformeDiario = async (req, res) => {
     // realizar petición a BD
     // armar objeto
     // retornar
+
+    res.status(200).send("data");
 }
 
 controller.getInformeSemanal = async (req, res) => {
@@ -15,6 +17,7 @@ controller.getInformeSemanal = async (req, res) => {
     // realizar petición a BD
     // armar objeto
     // retornar
+    res.status(200).send("data");
 }
 
 controller.getInformeMensual = async (req, res) => {
@@ -23,6 +26,7 @@ controller.getInformeMensual = async (req, res) => {
     // realizar petición a BD
     // armar objeto
     // retornar
+    res.status(200).send("data");
 }
 
 module.exports = controller;
