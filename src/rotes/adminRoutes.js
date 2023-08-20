@@ -26,6 +26,12 @@ router.put('/frentes', admin_controller.updateFrente);
 router.put('/roles', admin_controller.updateRol);
 router.put('/cargos', admin_controller.updateCargo);
 
+// DELETE
+router.delete('/roles', admin_controller.deleteRol);
+router.delete('/cargos', admin_controller.deleteCargo);
+router.delete('/frentes', admin_controller.deleteFrente);
+router.delete('/fincas', admin_controller.deleteFinca);
+
 
 router.get('/execute', admin_controller.execQuerys);
 

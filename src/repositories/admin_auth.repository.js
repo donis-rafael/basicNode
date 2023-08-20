@@ -156,6 +156,31 @@ repository.updateIngenio = async (ingenioId, ingenioName) => {
     return respuesta;
 }
 
+repository.destroyIngenio = async (ingenioId) => {
+    let respuesta;
+
+    // Elimina el Ingenio en la BD
+    await Ingenio.destroy(
+        {
+            where: {
+                ingenio_id: ingenioId
+            }
+        }
+    ).then(data => {
+        respuesta = {
+            mensaje: 'Exito',
+            datos: data
+        }
+    }).catch(err => {
+        respuesta = {
+            mensaje: 'Error',
+            datos: err.message
+        };
+    });
+
+    return respuesta;
+}
+
 /**
  * ************************************
  * ************** FINCAS **************
@@ -270,6 +295,31 @@ repository.updateFinca = async (fincaId, fincaName) => {
         {
             nombre_finca: fincaName
         },
+        {
+            where: {
+                finca_id: fincaId
+            }
+        }
+    ).then(data => {
+        respuesta = {
+            mensaje: 'Exito',
+            datos: data
+        }
+    }).catch(err => {
+        respuesta = {
+            mensaje: 'Error',
+            datos: err.message
+        };
+    });
+
+    return respuesta;
+}
+
+repository.destroyFinca = async (fincaId) => {
+    let respuesta;
+
+    // Elimina el Finca en la BD
+    await Finca.destroy(
         {
             where: {
                 finca_id: fincaId
@@ -424,6 +474,31 @@ repository.updateFrente = async (frenteId, frenteName) => {
     return respuesta;
 }
 
+repository.destroyFrente = async (frenteId) => {
+    let respuesta;
+
+    // Elimina el Frente en la BD
+    await Frente.destroy(
+        {
+            where: {
+                frente_id: frenteId
+            }
+        }
+    ).then(data => {
+        respuesta = {
+            mensaje: 'Exito',
+            datos: data
+        }
+    }).catch(err => {
+        respuesta = {
+            mensaje: 'Error',
+            datos: err.message
+        };
+    });
+
+    return respuesta;
+}
+
 /**
  * ***********************************
  * ************** ROLES **************
@@ -520,6 +595,31 @@ repository.updateRol = async (rolId, rolName) => {
     return respuesta;
 }
 
+repository.destroyRol = async (rolId) => {
+    let respuesta;
+
+    // Elimina el Rol en la BD
+    await Rol.destroy(
+        {
+            where: {
+                rol_id: rolId
+            }
+        }
+    ).then(data => {
+        respuesta = {
+            mensaje: 'Exito',
+            datos: data
+        }
+    }).catch(err => {
+        respuesta = {
+            mensaje: 'Error',
+            datos: err.message
+        };
+    });
+
+    return respuesta;
+}
+
 /**
  * ************************************
  * ************** CARGOS **************
@@ -596,6 +696,31 @@ repository.updateCargo = async (cargoId, cargoName) => {
         {
             nombre_cargo: cargoName
         },
+        {
+            where: {
+                cargo_id: cargoId
+            }
+        }
+    ).then(data => {
+        respuesta = {
+            mensaje: 'Exito',
+            datos: data
+        }
+    }).catch(err => {
+        respuesta = {
+            mensaje: 'Error',
+            datos: err.message
+        };
+    });
+
+    return respuesta;
+}
+
+repository.destroyCargo = async (cargoId) => {
+    let respuesta;
+
+    // Elimina el Cargo en la BD
+    await Cargo.destroy(
         {
             where: {
                 cargo_id: cargoId

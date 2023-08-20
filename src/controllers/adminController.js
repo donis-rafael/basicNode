@@ -80,6 +80,37 @@ controller.updateIngenio = async (req, res) => {
     res.status(estado).send(data);
 }
 
+controller.deleteIngenio = async (req, res) => {
+    if (!req.body.idIngenio) {
+        res.status(400).send({
+            message: "No se pueden obtener datos nulos"
+        });
+        return;
+    }
+
+    const { idIngenio } = req.body;
+
+    let ingenioEliminado = await adminService.eliminarFrente(idIngenio);
+
+    let data = ingenioEliminado.datos;
+    let estado;
+
+    if (ingenioEliminado.mensaje == 'Exito') {
+        if (ingenioEliminado.datos == 1) {
+            data = `Ingenio con id: ${idIngenio}, eliminado exitosamente`
+        } else {
+            data = `No se eliminó ningún Ingenio con id: ${idIngenio}`
+        }
+        estado = 200;
+    } else if (ingenioEliminado.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
 /**
  * ************************************
  * ************** FINCAS **************
@@ -154,6 +185,37 @@ controller.updateFinca = async (req, res) => {
     res.status(estado).send(data);
 }
 
+controller.deleteFinca = async (req, res) => {
+    if (!req.body.idFinca) {
+        res.status(400).send({
+            message: "No se pueden obtener datos nulos"
+        });
+        return;
+    }
+
+    const { idFinca } = req.body;
+
+    let fincaEliminada = await adminService.eliminarFinca(idFinca);
+
+    let data = fincaEliminada.datos;
+    let estado;
+
+    if (fincaEliminada.mensaje == 'Exito') {
+        if (fincaEliminada.datos == 1) {
+            data = `Finca con id: ${idFinca}, eliminada exitosamente`
+        } else {
+            data = `No se eliminó ningúna Finca con id: ${idFinca}`
+        }
+        estado = 200;
+    } else if (fincaEliminada.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
 /**
  * *************************************
  * ************** FRENTES **************
@@ -220,6 +282,37 @@ controller.updateFrente = async (req, res) => {
     if (frenteActualizado.mensaje == 'Exito') {
         estado = 200;
     } else if (frenteActualizado.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
+controller.deleteFrente = async (req, res) => {
+    if (!req.body.idFrente) {
+        res.status(400).send({
+            message: "No se pueden obtener datos nulos"
+        });
+        return;
+    }
+
+    const { idFrente } = req.body;
+
+    let frenteEliminado = await adminService.eliminarFrente(idFrente);
+
+    let data = frenteEliminado.datos;
+    let estado;
+
+    if (frenteEliminado.mensaje == 'Exito') {
+        if (frenteEliminado.datos == 1) {
+            data = `Frente con id: ${idFrente}, eliminado exitosamente`
+        } else {
+            data = `No se eliminó ningún Frente con id: ${idFrente}`
+        }
+        estado = 200;
+    } else if (frenteEliminado.mensaje == 'Error') {
         estado = 500;
     } else {
         estado = 300;
@@ -352,6 +445,37 @@ controller.updateRol = async (req, res) => {
     res.status(estado).send(data);
 }
 
+controller.deleteRol = async (req, res) => {
+    if (!req.body.idRol) {
+        res.status(400).send({
+            message: "No se pueden obtener datos nulos"
+        });
+        return;
+    }
+
+    const { idRol } = req.body;
+
+    let rolEliminado = await adminService.eliminarRol(idRol);
+
+    let data = rolEliminado.datos;
+    let estado;
+
+    if (rolEliminado.mensaje == 'Exito') {
+        if (rolEliminado.datos == 1) {
+            data = `Rol con id: ${idRol}, eliminado exitosamente`
+        } else {
+            data = `No se eliminó ningún Rol con id: ${idRol}`
+        }
+        estado = 200;
+    } else if (rolEliminado.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
 /**
  * ************************************
  * ************** CARGOS **************
@@ -419,6 +543,37 @@ controller.updateCargo = async (req, res) => {
     if (cargoActualizado.mensaje == 'Exito') {
         estado = 200;
     } else if (cargoActualizado.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
+controller.deleteCargo = async (req, res) => {
+    if (!req.body.idCargo) {
+        res.status(400).send({
+            message: "No se pueden obtener datos nulos"
+        });
+        return;
+    }
+
+    const { idCargo } = req.body;
+
+    let cargoEliminado = await adminService.eliminarCargo(idCargo);
+
+    let data = cargoEliminado.datos;
+    let estado;
+
+    if (cargoEliminado.mensaje == 'Exito') {
+        if (cargoEliminado.datos == 1) {
+            data = `Cargo con id: ${idCargo}, eliminado exitosamente`
+        } else {
+            data = `No se eliminó ningún Cargo con id: ${idCargo}`
+        }
+        estado = 200;
+    } else if (cargoEliminado.mensaje == 'Error') {
         estado = 500;
     } else {
         estado = 300;

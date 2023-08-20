@@ -19,6 +19,10 @@ service.guardarNuevoIngenio = async (nombreIngenio) => {
 service.actualizarIngenio = async (ingenioId, ingenioName) => {
     return await adminRepository.updateIngenio(ingenioId, ingenioName);
 }
+
+service.eliminarIngenio = async (ingenioId) => {
+    return await adminRepository.destroyIngenio(ingenioId);
+}
 // fin Ingenios
 
 // inicio Fincas
@@ -39,6 +43,10 @@ service.guardarNuevaFinca = async (nombreFinca, ingenio) => {
 service.actualizarFinca = async (fincaId, fincaName) => {
     return await adminRepository.updateFinca(fincaId, fincaName);
 }
+
+service.eliminarFinca = async (fincaId) => {
+    return await adminRepository.destroyFinca(fincaId);
+}
 // fin Fincas
 
 // inicio Frentes
@@ -58,6 +66,10 @@ service.guardarNuevoFrente = async (nombreFrente, ingenio) => {
 
 service.actualizarFrente = async (frenteId, frenteName) => {
     return await adminRepository.updateFrente(frenteId, frenteName);
+}
+
+service.eliminarFrente = async (frenteId) => {
+    return await adminRepository.destroyFrente(frenteId);
 }
 // fin Frentes
 
@@ -80,6 +92,10 @@ service.guardarNuevoRol = async (nombreRol) => {
 service.actualizarRol = async (rolId, rolName) => {
     return await adminRepository.updateRol(rolId, rolName);
 }
+
+service.eliminarRol = async (rolId) => {
+    return await adminRepository.destroyRol(rolId);
+}
 // fin Roles
 
 // inicio Cargos
@@ -100,6 +116,10 @@ service.guardarNuevoCargo = async (nombreCargo) => {
 
 service.actualizarCargo = async (cargoId, cargoName) => {
     return await adminRepository.updateCargo(cargoId, cargoName);
+}
+
+service.eliminarCargo = async (cargoId) => {
+    return await adminRepository.destroyCargo(cargoId);
 }
 // fin Cargos
 
