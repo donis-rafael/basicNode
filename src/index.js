@@ -8,24 +8,10 @@ const options = {
 }
 const allowlist = ['http://localhost:3000', 'http://190.148.50.160:3000'];
 
-const corsOptionsDelegate = (req, callback) => {
-    let corsOptions;
-
-    let isDomainAllowed = whitelist.indexOf(req.header('Origin')) !== -1;
-    let isExtensionAllowed = req.path.endsWith('.jpg');
-
-    if (isDomainAllowed && isExtensionAllowed) {
-        // Enable CORS for this request
-        corsOptions = { origin: true }
-    } else {
-        // Disable CORS for this request
-        corsOptions = { origin: false }
-    }
-    callback(null, corsOptions)
-}
-
-
-app.use(cors(corsOptionsDelegate))
+app.use(cors({
+    credentials: true,
+    origin: ["http://localhost:3000", "http://190.148.50.160:3000"]
+}));
 
 const port = process.env.PORT || 4000;
 
