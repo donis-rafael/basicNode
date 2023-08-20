@@ -9,7 +9,7 @@ app.use(logger('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors({
-    origin: '*'
+    origin: 'http://localhost:3000'
 }));
 
 var routes_auth = require('../rotes/authRoutes');
