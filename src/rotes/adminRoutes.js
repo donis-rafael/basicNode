@@ -1,5 +1,5 @@
 const router = require('express').Router();
-
+const cors = require('cors');
 const admin_controller = require('../controllers/adminController');
 
 // GETS
