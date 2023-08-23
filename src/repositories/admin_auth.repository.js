@@ -827,10 +827,11 @@ repository.findAllUserByRol = async (rol) => {
         },
         include: [Credencial]
     }).then((data) => {
+        console.log("1 " + data.toJSON());
         if (data.length <= 0) {
             vacio = true;
         } else {
-            console.log(data.toJSON());
+            console.log("2 " + data.toJSON());
             rolFounded = data;
         }
 
