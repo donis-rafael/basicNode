@@ -1,4 +1,5 @@
 const repository = {};
+const sequelize = require("sequelize");
 
 const Maquina = require('../models/reporteria_crm/maquina.model');
 const Caso = require('../models/reporteria_crm/caso.model');
@@ -32,9 +33,13 @@ repository.informeDiarioByMaquina = async (codigoMaquina) => {
     let maquinaFounded, mensaje;
     await Maquina.findOne({
         where: {
-            user: userSearch
+            codigo_maquina: codigoMaquina
         },
-        include: [Usuario]
+        include: [
+            [sequelize.fn('COUNT', sequelize.col(Caso)), 'Casos'],
+            Maquina_Dia,
+            Telemetria
+        ]
     }).then((data) => {
         mensaje = 'exito';
         maquinaFounded = data;

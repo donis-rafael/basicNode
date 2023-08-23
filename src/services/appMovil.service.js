@@ -33,7 +33,11 @@ service.obtenerTodosLosMantenimientos = async () => {
 }
 
 service.obtenerTodosLosUsuariosPorRol = async (rol) => {
-    usuarios = await adminRepository.findAllUserByRol(rol);
+    let usuarios = await adminRepository.findAllUserByRol(rol);
+
+    usuarios.datos.forEach(function (elemento, indice, array) {
+        console.log(elemento, indice);
+    });
 
     return usuarios;
 }
