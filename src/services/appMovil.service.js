@@ -37,14 +37,16 @@ service.obtenerTodosLosUsuariosPorRol = async (rol) => {
 
     let usuariosResp = [];
     let datos = usuarios.datos;
+
     for (i = 0; i < datos.length; i++) {
         let credId = null, userCred = null, contra = null;
-        console.log("datos[i].Credencials: " + JSON.stringify(datos[i].Credencials));
+
         if (datos[i].Credencials.length > 0) {
             credId = datos[i].Credencials[0].credencial_id;
             userCred = datos[i].Credencials[0].user;
             contra = datos[i].Credencials[0].contrasenia;
         }
+
         let usuario = {
             usuario_id: datos[i].usuario_id,
             nombre_usuario: datos[i].nombre_usuario,
@@ -52,7 +54,7 @@ service.obtenerTodosLosUsuariosPorRol = async (rol) => {
             user: userCred,
             contrasenia: contra,
         }
-        console.log("USUARIO: " + JSON.stringify(usuario));
+
         usuariosResp.push(usuario);
     }
 
