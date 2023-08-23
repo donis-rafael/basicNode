@@ -40,10 +40,10 @@ service.obtenerTodosLosUsuariosPorRol = async (rol) => {
     for (i = 0; i < datos.length; i++) {
         let credId = null, userCred = null, contra = null;
         console.log("datos[i].Credencials: " + JSON.stringify(datos[i].Credencials));
-        if (datos[i].Credencials[0].length > 0) {
-            credId = datos[i].Credencials.credencial_id;
-            userCred = datos[i].Credencials.user;
-            contra = datos[i].Credencials.contrasenia;
+        if (datos[i].Credencials.length > 0) {
+            credId = datos[i].Credencials[0].credencial_id;
+            userCred = datos[i].Credencials[0].user;
+            contra = datos[i].Credencials[0].contrasenia;
         }
         let usuario = {
             usuario_id: datos[i].usuario_id,
