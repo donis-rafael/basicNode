@@ -825,8 +825,7 @@ repository.findAllUserByRol = async (rol) => {
     await Rol.findOne({
         where: {
             nombre_rol: rol
-        },
-        include: [Credencial]
+        }
     }).then((data) => {
         console.log("1 " + data.toJSON());
         if (data.length <= 0) {
@@ -837,6 +836,7 @@ repository.findAllUserByRol = async (rol) => {
         }
 
     }).catch(err => {
+        vacio = true;
         console.log("err " + err);
         respuesta = {
             mensaje: 'Error',
@@ -846,7 +846,9 @@ repository.findAllUserByRol = async (rol) => {
     console.log("vacio " + vacio);
 
     if (!vacio) {
-        await rolFounded.getUsuarios().then((data) => {
+        await rolFounded.getUsuarios({
+            include: [Credencial]
+        }).then((data) => {
             if (data.length <= 0) {
                 vacio = true;
                 data = {
