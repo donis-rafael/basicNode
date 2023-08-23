@@ -824,7 +824,8 @@ repository.findAllUserByRol = async (rol) => {
     await Rol.findOne({
         where: {
             nombre_rol: rol
-        }
+        },
+        include: [Credencial]
     }).then((data) => {
         if (data.length <= 0) {
             vacio = true;
