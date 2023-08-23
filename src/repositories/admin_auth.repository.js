@@ -894,7 +894,7 @@ repository.findUserById = async (userId) => {
 repository.findAllUsers_Rol_Ingenio_Cargo = async () => {
     let respuesta, vacio = false;
     await Usuario.findAll({
-        include: [Rol, Ingenio, Cargo]
+        include: [Rol, Ingenio, Cargo, Prog_Desarrollo]
     })
         .then(data => {
             if (data.length <= 0) {
