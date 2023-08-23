@@ -820,6 +820,7 @@ repository.findAllUsers = async () => {
 }
 
 repository.findAllUserByRol = async (rol) => {
+    console.log("rol " + rol);
     let rolFounded, respuesta, vacio = false;
     await Rol.findOne({
         where: {
@@ -836,11 +837,13 @@ repository.findAllUserByRol = async (rol) => {
         }
 
     }).catch(err => {
+        console.log("err " + err);
         respuesta = {
             mensaje: 'Error',
             datos: err.message || "Ocurrió un error al consultar Roles."
         };
     });
+    console.log("vacio " + vacio);
 
     if (!vacio) {
         await rolFounded.getUsuarios().then((data) => {
