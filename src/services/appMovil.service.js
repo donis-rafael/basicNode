@@ -35,9 +35,25 @@ service.obtenerTodosLosMantenimientos = async () => {
 service.obtenerTodosLosUsuariosPorRol = async (rol) => {
     let usuarios = await adminRepository.findAllUserByRol(rol);
 
-    usuarios.datos.forEach(function (elemento, indice, array) {
-        console.log(elemento, indice);
-    });
+    let usuariosResp = [];
+    let datos = usuarios.datos;
+    for (i = 0; i < datos.length; i++) {
+        console.log(datos[i]);
+        let credId = null, userCred = null, contra = null;
+        if (datos[i].Credencials.length > 0) {
+            credId = datos[i].Credencials.credencial_id,
+                userCred = datos[i].Credencials.user,
+                contra = datos[i].Credencials.contrasenia
+        }
+        let usuario = {
+            usuario_id: datos[i].usuario_id,
+            nombre_usuario: datos[i].nombre_usuario,
+            credencial_id: credId,
+            user: userCred,
+            contrasenia: contra,
+        }
+        console.log("USUARIO: " + usuario);
+    }
 
     return usuarios;
 }
