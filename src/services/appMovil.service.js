@@ -38,7 +38,6 @@ service.obtenerTodosLosUsuariosPorRol = async (rol) => {
     let usuariosResp = [];
     let datos = usuarios.datos;
     for (i = 0; i < datos.length; i++) {
-        console.log(datos[i]);
         let credId = null, userCred = null, contra = null;
         if (datos[i].Credencials.length > 0) {
             credId = datos[i].Credencials.credencial_id,
@@ -52,10 +51,11 @@ service.obtenerTodosLosUsuariosPorRol = async (rol) => {
             user: userCred,
             contrasenia: contra,
         }
-        console.log("USUARIO: " + usuario);
+        console.log("USUARIO: " + JSON.stringify(usuario));
+        usuariosResp.push(usuario);
     }
 
-    return usuarios;
+    return usuariosResp;
 }
 
 service.guardarNuevoRegistroApp = async (maquinaId, ingenioId, fincaId, frenteId, mantenimientoId, operando, horaInicio, horaFinal, comentario, urlFoto) => {
