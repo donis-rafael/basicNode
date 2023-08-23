@@ -23,11 +23,11 @@ app.use(logger('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-var routes_auth = require('../rotes/authRoutes');
-var routes_admin = require('../rotes/adminRoutes');
-var routes_app = require('../rotes/appRoutes');
-var routes_informes = require('../rotes/informesRoutes');
-var routes_consultas = require('../rotes/consultasRoutes');
+var routes_auth = require('../routes/authRoutes');
+var routes_admin = require('../routes/adminRoutes');
+var routes_app = require('../routes/appRoutes');
+var routes_informes = require('../routes/informesRoutes');
+var routes_consultas = require('../routes/consultasRoutes');
 
 app.get('/', (req, res) => {
     res.status(200).send('is working');
