@@ -342,6 +342,23 @@ controller.getUsuarios = async (req, res) => {
     res.status(estado).send(data);
 }
 
+controller.getUsuarios_Rol_Ingenio_Cargo = async (req, res) => {
+    let usuarios = await adminService.obtenerTodosLosUsuarios_Rol_Ingenio_Cargo();
+
+    let data = usuarios.datos;
+    let estado;
+
+    if ((usuarios.mensaje == 'Exito') || (usuarios.mensaje == 'Sin Datos')) {
+        estado = 200;
+    } else if (usuarios.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
 controller.setUsuario = async (req, res) => {
     // Valida información del Request
     if (!req.body.nombreUsuario) {

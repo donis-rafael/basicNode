@@ -138,6 +138,12 @@ service.obtenerTodosLosUsuarios = async () => {
     return usuarios;
 }
 
+service.obtenerTodosLosUsuarios_Rol_Ingenio_Cargo = async () => {
+    usuarios = await adminRepository.findAllUsers_Rol_Ingenio_Cargo();
+
+    return usuarios;
+}
+
 service.guardarNuevoUsuario = async (nombreUsuario, correo, rol, cargo, ingenio, progDesarrollo) => {
     // Crea Usuario
     const usuario = {
