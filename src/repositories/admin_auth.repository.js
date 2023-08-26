@@ -851,7 +851,7 @@ repository.findAllUserByRol = async (rol) => {
             if (data.length <= 0) {
                 vacio = true;
                 data = {
-                    mensaje: 'sin datos'
+                    mensaje: 'Sin Datos'
                 }
             }
             respuesta = {

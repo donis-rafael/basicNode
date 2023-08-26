@@ -14,12 +14,12 @@ controller.getInformeDiario_Maquina = async (req, res) => {
 
     let maquinas = await obtenerInforme('diarioMaquina', codigo_maquina);
 
-    let data = maquinas.datos;
+    let data = maquinas.cuerpo;
     let estado;
 
-    if ((maquinas.mensaje == 'Exito') || (maquinas.mensaje == 'Sin Datos')) {
+    if ((maquinas.message == 'Exito') || (maquinas.message == 'Sin Datos')) {
         estado = 200;
-    } else if (maquinas.mensaje == 'Error') {
+    } else if (maquinas.message == 'Error') {
         estado = 500;
     } else {
         estado = 300;

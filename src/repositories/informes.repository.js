@@ -9,6 +9,7 @@ const Usuario_Maquina = require('../models/reporteria_crm/usuario.maquina.model'
 const Usuario = require('../models/gestion/usuario.model');
 
 const Telemetria = require('../models/telemetria/telemetria.model');
+const Ingenio = require("../models/gestion/ingenio.model");
 
 // Relacion entre Maquina y Caso
 Maquina.hasMany(Caso, { foreignKey: 'maquina_id' });
@@ -27,8 +28,8 @@ Maquina.hasMany(Telemetria, { foreignKey: 'maquina_id' });
 Telemetria.belongsTo(Maquina, { foreignKey: 'maquina_id' });
 
 // Relacion entre Maquina y Usuarios
-Maquina.belongsToMany(Usuario, { through: Usuario_Maquina, sourceKey: 'maquina_id', targetKey: 'usuario_id' });
-Usuario.belongsToMany(Maquina, { through: Usuario_Maquina, sourceKey: 'usuario_id', targetKey: 'maquina_id' });
+Maquina.belongsToMany(Usuario, { through: Usuario_Maquina, foreignKey: 'maquina_id' });
+Usuario.belongsToMany(Maquina, { through: Usuario_Maquina, foreignKey: 'usuario_id' });
 
 /**
  * ********************************************
@@ -69,16 +70,22 @@ repository.informeDiarioByMaquina = async (codigoMaquina) => {
         },
         include: [{
             model: Usuario,
-            through: { attributes: [] }
+            through: { attributes: [] },
+            include: Ingenio
         }]
     }).then((data) => {
-        mensaje = 'exito';
+        if (data.length <= 0) {
+            mensaje = 'Sin Datos';
+        } else {
+            mensaje = 'Exito';
+        }
         maquinaFounded = data;
 
     }).catch(err => {
         console.log("err -> " + err);
-        mensaje = 'error';
-        maquinaFounded = err.message || "Ocurrió un error al consultar Maquina.";
+        console.log("err.message -> " + err.message);
+        mensaje: 'Error',
+            maquinaFounded = err.message || "Ocurrió un error al consultar Maquina.";
     });
 
     let respuesta = {
