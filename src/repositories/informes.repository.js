@@ -27,8 +27,8 @@ Maquina.hasMany(Telemetria, { foreignKey: 'maquina_id' });
 Telemetria.belongsTo(Maquina, { foreignKey: 'maquina_id' });
 
 // Relacion entre Maquina y Usuarios
-Maquina.belongsToMany(Usuario, { through: Usuario_Maquina });
-Usuario.belongsToMany(Maquina, { through: Usuario_Maquina });
+Maquina.belongsToMany(Usuario, { through: Usuario_Maquina, sourceKey: 'maquina_id', targetKey: 'usuario_id' });
+Usuario.belongsToMany(Maquina, { through: Usuario_Maquina, sourceKey: 'usuario_id', targetKey: 'maquina_id' });
 
 /**
  * ********************************************

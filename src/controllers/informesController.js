@@ -12,7 +12,7 @@ controller.getInformeDiario_Maquina = async (req, res) => {
 
     const { codigo_maquina } = req.headers;
 
-    let maquinas = await obtenerInforme(tipo, codigo_maquina);
+    let maquinas = await obtenerInforme('diarioMaquina', codigo_maquina);
 
     let data = maquinas.datos;
     let estado;
