@@ -630,19 +630,19 @@ controller.getProgramasDesarrollo = async (req, res) => {
 
 controller.execQuerys = async (req, res) => {
 
-    const e = await sequelize.query("ALTER TABLE Maquina DROP CONSTRAINT FK_TipoMaquina;");
-    console.log(e);
+    const i = await sequelize.query("select * from Tipo_maquina;");
+    console.log(i);
 
     await sequelize.query("Alter Table Tipo_maquina Drop Column tipo_maquina_id;")
         .catch(err => {
             console.log(err);
         });
 
-    const i = await sequelize.query("Alter Table Tipo_maquina Add tipo_maquina_id INT IDENTITY(1,1) NOT NULL PRIMARY KEY;");
+    /*const i = await sequelize.query("Alter Table Tipo_maquina Add tipo_maquina_id INT IDENTITY(1,1) NOT NULL PRIMARY KEY;");
     console.log(i);
 
     const k = await sequelize.query("ALTER TABLE Maquina ADD CONSTRAINT FK_TipoMaquina FOREIGN KEY ([tipo_maquina_id]) REFERENCES [dbo].[Tipo_maquina]([tipo_maquina_id]);");
-    console.log(k);
+    console.log(k);*/
 
     res.status(200).send('ejecutados exitosamente');
 }

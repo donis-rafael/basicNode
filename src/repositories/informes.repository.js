@@ -5,6 +5,8 @@ const Maquina = require('../models/reporteria_crm/maquina.model');
 const Caso = require('../models/reporteria_crm/caso.model');
 const Maquina_Dia = require('../models/reporteria_crm/actividad.maquina.dia.model');
 const Maquina_Semana = require('../models/reporteria_crm/actividad.maquina.semana.model');
+const Usuario_Maquina = require('../models/reporteria_crm/usuario.maquina.model');
+const Usuario = require('../models/gestion/usuario.model');
 
 const Telemetria = require('../models/telemetria/telemetria.model');
 
@@ -23,6 +25,10 @@ Maquina_Semana.belongsTo(Maquina, { foreignKey: 'maquina_id' });
 // Relacion entre Maquina y Telemetria
 Maquina.hasMany(Telemetria, { foreignKey: 'maquina_id' });
 Telemetria.belongsTo(Maquina, { foreignKey: 'maquina_id' });
+
+// Relacion entre Maquina y Usuarios
+Maquina.belongsToMany(Usuario, { through: Usuario_Maquina });
+Usuario.belongsToMany(Maquina, { through: Usuario_Maquina });
 
 /**
  * ********************************************
