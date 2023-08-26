@@ -630,8 +630,8 @@ controller.getProgramasDesarrollo = async (req, res) => {
 
 controller.execQuerys = async (req, res) => {
 
-    const h = await sequelize.query("ALTER TABLE Tipo_maquina DROP CONSTRAINT PK__Tipo_maq__7CD6673B0349DEC5");
-    console.log(h);
+    const g = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Tipo_maquina';");
+    console.log(g);
 
     /*await sequelize.query("Alter Table Tipo_maquina Drop Column tipo_maquina_id;")
         .catch(err => {
