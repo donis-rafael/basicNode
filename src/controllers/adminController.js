@@ -628,9 +628,12 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const [results, metadata] = await sequelize.query("Alter Table Tipo_maquina Drop Column tipo_maquina_id;");
+    const g = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Tipo_maquina';");
+    console.log(g);
+
+    /*const [results, metadata] = await sequelize.query("Alter Table Tipo_maquina Drop Column tipo_maquina_id;");
     console.log(results);
-    console.log(metadata);
+    console.log(metadata);*/
 
     res.status(200).send('ejecutados exitosamente');
 }
