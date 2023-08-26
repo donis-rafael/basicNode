@@ -2,14 +2,14 @@ const controller = {};
 const informesService = require('../services/informes.service');
 
 controller.getInformeDiario_Maquina = async (req, res) => {
-    if (!req.body.codigoMaquina) {
+    if (!req.headers['codigoMaquina']) {
         res.status(400).send({
-            message: "Carece de código máquina"
+            message: "Carece de codigoMaquina"
         });
         return;
     }
 
-    const { codigoMaquina } = req.body;
+    const { codigoMaquina } = req.headers;
 
     let maquinas = await obtenerInforme(tipo, codigoMaquina);
 
