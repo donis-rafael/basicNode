@@ -69,7 +69,7 @@ controller.getFincas = async (req, res) => {
         });
         return;
     }
-    
+
     if (!req.params['user']) {
         res.status(400).send({
             message: "Carece de usuario"
@@ -126,7 +126,7 @@ controller.getFrentes = async (req, res) => {
         });
         return;
     }
-    
+
     if (!req.params['user']) {
         res.status(400).send({
             message: "Carece de usuario"
@@ -182,7 +182,7 @@ controller.getMaquinas = async (req, res) => {
         });
         return;
     }
-    
+
     if (!req.params['user']) {
         res.status(400).send({
             message: "Carece de usuario"
@@ -238,7 +238,7 @@ controller.getTipoMantenimiento = async (req, res) => {
         });
         return;
     }
-    
+
     if (!req.params['user']) {
         res.status(400).send({
             message: "Carece de usuario"
@@ -294,7 +294,7 @@ controller.getUsuariosAppMovil = async (req, res) => {
         });
         return;
     }
-    
+
     if (!req.params['user']) {
         res.status(400).send({
             message: "Carece de usuario"
@@ -351,7 +351,7 @@ controller.setRegistroApp = async (req, res) => {
         });
         return;
     }
-    
+
     if (!req.params['user']) {
         res.status(400).send({
             message: "Carece de usuario"
@@ -361,6 +361,7 @@ controller.setRegistroApp = async (req, res) => {
 
     const { user } = req.params;
     const { token } = req.headers;
+    const { maquinaId, ingenioId, fincaId, frenteId, mantenimientoId, operando, horaInicio, horaFinal, comentario, urlFoto } = req.body;
 
     // VALIDAR TOKEN
     let cadenaCompara = helper.cadenaCompara(user);

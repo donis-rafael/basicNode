@@ -45,6 +45,7 @@ repository.informeDiarioByMaquina = async (codigoMaquina) => {
         maquinaFounded = data;
 
     }).catch(err => {
+        console.log("err -> " + err);
         mensaje = 'error';
         maquinaFounded = err.message || "Ocurrió un error al consultar Maquina.";
     });

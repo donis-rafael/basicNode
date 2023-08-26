@@ -11,7 +11,7 @@ controller.getInformeDiario_Maquina = async (req, res) => {
 
     const { codigoMaquina } = req.body;
 
-    let maquinas = await informesService.obtenerInformeDiario_Maquina(codigoMaquina);
+    let maquinas = await obtenerInforme(tipo, codigoMaquina);
 
     let data = maquinas.datos;
     let estado;
@@ -44,6 +44,17 @@ controller.getInformeMensual = async (req, res) => {
     // armar objeto
     // retornar
     res.status(200).send("data");
+}
+
+async function obtenerInforme(tipo, filtro) {
+
+    switch (tipo) {
+        case 'diarioMaquina':
+            console.log('solicitud de informe diario con filtro de máquina');
+            return await informesService.obtenerInformeDiario_Maquina(filtro);
+        default:
+            console.log('ningún tipo de informe');
+    }
 }
 
 module.exports = controller;

@@ -628,6 +628,9 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
+    const [results, metadata] = await sequelize.query("Alter Table Tipo_maquina Drop Column tipo_maquina_id;");
+    console.log(results);
+    console.log(metadata);
 
     res.status(200).send('ejecutados exitosamente');
 }
