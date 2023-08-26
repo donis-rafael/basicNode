@@ -37,7 +37,7 @@ Usuario.belongsToMany(Maquina, { through: Usuario_Maquina });
  */
 repository.informeDiarioByMaquina = async (codigoMaquina) => {
     let maquinaFounded, mensaje;
-    await Maquina.findOne({
+    /*await Maquina.findOne({
         where: {
             codigo_maquina: codigoMaquina
         },
@@ -61,7 +61,33 @@ repository.informeDiarioByMaquina = async (codigoMaquina) => {
         cuerpo: maquinaFounded
     }
 
+    return respuesta;*/
+
+    await Maquina.findOne({
+        where: {
+            codigo_maquina: codigoMaquina
+        },
+        include: [{
+            model: Usuario,
+            through: { attributes: [] }
+        }]
+    }).then((data) => {
+        mensaje = 'exito';
+        maquinaFounded = data;
+
+    }).catch(err => {
+        console.log("err -> " + err);
+        mensaje = 'error';
+        maquinaFounded = err.message || "Ocurrió un error al consultar Maquina.";
+    });
+
+    let respuesta = {
+        message: mensaje,
+        cuerpo: maquinaFounded
+    }
+
     return respuesta;
 }
+
 
 module.exports = repository;
