@@ -1,4 +1,5 @@
 const repository = {};
+const sequelize = require("sequelize");
 
 const Maquina = require('../models/reporteria_crm/maquina.model');
 const Mantenimiento = require('../models/reporteria_crm/mantenimiento.model');
@@ -126,7 +127,7 @@ repository.findMantenimientoById = async (mantenimientoId) => {
 
 /**
  * *******************************************
- * ************** MANTENIMIENTO **************
+ * ************** REGISTRO APP ***************
  * *******************************************
  */
 
@@ -177,6 +178,34 @@ repository.findAllRegistroAppByForeignKeys = async (maquinaId, ingenioId, fincaI
         });
 
     return registroAppFounded;
+}
+
+repository.findMaxPlusOneRegistroAppIndex = async () => {
+    let maxIndexAppFounded;
+    let respuesta;
+    let vacio = true;
+    let mensaje;
+    await Registro_APP.max('registro_app_id')
+        .then((data) => {
+            if (data.length <= 0) {
+                maxIndexAppFounded = '';
+            } else {
+                maxIndexAppFounded = data;
+                vacio = false;
+            }
+
+            mensaje = !vacio ? 'Exito' : 'Sin Datos'
+
+        }).catch(err => {
+            mensaje = 'Error'
+            maxIndexAppFounded = err.message || "Ocurrió un error al consultar registroApp.";
+        });
+
+    respuesta = {
+        mensaje: mensaje,
+        datos: maxIndexAppFounded
+    }
+    return respuesta;
 }
 
 repository.createNewRegistroApp = async (maquina, ingenio, finca, frente, mantenimiento, newRegistro) => {

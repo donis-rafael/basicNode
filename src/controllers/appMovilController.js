@@ -344,6 +344,62 @@ controller.getUsuariosAppMovil = async (req, res) => {
     res.status(estado).send(data);
 };
 
+controller.getMaxIndexRegApp = async (req, res) => {
+    if (!req.headers['token']) {
+        res.status(400).send({
+            message: "Carece de token"
+        });
+        return;
+    }
+
+    if (!req.params['user']) {
+        res.status(400).send({
+            message: "Carece de usuario"
+        });
+        return;
+    }
+
+    const { user } = req.params;
+    const { token } = req.headers;
+
+    // VALIDAR TOKEN
+    let cadenaCompara = helper.cadenaCompara(user);
+    const match = await helper.comparaPassword(cadenaCompara, token);
+
+    let mensaje, estado, data;
+
+    if (match) {
+        let maxIndexPlus = await appService.obtenerMaxIndexPlusUno();
+
+        let dataUsuarios = maxIndexPlus.datos;
+
+        if ((maxIndexPlus.mensaje == 'Exito') || (maxIndexPlus.mensaje == 'Sin Datos')) {
+            mensaje = 'Exito';
+            estado = 200;
+        } else if (maxIndexPlus.mensaje == 'Error') {
+            mensaje = 'Error';
+            estado = 500;
+        } else {
+            mensaje = 'Error';
+            estado = 300;
+            dataUsuarios = ''
+        }
+
+        data = {
+            mensaje: mensaje,
+            datos: dataUsuarios
+        };
+    } else {
+        estado = 500;
+        data = {
+            mensaje: 'Error',
+            datos: "Token no válido"
+        };
+    }
+
+    res.status(estado).send(data);
+};
+
 controller.setRegistroApp = async (req, res) => {
     if (!req.headers['token']) {
         res.status(400).send({

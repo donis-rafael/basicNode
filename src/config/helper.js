@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
-const format = require('date-format');
+const moment = require('moment');
+moment.suppressDeprecationWarnings = true;
 require('dotenv').config();
 
 const helpers = {}
@@ -14,12 +15,16 @@ helpers.comparaPassword = async (contraActual, contraBd) => {
     return await bcrypt.compare(contraActual, contraBd);
 }
 
-helpers.fechaFormato = () => {
-    return format.asString('yyyyMMdd', new Date());
-}
-
 helpers.cadenaCompara = (usuario) => {
     return String(process.env.claveTecun) + '_' + usuario + '_' + helpers.fechaFormato() + '_' + String(process.env.fraseTecun) + '_' + String(process.env.claveUsac);
+}
+
+helpers.fechaFormato = () => {
+    return moment(new Date()).utc().format("YYYYMMDD").toString();
+}
+
+helpers.fechaFormatoInformeDiario = () => {
+    return moment("2023-08-26").utc().format("YYYY-MM-DD").toString();
 }
 
 module.exports = helpers;

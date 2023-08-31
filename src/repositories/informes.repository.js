@@ -9,7 +9,12 @@ const Usuario_Maquina = require('../models/reporteria_crm/usuario.maquina.model'
 const Usuario = require('../models/gestion/usuario.model');
 
 const Telemetria = require('../models/telemetria/telemetria.model');
-const Ingenio = require("../models/gestion/ingenio.model");
+const Prog_Desarrollo = require("../models/gestion/fase.desarrollo.model");
+const Frente = require("../models/gestion/frente.model");
+
+// Relacion entre Maquina y Frente
+Frente.hasMany(Maquina, { foreignKey: 'frente_id' });
+Maquina.belongsTo(Frente, { foreignKey: 'frente_id' });
 
 // Relacion entre Maquina y Caso
 Maquina.hasMany(Caso, { foreignKey: 'maquina_id' });
@@ -36,33 +41,8 @@ Usuario.belongsToMany(Maquina, { through: Usuario_Maquina, foreignKey: 'usuario_
  * ************** INFORME DIARIO **************
  * ********************************************
  */
-repository.informeDiarioByMaquina = async (codigoMaquina) => {
+repository.informeDiarioByMaquina = async (codigoMaquina, fechaHoy) => {
     let maquinaFounded, mensaje;
-    /*await Maquina.findOne({
-        where: {
-            codigo_maquina: codigoMaquina
-        },
-        include: [
-            [sequelize.fn('COUNT', sequelize.col(Caso)), 'Casos'],
-            Maquina_Dia,
-            Telemetria
-        ]
-    }).then((data) => {
-        mensaje = 'exito';
-        maquinaFounded = data;
-
-    }).catch(err => {
-        console.log("err -> " + err);
-        mensaje = 'error';
-        maquinaFounded = err.message || "Ocurrió un error al consultar Maquina.";
-    });
-
-    let respuesta = {
-        message: mensaje,
-        cuerpo: maquinaFounded
-    }
-
-    return respuesta;*/
 
     await Maquina.findOne({
         where: {
@@ -71,8 +51,62 @@ repository.informeDiarioByMaquina = async (codigoMaquina) => {
         include: [{
             model: Usuario,
             through: { attributes: [] },
-            include: Ingenio
+            include: Prog_Desarrollo
+        },
+            Frente,
+            Telemetria,
+        {
+            model: Maquina_Dia,
+            where: {
+                fecha_actividad: fechaHoy
+            }
         }]
+    }).then((data) => {
+        console.log('data: ' + data);
+        if (data == null || data.length <= 0) {
+            mensaje = 'Sin Datos';
+        } else {
+            mensaje = 'Exito';
+        }
+        maquinaFounded = data;
+
+    }).catch(err => {
+        console.log("err -> " + err);
+        console.log("err.message -> " + err.message);
+        mensaje: 'Error',
+            maquinaFounded = err.message || "Ocurrió un error al consultar Maquina.";
+    });
+
+    let respuesta = {
+        message: mensaje,
+        cuerpo: maquinaFounded
+    }
+
+    return respuesta;
+}
+
+/**
+ * *********************************************
+ * ************** INFORME SEMANAL **************
+ * *********************************************
+ */
+repository.informeSemanalByMaquina = async (codigoMaquina) => {
+    let maquinaFounded, mensaje;
+
+    await Maquina.findOne({
+        where: {
+            codigo_maquina: codigoMaquina
+        },
+        include: [{
+            model: Usuario,
+            through: { attributes: [] },
+            include: Prog_Desarrollo
+        },
+            Frente,
+            Maquina_Dia,
+            Maquina_Semana,
+            Telemetria
+        ]
     }).then((data) => {
         if (data.length <= 0) {
             mensaje = 'Sin Datos';
@@ -91,6 +125,38 @@ repository.informeDiarioByMaquina = async (codigoMaquina) => {
     let respuesta = {
         message: mensaje,
         cuerpo: maquinaFounded
+    }
+
+    return respuesta;
+}
+
+repository.countCasosByMaquina = async (codigoMaquina) => {
+    let cantCasos, mensaje;
+    await Caso.count({
+        include: [{
+            model: Maquina,
+            where: {
+                codigo_maquina: codigoMaquina
+            }
+        }]
+    }).then((data) => {
+        if (data.length <= 0) {
+            mensaje = 'Sin Datos';
+        } else {
+            mensaje = 'Exito';
+        }
+        cantCasos = data;
+
+    }).catch(err => {
+        console.log("err -> " + err);
+        console.log("err.message -> " + err.message);
+        mensaje: 'Error',
+            cantCasos = err.message || "Ocurrió un error al consultar cantidad de Casos.";
+    });
+
+    let respuesta = {
+        message: mensaje,
+        cuerpo: cantCasos
     }
 
     return respuesta;

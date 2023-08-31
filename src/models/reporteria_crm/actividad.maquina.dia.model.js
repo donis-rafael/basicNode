@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const db = require('../../config/db');
+const moment = require('moment');
 
 const Actividad_Maquina_Dia = db.define("Actividad_maquina_dia", {
     actividad_dia_id: {
@@ -9,25 +10,29 @@ const Actividad_Maquina_Dia = db.define("Actividad_maquina_dia", {
         autoIncrement: true
     },
     entrega_cania: {
-        type: DataTypes.DECIMAL(8,2)
+        type: DataTypes.DECIMAL(8, 2)
     },
     disponibilidad_total: {
-        type: DataTypes.DECIMAL(8,2)
+        type: DataTypes.DECIMAL(8, 2)
     },
     disponibilidad_tecrent: {
-        type: DataTypes.DECIMAL(8,2)
+        type: DataTypes.DECIMAL(8, 2)
     },
     utilizacion_hora_dia: {
-        type: DataTypes.DECIMAL(8,2)
+        type: DataTypes.DECIMAL(8, 2)
     },
     prcnt_utilizacion: {
-        type: DataTypes.DECIMAL(8,2)
+        type: DataTypes.DECIMAL(8, 2)
     },
     casos_abiertos: {
         type: DataTypes.INTEGER
     },
     fecha_actividad: {
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
+        get() {
+            const date = this.getDataValue('fecha_actividad') ? moment(this.getDataValue('fecha_actividad')).utc().format('YYYY-MM-DD') : null;
+            return date;
+        }
     }
 }, {
     // don't add the timestamp attributes (updatedAt, createdAt)

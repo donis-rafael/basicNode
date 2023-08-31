@@ -66,6 +66,15 @@ service.obtenerTodosLosUsuariosPorRol = async (rol) => {
     return respuesta;
 }
 
+service.obtenerMaxIndexPlusUno = async () => {
+    let respuesta = await appRepository.findMaxPlusOneRegistroAppIndex();
+
+    let valor = respuesta.datos + 1;
+    respuesta.datos = valor;
+
+    return respuesta;
+}
+
 service.guardarNuevoRegistroApp = async (maquinaId, ingenioId, fincaId, frenteId, mantenimientoId, operando, horaInicio, horaFinal, comentario, urlFoto) => {
     let maquinaFounded, ingenioFounded, fincaFounded, frenteFounded, mantenimientoFounded, registroExistenteFounded, respuesta;
 
