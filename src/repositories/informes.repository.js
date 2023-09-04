@@ -1,5 +1,5 @@
 const repository = {};
-const sequelize = require("sequelize");
+const { sequelize, Op } = require("sequelize");
 
 const Maquina = require('../models/reporteria_crm/maquina.model');
 const Caso = require('../models/reporteria_crm/caso.model');
@@ -10,7 +10,13 @@ const Usuario = require('../models/gestion/usuario.model');
 
 const Telemetria = require('../models/telemetria/telemetria.model');
 const Prog_Desarrollo = require("../models/gestion/fase.desarrollo.model");
+const Ingenio = require('../models/gestion/ingenio.model');
 const Frente = require("../models/gestion/frente.model");
+
+
+// Relacion entre Ingenio y Frente
+Ingenio.hasMany(Frente, { foreignKey: 'ingenio_id' });
+Frente.belongsTo(Ingenio, { foreignKey: 'ingenio_id' });
 
 // Relacion entre Maquina y Frente
 Frente.hasMany(Maquina, { foreignKey: 'frente_id' });
@@ -44,7 +50,7 @@ Usuario.belongsToMany(Maquina, { through: Usuario_Maquina, foreignKey: 'usuario_
 repository.informeDiarioByMaquina = async (codigoMaquina, fechaHoy) => {
     let maquinaFounded, mensaje;
 
-    await Maquina.findOne({
+    await Maquina.findAll({
         where: {
             codigo_maquina: codigoMaquina
         },
@@ -62,7 +68,139 @@ repository.informeDiarioByMaquina = async (codigoMaquina, fechaHoy) => {
             }
         }]
     }).then((data) => {
-        console.log('data: ' + data);
+        if (data == null || data.length <= 0) {
+            mensaje = 'Sin Datos';
+        } else {
+            mensaje = 'Exito';
+        }
+        maquinaFounded = data;
+
+    }).catch(err => {
+        console.log("err -> " + err);
+        console.log("err.message -> " + err.message);
+        mensaje: 'Error',
+            maquinaFounded = err.message || "Ocurrió un error al consultar Maquina.";
+    });
+
+    let respuesta = {
+        message: mensaje,
+        cuerpo: maquinaFounded
+    }
+
+    return respuesta;
+}
+
+repository.informeDiarioByIngenio = async (codigoIngenio, fechaHoy) => {
+    let maquinaFounded, mensaje;
+
+    await Maquina.findAll({
+        include: [{
+            model: Usuario,
+            through: { attributes: [] },
+            include: Prog_Desarrollo
+        },
+        {
+            model: Frente,
+            include: {
+                model: Ingenio,
+                where: {
+                    ingenio_id: codigoIngenio
+                }
+            }
+        },
+            Telemetria,
+        {
+            model: Maquina_Dia,
+            where: {
+                fecha_actividad: fechaHoy
+            }
+        }]
+    }).then((data) => {
+        if (data == null || data.length <= 0) {
+            mensaje = 'Sin Datos';
+        } else {
+            mensaje = 'Exito';
+        }
+        maquinaFounded = data;
+
+    }).catch(err => {
+        console.log("err -> " + err);
+        console.log("err.message -> " + err.message);
+        mensaje: 'Error',
+            maquinaFounded = err.message || "Ocurrió un error al consultar Maquina.";
+    });
+
+    let respuesta = {
+        message: mensaje,
+        cuerpo: maquinaFounded
+    }
+
+    return respuesta;
+}
+
+repository.informeDiarioByFrente = async (codigoFrente, fechaHoy) => {
+    let maquinaFounded, mensaje;
+
+    await Maquina.findAll({
+        include: [{
+            model: Usuario,
+            through: { attributes: [] },
+            include: Prog_Desarrollo
+        },
+        {
+            model: Frente,
+            where: {
+                frente_id: codigoFrente
+            }
+        },
+            Telemetria,
+        {
+            model: Maquina_Dia,
+            where: {
+                fecha_actividad: fechaHoy
+            }
+        }]
+    }).then((data) => {
+        if (data == null || data.length <= 0) {
+            mensaje = 'Sin Datos';
+        } else {
+            mensaje = 'Exito';
+        }
+        maquinaFounded = data;
+
+    }).catch(err => {
+        console.log("err -> " + err);
+        console.log("err.message -> " + err.message);
+        mensaje: 'Error',
+            maquinaFounded = err.message || "Ocurrió un error al consultar Maquina.";
+    });
+
+    let respuesta = {
+        message: mensaje,
+        cuerpo: maquinaFounded
+    }
+
+    return respuesta;
+}
+
+repository.informeDiarioByFecha = async (fechaBusqueda) => {
+    let maquinaFounded, mensaje;
+
+    await Maquina.findAll({
+        include: [{
+            model: Usuario,
+            through: { attributes: [] },
+            include: Prog_Desarrollo
+        },
+            Frente,
+            Telemetria,
+        {
+            model: Maquina_Dia,
+            where: {
+                fecha_actividad: fechaBusqueda
+            }
+        }]
+    }).then((data) => {
         if (data == null || data.length <= 0) {
             mensaje = 'Sin Datos';
         } else {
@@ -90,10 +228,12 @@ repository.informeDiarioByMaquina = async (codigoMaquina, fechaHoy) => {
  * ************** INFORME SEMANAL **************
  * *********************************************
  */
-repository.informeSemanalByMaquina = async (codigoMaquina) => {
+repository.informeSemanalByMaquina = async (codigoMaquina, fechaInicio, fechaFin) => {
     let maquinaFounded, mensaje;
+    startDate = '';
+    endDate = '';
 
-    await Maquina.findOne({
+    await Maquina.findAll({
         where: {
             codigo_maquina: codigoMaquina
         },
@@ -103,10 +243,16 @@ repository.informeSemanalByMaquina = async (codigoMaquina) => {
             include: Prog_Desarrollo
         },
             Frente,
-            Maquina_Dia,
             Maquina_Semana,
-            Telemetria
-        ]
+            Telemetria,
+        {
+            model: Maquina_Dia,
+            where: {
+                fecha_actividad: {
+                    [Op.between]: [fechaInicio, fechaFin]
+                }
+            }
+        }]
     }).then((data) => {
         if (data.length <= 0) {
             mensaje = 'Sin Datos';
@@ -130,6 +276,111 @@ repository.informeSemanalByMaquina = async (codigoMaquina) => {
     return respuesta;
 }
 
+repository.informeSemanalByIngenio = async (codigoIngenio, fechaInicio, fechaFin) => {
+    let maquinaFounded, mensaje;
+
+    await Maquina.findAll({
+        include: [{
+            model: Usuario,
+            through: { attributes: [] },
+            include: Prog_Desarrollo
+        },
+        {
+            model: Frente,
+            include: {
+                model: Ingenio,
+                where: {
+                    ingenio_id: codigoIngenio
+                }
+            }
+        },
+            Maquina_Semana,
+            Telemetria,
+        {
+            model: Maquina_Dia,
+            where: {
+                fecha_actividad: {
+                    [Op.between]: [fechaInicio, fechaFin]
+                }
+            }
+        }]
+    }).then((data) => {
+        if (data == null || data.length <= 0) {
+            mensaje = 'Sin Datos';
+        } else {
+            mensaje = 'Exito';
+        }
+        maquinaFounded = data;
+
+    }).catch(err => {
+        console.log("err -> " + err);
+        console.log("err.message -> " + err.message);
+        mensaje: 'Error',
+            maquinaFounded = err.message || "Ocurrió un error al consultar Maquina.";
+    });
+
+    let respuesta = {
+        message: mensaje,
+        cuerpo: maquinaFounded
+    }
+
+    return respuesta;
+}
+
+repository.informeSemanalByFrente = async (codigoFrente, fechaInicio, fechaFin) => {
+    let maquinaFounded, mensaje;
+
+    await Maquina.findAll({
+        include: [{
+            model: Usuario,
+            through: { attributes: [] },
+            include: Prog_Desarrollo
+        },
+        {
+            model: Frente,
+            where: {
+                frente_id: codigoFrente
+            }
+        },
+            Maquina_Semana,
+            Telemetria,
+        {
+            model: Maquina_Dia,
+            where: {
+                fecha_actividad: {
+                    [Op.between]: [fechaInicio, fechaFin]
+                }
+            }
+        }]
+    }).then((data) => {
+        if (data == null || data.length <= 0) {
+            mensaje = 'Sin Datos';
+        } else {
+            mensaje = 'Exito';
+        }
+        maquinaFounded = data;
+
+    }).catch(err => {
+        console.log("err -> " + err);
+        console.log("err.message -> " + err.message);
+        mensaje: 'Error',
+            maquinaFounded = err.message || "Ocurrió un error al consultar Maquina.";
+    });
+
+    let respuesta = {
+        message: mensaje,
+        cuerpo: maquinaFounded
+    }
+
+    return respuesta;
+}
+
+
+/**
+ * ***********************************
+ * ************** OTROS **************
+ * ***********************************
+ */
 repository.countCasosByMaquina = async (codigoMaquina) => {
     let cantCasos, mensaje;
     await Caso.count({

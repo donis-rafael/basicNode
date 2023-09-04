@@ -30,7 +30,7 @@ const Actividad_Maquina_Dia = db.define("Actividad_maquina_dia", {
     fecha_actividad: {
         type: DataTypes.DATE,
         get() {
-            const date = this.getDataValue('fecha_actividad') ? moment(this.getDataValue('fecha_actividad')).utc().format('YYYY-MM-DD') : null;
+            const date = this.getDataValue('fecha_actividad') ? moment.utc(this.getDataValue('fecha_actividad')).add(24, 'hours').format('YYYY-MM-DD h:mm:') : null;
             return date;
         }
     }

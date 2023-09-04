@@ -23,8 +23,35 @@ helpers.fechaFormato = () => {
     return moment(new Date()).utc().format("YYYYMMDD").toString();
 }
 
-helpers.fechaFormatoInformeDiario = () => {
-    return moment("2023-08-26").utc().format("YYYY-MM-DD").toString();
+helpers.fechaFormatoInformeDiario = (fecha) => {
+    if (fecha == 'hoy') {
+        return moment().utc().format("YYYY-MM-DD").toString();
+    }
+    return moment(fecha).utc().format("YYYY-MM-DD").toString();
+}
+
+helpers.lunesDeLaSemanaAnterior = () => {
+    return moment().weekday(-7).utc().format("YYYY-MM-DD");
+}
+
+helpers.lunesDeDosSemanasAtras = () => {
+    return moment().weekday(-14).utc().format("YYYY-MM-DD");
+}
+
+helpers.lunesDeLaSemanaActual = () => {
+    return moment().startOf('isoweek').utc().format("YYYY-MM-DD");
+}
+
+helpers.domingoSemanaVencida = () => {
+    return moment().day(-8).utc().format("YYYY-MM-DD");
+}
+
+helpers.diaAnteriorAlActual = () => {
+    return moment().subtract(1, 'days').utc().format("YYYY-MM-DD");
+}
+
+helpers.diaActual = () => {
+    return moment().format('dddd');
 }
 
 module.exports = helpers;
