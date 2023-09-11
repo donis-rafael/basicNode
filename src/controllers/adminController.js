@@ -629,6 +629,29 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
+    const [results, metadata] = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Usuario_maquina';");
+    console.log(results);
+    console.log(metadata);
+
+    const [results1, metadata1] = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Registro_app';");
+    console.log(results1);
+    console.log(metadata1);
+
+    const [results2, metadata2] = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Maquina';");
+    console.log(results2);
+    console.log(metadata2);
+
+    const [results3, metadata3] = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Telemetria';");
+    console.log(results3);
+    console.log(metadata3);
+
+    const [results4, metadata4] = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Finca';");
+    console.log(results4);
+    console.log(metadata4);
+
+    const [results5, metadata5] = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Usuario';");
+    console.log(results5);
+    console.log(metadata5);
 
     res.status(200).send('ejecutados exitosamente');
 }

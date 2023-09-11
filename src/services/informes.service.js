@@ -40,15 +40,6 @@ service.obtenerInformeDiario_Fecha = async (fecha) => {
 service.obtenerInformeSemanal_Maquina = async (codigoMaquina) => {
     let fechaInicial, fechaFinal;
 
-    console.log('LUNES Actual = ' + helper.lunesDeLaSemanaActual());
-    console.log('LUNES Anterior = ' + helper.lunesDeLaSemanaAnterior());
-    console.log('LUNES dos semanas = ' + helper.lunesDeDosSemanasAtras());
-    console.log('----- domingos -------');
-    console.log('hoy domingo 03 imprime 2023-08-27');
-    console.log('probar lunes 04, debe imprimir 2023-09-03');
-    console.log('Domingo anterior = ' + helper.domingoSemanaVencida());
-    console.log('----- domingos -------');
-
     if (helper.diaActual() == 'Monday') {
         fechaInicial = helper.lunesDeLaSemanaAnterior();
         fechaFinal = helper.diaAnteriorAlActual();
