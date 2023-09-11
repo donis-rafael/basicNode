@@ -629,141 +629,29 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const [results, metadata] = await sequelize.query("DELETE FROM Cargo;");
+    const [results, metadata] = await sequelize.query("ALTER TABLE Finca DROP CONSTRAINT FK_IngenioFinca;");
     console.log(results);
     console.log(metadata);
 
-    const [results_01, metadata_01] = await sequelize.query("DELETE FROM Rol;");
+    const [results_01, metadata_01] = await sequelize.query("ALTER TABLE Usuario DROP CONSTRAINT FK_IngenioUsuario;");
     console.log(results_01);
     console.log(metadata_01);
 
-    const [results_02, metadata_02] = await sequelize.query("DELETE FROM Programa_desarrollo;");
+    const [results_02, metadata_02] = await sequelize.query("DROP TABLE Ingenio;");
     console.log(results_02);
     console.log(metadata_02);
 
-    const [results_03, metadata_03] = await sequelize.query("DELETE FROM Credencial;");
+    const [results_03, metadata_03] = await sequelize.query("SET ANSI_NULLS ON");
     console.log(results_03);
     console.log(metadata_03);
 
-    const [results_04, metadata_04] = await sequelize.query("DELETE FROM Usuario_maquina;");
+    const [results_04, metadata_04] = await sequelize.query("SET QUOTED_IDENTIFIER ON");
     console.log(results_04);
     console.log(metadata_04);
 
-    const [results_05, metadata_05] = await sequelize.query("DELETE FROM Registro_app;");
+    const [results_05, metadata_05] = await sequelize.query("CREATE TABLE [dbo].[Ingenio]([ingenio_id] [UNIQUEIDENTIFIER] PRIMARY KEY,[nombre_ingenio] [varchar](100) UNIQUE NOT NULL) ON [PRIMARY]");
     console.log(results_05);
     console.log(metadata_05);
-
-    const [results_06, metadata_06] = await sequelize.query("DELETE FROM Mantenimiento;");
-    console.log(results_06);
-    console.log(metadata_06);
-
-    const [results_07, metadata_07] = await sequelize.query("DELETE FROM Finca;");
-    console.log(results_07);
-    console.log(metadata_07);
-
-    const [results_08, metadata_08] = await sequelize.query("DELETE FROM Telemetria;");
-    console.log(results_08);
-    console.log(metadata_08);
-
-    const [results_09, metadata_09] = await sequelize.query("DELETE FROM Caso;");
-    console.log(results_09);
-    console.log(metadata_09);
-
-    const [results_10, metadata_10] = await sequelize.query("DELETE FROM Tipo_maquina;");
-    console.log(results_10);
-    console.log(metadata_10);
-
-    const [results_11, metadata_11] = await sequelize.query("DELETE FROM Actividad_maquina_dia;");
-    console.log(results_11);
-    console.log(metadata_11);
-
-    const [results_12, metadata_12] = await sequelize.query("DELETE FROM Actividad_maquina_semana;");
-    console.log(results_12);
-    console.log(metadata_12);
-
-    const [results_13, metadata_13] = await sequelize.query("DELETE FROM Frente;");
-    console.log(results_13);
-    console.log(metadata_13);
-
-    const [results_14, metadata_14] = await sequelize.query("DELETE FROM Ingenio;");
-    console.log(results_14);
-    console.log(metadata_14);
-
-    const [results_15, metadata_15] = await sequelize.query("DELETE FROM Maquina;");
-    console.log(results_15);
-    console.log(metadata_15);
-
-    const [results_16, metadata_16] = await sequelize.query("DELETE FROM Usuario;");
-    console.log(results_16);
-    console.log(metadata_16);
-
-    const [results4, metadata4] = await sequelize.query("DROP TABLE Actividad_maquina_dia;");
-    console.log(results4);
-    console.log(metadata4);
-
-    const [results5, metadata5] = await sequelize.query("DROP TABLE Actividad_maquina_semana;");
-    console.log(results5);
-    console.log(metadata5);
-
-    const [results6, metadata6] = await sequelize.query("DROP TABLE Caso;");
-    console.log(results6);
-    console.log(metadata6);
-
-    const [results7, metadata7] = await sequelize.query("ALTER TABLE Usuario_maquina DROP CONSTRAINT FK_UsuarioMaquina1;");
-    console.log(results7);
-    console.log(metadata7);
-
-    const [results8, metadata8] = await sequelize.query("ALTER TABLE Usuario_maquina DROP CONSTRAINT FK_UsuarioMaquina3;");
-    console.log(results8);
-    console.log(metadata8);
-
-    const [results9, metadata9] = await sequelize.query("ALTER TABLE Registro_app DROP CONSTRAINT FK_RegistroApp1;");
-    console.log(results9);
-    console.log(metadata9);
-
-    const [results_a, metadata_a] = await sequelize.query("ALTER TABLE Registro_app DROP CONSTRAINT FK_RegistroApp2;");
-    console.log(results_a);
-    console.log(metadata_a);
-
-    const [results_b, metadata_b] = await sequelize.query("ALTER TABLE Registro_app DROP CONSTRAINT FK_RegistroApp4;");
-    console.log(results_b);
-    console.log(metadata_b);
-
-    const [results_c, metadata_c] = await sequelize.query("ALTER TABLE Maquina DROP CONSTRAINT FK_TipoMaquina;");
-    console.log(results_c);
-    console.log(metadata_c);
-
-    const [results_d, metadata_d] = await sequelize.query("ALTER TABLE Maquina DROP CONSTRAINT FK_FrenteMaquina;");
-    console.log(results_d);
-    console.log(metadata_d);
-
-    const [results_e, metadata_e] = await sequelize.query("ALTER TABLE Telemetria DROP CONSTRAINT FK_TeleMaquina;");
-    console.log(results_e);
-    console.log(metadata_e);
-
-    const [results_f, metadata_f] = await sequelize.query("DELETE FROM Tipo_maquina;");
-    console.log(results_f);
-    console.log(metadata_f);
-
-    const [results_g, metadata_g] = await sequelize.query("DELETE FROM Maquina;");
-    console.log(results_g);
-    console.log(metadata_g);
-
-    const [results_h, metadata_h] = await sequelize.query("DELETE FROM Frente;");
-    console.log(results_h);
-    console.log(metadata_h);
-
-    const [results_i, metadata_i] = await sequelize.query("DELETE FROM Usuario_maquina;");
-    console.log(results_i);
-    console.log(metadata_i);
-
-    const [results_j, metadata_j] = await sequelize.query("DELETE FROM Usuario_maquina;");
-    console.log(results_j);
-    console.log(metadata_j);
-
-    const [results_k, metadata_k] = await sequelize.query("DELETE FROM Usuario_maquina;");
-    console.log(results_k);
-    console.log(metadata_k);
 
     res.status(200).send('ejecutados exitosamente');
 }
