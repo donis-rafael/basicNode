@@ -629,25 +629,17 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const [results, metadata] = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Registro_app';");
+    const [results, metadata] = await sequelize.query("SET ANSI_NULLS ON");
     console.log(results);
     console.log(metadata);
 
-    const [results_02, metadata_02] = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Finca';");
+    const [results_01, metadata_01] = await sequelize.query("SET QUOTED_IDENTIFIER ON");
+    console.log(results_01);
+    console.log(metadata_01);
+
+    const [results_02, metadata_02] = await sequelize.query("CREATE TABLE [dbo].[Ingenio]([ingenio_id] [UNIQUEIDENTIFIER] PRIMARY KEY,[nombre_ingenio] [varchar](100) UNIQUE NOT NULL) ON [PRIMARY]");
     console.log(results_02);
     console.log(metadata_02);
-
-    const [results_03, metadata_03] = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Usuario';");
-    console.log(results_03);
-    console.log(metadata_03);
-
-    try {
-        const [results_06, metadata_06] = await sequelize.query("DROP TABLE Ingenio;");
-        console.log(results_06);
-        console.log(metadata_06);
-    } catch (err) {
-        console.log(err);
-    }
 
     res.status(200).send('ejecutados exitosamente');
 }
