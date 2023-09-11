@@ -629,21 +629,29 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const [results, metadata] = await sequelize.query("select * from Frente;");
+    const [results, metadata] = await sequelize.query("DROP TABLE Frente;");
     console.log(results);
     console.log(metadata);
 
-    const [results_01, metadata_01] = await sequelize.query("select * from Finca;");
+    const [results_01, metadata_01] = await sequelize.query("ALTER TABLE Registro_app DROP CONSTRAINT FK_RegistroApp2;");
     console.log(results_01);
     console.log(metadata_01);
 
-    const [results_02, metadata_02] = await sequelize.query("select * from Ingenio;");
+    const [results_02, metadata_02] = await sequelize.query("ALTER TABLE Finca DROP CONSTRAINT FK_IngenioFinca;");
     console.log(results_02);
     console.log(metadata_02);
 
-    const [results_03, metadata_03] = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Ingenio';");
+    const [results_03, metadata_03] = await sequelize.query("ALTER TABLE Usuario DROP CONSTRAINT FK_IngenioUsuario;");
     console.log(results_03);
     console.log(metadata_03);
+
+    try {
+        const [results_06, metadata_06] = await sequelize.query("DROP TABLE Ingenio;");
+        console.log(results_06);
+        console.log(metadata_06);
+    } catch (err) {
+        console.log(err);
+    }
 
     res.status(200).send('ejecutados exitosamente');
 }
