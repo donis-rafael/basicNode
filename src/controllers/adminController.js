@@ -629,21 +629,25 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const [results, metadata] = await sequelize.query("DELETE FROM Usuario_maquina;");
+    const [results, metadata] = await sequelize.query("DELETE FROM Cargo;" +
+        "DELETE FROM Rol;" +
+        "DELETE FROM Programa_desarrollo;" +
+        "DELETE FROM Credencial;" +
+        "DELETE FROM Usuario_maquina;" +
+        "DELETE FROM Registro_app;" +
+        "DELETE FROM Mantenimiento;" +
+        "DELETE FROM Finca;" +
+        "DELETE FROM Telemetria;" +
+        "DELETE FROM Caso;" +
+        "DELETE FROM Tipo_maquina;" +
+        "DELETE FROM Actividad_maquina_dia;" +
+        "DELETE FROM Actividad_maquina_semana;" +
+        "DELETE FROM Frente;" +
+        "DELETE FROM Ingenio;" +
+        "DELETE FROM Maquina;" +
+        "DELETE FROM Usuario;");
     console.log(results);
     console.log(metadata);
-
-    const [results1, metadata1] = await sequelize.query("DELETE FROM Registro_app;");
-    console.log(results1);
-    console.log(metadata1);
-
-    const [results2, metadata2] = await sequelize.query("DELETE FROM Finca;");
-    console.log(results2);
-    console.log(metadata2);
-
-    const [results3, metadata3] = await sequelize.query("DELETE FROM Usuario;");
-    console.log(results3);
-    console.log(metadata3);
 
     const [results4, metadata4] = await sequelize.query("DROP TABLE Actividad_maquina_dia;");
     console.log(results4);
