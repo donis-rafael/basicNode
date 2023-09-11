@@ -637,9 +637,93 @@ controller.execQuerys = async (req, res) => {
     console.log(results_01);
     console.log(metadata_01);
 
-    const [results_02, metadata_02] = await sequelize.query("CREATE TABLE [dbo].[Ingenio]([ingenio_id] [UNIQUEIDENTIFIER] PRIMARY KEY,[nombre_ingenio] [varchar](100) UNIQUE NOT NULL) ON [PRIMARY]");
+    const [results_02, metadata_02] = await sequelize.query("CREATE TABLE [dbo].[Frente]([frente_id] [UNIQUEIDENTIFIER] PRIMARY KEY,[ingenio_id] [UNIQUEIDENTIFIER] NULL,[nombre_frente] [varchar](100) NOT NULL,CONSTRAINT FK_IngenioFrente FOREIGN KEY ([ingenio_id]) REFERENCES [dbo].[Ingenio]([ingenio_id])) ON [PRIMARY]");
     console.log(results_02);
     console.log(metadata_02);
+
+    const [results_03, metadata_03] = await sequelize.query("SET ANSI_NULLS ON");
+    console.log(results_03);
+    console.log(metadata_03);
+
+    const [results_04, metadata_04] = await sequelize.query("SET QUOTED_IDENTIFIER ON");
+    console.log(results_04);
+    console.log(metadata_04);
+
+    const [results_05, metadata_05] = await sequelize.query("CREATE TABLE [dbo].[Tipo_maquina]([tipo_maquina_id] [UNIQUEIDENTIFIER] PRIMARY KEY,[nombre_tipo_maquina] [varchar](100) NOT NULL) ON [PRIMARY]");
+    console.log(results_05);
+    console.log(metadata_05);
+
+    const [results_06, metadata_06] = await sequelize.query("SET ANSI_NULLS ON");
+    console.log(results_06);
+    console.log(metadata_06);
+
+    const [results_07, metadata_07] = await sequelize.query("SET QUOTED_IDENTIFIER ON");
+    console.log(results_07);
+    console.log(metadata_07);
+
+    const [results_08, metadata_08] = await sequelize.query("CREATE TABLE [dbo].[Maquina]([maquina_id] [UNIQUEIDENTIFIER] PRIMARY KEY,[tipo_maquina_id] [UNIQUEIDENTIFIER] NULL,[frente_id] [UNIQUEIDENTIFIER] NULL,[codigo_maquina] [varchar](100) NOT NULL,CONSTRAINT FK_TipoMaquina FOREIGN KEY ([tipo_maquina_id]) REFERENCES [dbo].[Tipo_maquina]([tipo_maquina_id]),CONSTRAINT FK_FrenteMaquina FOREIGN KEY ([frente_id]) REFERENCES [dbo].[Frente]([frente_id])) ON [PRIMARY]");
+    console.log(results_08);
+    console.log(metadata_08);
+
+    const [results_09, metadata_09] = await sequelize.query("SET ANSI_NULLS ON");
+    console.log(results_09);
+    console.log(metadata_09);
+
+    const [results_10, metadata_10] = await sequelize.query("SET QUOTED_IDENTIFIER ON");
+    console.log(results_10);
+    console.log(metadata_10);
+
+    const [results_11, metadata_11] = await sequelize.query("CREATE TABLE [dbo].[Caso]([caso_id] [UNIQUEIDENTIFIER] PRIMARY KEY,[maquina_id] [UNIQUEIDENTIFIER] NULL,[nombre_caso] [varchar](100) NOT NULL,[estado] [int] NULL,CONSTRAINT FK_CasoMaquina FOREIGN KEY ([maquina_id]) REFERENCES [dbo].[Maquina]([maquina_id])) ON [PRIMARY]");
+    console.log(results_11);
+    console.log(metadata_11);
+
+    const [results_12, metadata_12] = await sequelize.query("SET ANSI_NULLS ON");
+    console.log(results_12);
+    console.log(metadata_12);
+
+    const [results_13, metadata_13] = await sequelize.query("SET QUOTED_IDENTIFIER ON");
+    console.log(results_13);
+    console.log(metadata_13);
+
+    const [results_14, metadata_14] = await sequelize.query("CREATE TABLE [dbo].[Actividad_frente_dia]([actividad_frente_dia_id] [UNIQUEIDENTIFIER] PRIMARY KEY,[frente_id] [UNIQUEIDENTIFIER] NULL,[disponibilidad_total] [decimal](8, 2) NULL,[disponibilidad_tecrent] [decimal](8, 2) NULL,[meta_disponibilidad] [decimal](8, 2) NULL,[utilizacion] [decimal](8, 2) NULL,[utilizacion_programada] [decimal](8, 2) NULL,[casos_abiertos] [int] NULL,[fecha_actividad] [date] NOT NULL,CONSTRAINT FK_ActividadFrenteDia FOREIGN KEY ([frente_id]) REFERENCES [dbo].[Frente]([frente_id])) ON [PRIMARY]");
+    console.log(results_14);
+    console.log(metadata_14);
+
+    const [results_15, metadata_15] = await sequelize.query("SET ANSI_NULLS ON");
+    console.log(results_15);
+    console.log(metadata_15);
+
+    const [results_16, metadata_16] = await sequelize.query("SET QUOTED_IDENTIFIER ON");
+    console.log(results_16);
+    console.log(metadata_16);
+
+    const [results4, metadata4] = await sequelize.query("CREATE TABLE [dbo].[Actividad_maquina_dia]([actividad_maquina_dia_id] [UNIQUEIDENTIFIER] PRIMARY KEY,[maquina_id] [UNIQUEIDENTIFIER] NULL,[entrega_cania] [decimal](8, 2) NULL,[disponibilidad_total] [decimal](8, 2) NULL,[disponibilidad_tecrent] [decimal](8, 2) NULL,[utilizacion_hora_dia] [decimal](8, 2) NULL,[prcnt_utilizacion] [decimal](8, 2) NULL,[casos_abiertos] [int] NULL,[fecha_actividad] [date] NOT NULL,CONSTRAINT FK_ActividadMaquinaDia FOREIGN KEY ([maquina_id]) REFERENCES [dbo].[Maquina]([maquina_id])) ON [PRIMARY]");
+    console.log(results4);
+    console.log(metadata4);
+
+    const [results5, metadata5] = await sequelize.query("SET ANSI_NULLS ON");
+    console.log(results5);
+    console.log(metadata5);
+
+    const [results6, metadata6] = await sequelize.query("SET QUOTED_IDENTIFIER ON");
+    console.log(results6);
+    console.log(metadata6);
+
+    const [results7, metadata7] = await sequelize.query("CREATE TABLE [dbo].[Actividad_frente_semana]([actividad_frente_semana_id] [UNIQUEIDENTIFIER] PRIMARY KEY,[frente_id] [UNIQUEIDENTIFIER] NULL,[disponibilidad_total_acumulado] [decimal](8, 2) NULL,[disponibilidad_tecrent_acumulado] [decimal](8, 2) NULL,[ingreso_cania] [decimal](8, 2) NULL,[utilizacion] [decimal](8, 2) NULL,[eficiencia_ton_acumulada] [decimal](8, 2) NULL,[semana] [nvarchar] NOT NULL,CONSTRAINT FK_ActividadFrenteSemana FOREIGN KEY ([frente_id]) REFERENCES [dbo].[Frente]([frente_id])) ON [PRIMARY]");
+    console.log(results7);
+    console.log(metadata7);
+
+    const [results8, metadata8] = await sequelize.query("SET ANSI_NULLS ON");
+    console.log(results8);
+    console.log(metadata8);
+
+    const [results9, metadata9] = await sequelize.query("SET QUOTED_IDENTIFIER ON");
+    console.log(results9);
+    console.log(metadata9);
+
+    const [results_a, metadata_a] = await sequelize.query("CREATE TABLE [dbo].[Actividad_maquina_semana]([actividad_semana_id] [UNIQUEIDENTIFIER] PRIMARY KEY,[maquina_id] [UNIQUEIDENTIFIER] NULL,[disponibilidad_total] [decimal](8, 2) NULL,[disponibilidad_tecrent] [decimal](8, 2) NULL,[meta_disponibilidad] [decimal](8, 2) NULL,[pmrs] [decimal](8, 2) NULL,[mtbf] [decimal](8, 2) NULL,[mttr] [decimal](8, 2) NULL,[prcnt_danios] [decimal](8, 2) NULL,[no_planeados] [decimal](8, 2) NULL,[confiabilidad] [decimal](8, 2) NULL,[entrega_cania_diaria] [decimal](8, 2) NULL,[utilizacion_horaxdia] [decimal](8, 2) NULL,[utilizacion_acumulada] [decimal](8, 2) NULL,[prcnt_utilizacion] [decimal](8, 2) NULL,[eficiencia_ton_hora] [decimal](8, 2) NULL,[semana] [nvarchar] NOT NULL,CONSTRAINT FK_ActividadMaquinaSemana FOREIGN KEY ([maquina_id]) REFERENCES [dbo].[Maquina]([maquina_id])) ON [PRIMARY]");
+    console.log(results_a);
+    console.log(metadata_a);
 
     res.status(200).send('ejecutados exitosamente');
 }
