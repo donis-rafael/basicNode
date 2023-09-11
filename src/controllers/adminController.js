@@ -629,25 +629,73 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const [results, metadata] = await sequelize.query("DELETE FROM Cargo;" +
-        "DELETE FROM Rol;" +
-        "DELETE FROM Programa_desarrollo;" +
-        "DELETE FROM Credencial;" +
-        "DELETE FROM Usuario_maquina;" +
-        "DELETE FROM Registro_app;" +
-        "DELETE FROM Mantenimiento;" +
-        "DELETE FROM Finca;" +
-        "DELETE FROM Telemetria;" +
-        "DELETE FROM Caso;" +
-        "DELETE FROM Tipo_maquina;" +
-        "DELETE FROM Actividad_maquina_dia;" +
-        "DELETE FROM Actividad_maquina_semana;" +
-        "DELETE FROM Frente;" +
-        "DELETE FROM Ingenio;" +
-        "DELETE FROM Maquina;" +
-        "DELETE FROM Usuario;");
+    const [results, metadata] = await sequelize.query("DELETE FROM Cargo;");
     console.log(results);
     console.log(metadata);
+
+    const [results_01, metadata_01] = await sequelize.query("DELETE FROM Rol;");
+    console.log(results_01);
+    console.log(metadata_01);
+
+    const [results_02, metadata_02] = await sequelize.query("DELETE FROM Programa_desarrollo;");
+    console.log(results_02);
+    console.log(metadata_02);
+
+    const [results_03, metadata_03] = await sequelize.query("DELETE FROM Credencial;");
+    console.log(results_03);
+    console.log(metadata_03);
+
+    const [results_04, metadata_04] = await sequelize.query("DELETE FROM Usuario_maquina;");
+    console.log(results_04);
+    console.log(metadata_04);
+
+    const [results_05, metadata_05] = await sequelize.query("DELETE FROM Registro_app;");
+    console.log(results_05);
+    console.log(metadata_05);
+
+    const [results_06, metadata_06] = await sequelize.query("DELETE FROM Mantenimiento;");
+    console.log(results_06);
+    console.log(metadata_06);
+
+    const [results_07, metadata_07] = await sequelize.query("DELETE FROM Finca;");
+    console.log(results_07);
+    console.log(metadata_07);
+
+    const [results_08, metadata_08] = await sequelize.query("DELETE FROM Telemetria;");
+    console.log(results_08);
+    console.log(metadata_08);
+
+    const [results_09, metadata_09] = await sequelize.query("DELETE FROM Caso;");
+    console.log(results_09);
+    console.log(metadata_09);
+
+    const [results_10, metadata_10] = await sequelize.query("DELETE FROM Tipo_maquina;");
+    console.log(results_10);
+    console.log(metadata_10);
+
+    const [results_11, metadata_11] = await sequelize.query("DELETE FROM Actividad_maquina_dia;");
+    console.log(results_11);
+    console.log(metadata_11);
+
+    const [results_12, metadata_12] = await sequelize.query("DELETE FROM Actividad_maquina_semana;");
+    console.log(results_12);
+    console.log(metadata_12);
+
+    const [results_13, metadata_13] = await sequelize.query("DELETE FROM Frente;");
+    console.log(results_13);
+    console.log(metadata_13);
+
+    const [results_14, metadata_14] = await sequelize.query("DELETE FROM Ingenio;");
+    console.log(results_14);
+    console.log(metadata_14);
+
+    const [results_15, metadata_15] = await sequelize.query("DELETE FROM Maquina;");
+    console.log(results_15);
+    console.log(metadata_15);
+
+    const [results_16, metadata_16] = await sequelize.query("DELETE FROM Usuario;");
+    console.log(results_16);
+    console.log(metadata_16);
 
     const [results4, metadata4] = await sequelize.query("DROP TABLE Actividad_maquina_dia;");
     console.log(results4);
