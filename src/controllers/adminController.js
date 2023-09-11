@@ -629,7 +629,7 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const c = await sequelize.query("SELECT TABLE_NAME FROM Db_interna_tecun.INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'")
+    const c = await sequelize.query("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_CATALOG='Db_interna_tecun'")
         .then(data => {
             console.log(data);
         }).catch(err => {
