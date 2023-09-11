@@ -629,9 +629,13 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const [results, metadata] = await sequelize.query("SELECT TABLE_NAME FROM [Db_interna_tecun].INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'");
-    console.log(results);
-    console.log(metadata);
+    const c = await sequelize.query("SELECT TABLE_NAME FROM Db_interna_tecun.INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'")
+        .then(data => {
+            console.log(data);
+        }).catch(err => {
+            console.log(err);
+        });
+    console.log(c);
     /*const [results_02, metadata_02] = await sequelize.query("DROP TABLE Tipo_maquina;");
     console.log(results_02);
     console.log(metadata_02);
