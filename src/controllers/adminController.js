@@ -629,15 +629,10 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const [results, metadata] = await sequelize.query("SET ANSI_NULLS ON");
+    const [results, metadata] = await sequelize.query("SELECT TABLE_NAME FROM [Db_interna_tecun].INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'");
     console.log(results);
     console.log(metadata);
-
-    const [results_01, metadata_01] = await sequelize.query("SET QUOTED_IDENTIFIER ON");
-    console.log(results_01);
-    console.log(metadata_01);
-
-    const [results_02, metadata_02] = await sequelize.query("CREATE TABLE [dbo].[Frente]([frente_id] [UNIQUEIDENTIFIER] PRIMARY KEY,[ingenio_id] [UNIQUEIDENTIFIER] NULL,[nombre_frente] [varchar](100) NOT NULL,CONSTRAINT FK_IngenioFrente FOREIGN KEY ([ingenio_id]) REFERENCES [dbo].[Ingenio]([ingenio_id])) ON [PRIMARY]");
+    /*const [results_02, metadata_02] = await sequelize.query("DROP TABLE Tipo_maquina;");
     console.log(results_02);
     console.log(metadata_02);
 
@@ -724,6 +719,46 @@ controller.execQuerys = async (req, res) => {
     const [results_a, metadata_a] = await sequelize.query("CREATE TABLE [dbo].[Actividad_maquina_semana]([actividad_semana_id] [UNIQUEIDENTIFIER] PRIMARY KEY,[maquina_id] [UNIQUEIDENTIFIER] NULL,[disponibilidad_total] [decimal](8, 2) NULL,[disponibilidad_tecrent] [decimal](8, 2) NULL,[meta_disponibilidad] [decimal](8, 2) NULL,[pmrs] [decimal](8, 2) NULL,[mtbf] [decimal](8, 2) NULL,[mttr] [decimal](8, 2) NULL,[prcnt_danios] [decimal](8, 2) NULL,[no_planeados] [decimal](8, 2) NULL,[confiabilidad] [decimal](8, 2) NULL,[entrega_cania_diaria] [decimal](8, 2) NULL,[utilizacion_horaxdia] [decimal](8, 2) NULL,[utilizacion_acumulada] [decimal](8, 2) NULL,[prcnt_utilizacion] [decimal](8, 2) NULL,[eficiencia_ton_hora] [decimal](8, 2) NULL,[semana] [nvarchar] NOT NULL,CONSTRAINT FK_ActividadMaquinaSemana FOREIGN KEY ([maquina_id]) REFERENCES [dbo].[Maquina]([maquina_id])) ON [PRIMARY]");
     console.log(results_a);
     console.log(metadata_a);
+
+    const [results_b, metadata_b] = await sequelize.query("ALTER TABLE Registro_app DROP CONSTRAINT FK_RegistroApp4;");
+    console.log(results_b);
+    console.log(metadata_b);
+
+    const [results_c, metadata_c] = await sequelize.query("ALTER TABLE Maquina DROP CONSTRAINT FK_TipoMaquina;");
+    console.log(results_c);
+    console.log(metadata_c);
+
+    const [results_d, metadata_d] = await sequelize.query("ALTER TABLE Maquina DROP CONSTRAINT FK_FrenteMaquina;");
+    console.log(results_d);
+    console.log(metadata_d);
+
+    const [results_e, metadata_e] = await sequelize.query("ALTER TABLE Telemetria DROP CONSTRAINT FK_TeleMaquina;");
+    console.log(results_e);
+    console.log(metadata_e);
+
+    const [results_f, metadata_f] = await sequelize.query("DELETE FROM Tipo_maquina;");
+    console.log(results_f);
+    console.log(metadata_f);
+
+    const [results_g, metadata_g] = await sequelize.query("DELETE FROM Maquina;");
+    console.log(results_g);
+    console.log(metadata_g);
+
+    const [results_h, metadata_h] = await sequelize.query("DELETE FROM Frente;");
+    console.log(results_h);
+    console.log(metadata_h);
+
+    const [results_i, metadata_i] = await sequelize.query("DELETE FROM Usuario_maquina;");
+    console.log(results_i);
+    console.log(metadata_i);
+
+    const [results_j, metadata_j] = await sequelize.query("DELETE FROM Usuario_maquina;");
+    console.log(results_j);
+    console.log(metadata_j);
+
+    const [results_k, metadata_k] = await sequelize.query("DELETE FROM Usuario_maquina;");
+    console.log(results_k);
+    console.log(metadata_k);*/
 
     res.status(200).send('ejecutados exitosamente');
 }
