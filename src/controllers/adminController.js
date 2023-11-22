@@ -644,6 +644,16 @@ controller.execQuerys = async (req, res) => {
             console.log(err);
         });
     console.log(a);
+
+    const b = await sequelize.query("SELECT name FROM sys.tables")
+        .then(data => {
+            console.log(data);
+        }).catch(err => {
+            console.log(err);
+        });
+    console.log(b);
+    
+    
     /*const [results_02, metadata_02] = await sequelize.query("DROP TABLE Tipo_maquina;");
     console.log(results_02);
     console.log(metadata_02);
