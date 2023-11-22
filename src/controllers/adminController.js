@@ -637,7 +637,7 @@ controller.execQuerys = async (req, res) => {
         });
     console.log(c);*/
 
-    const a = await sequelize.query("Select * From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'DatabaseName'")
+    const a = await sequelize.query("Select * From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio'")
         .then(data => {
             console.log(data);
         }).catch(err => {
