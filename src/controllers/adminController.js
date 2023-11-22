@@ -629,15 +629,15 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const c = await sequelize.query("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES")
+    /*const c = await sequelize.query("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES")
         .then(data => {
             console.log(data);
         }).catch(err => {
             console.log(err);
         });
-    console.log(c);
+    console.log(c);*/
 
-    const a = await sequelize.query("SELECT * FROM Sys.Tables")
+    const a = await sequelize.query("Select * From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'DatabaseName'")
         .then(data => {
             console.log(data);
         }).catch(err => {
