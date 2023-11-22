@@ -637,7 +637,9 @@ controller.execQuerys = async (req, res) => {
         });
     console.log(c);*/
 
-    const a = await sequelize.query("Select * From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'Credencial'")
+    const a = await sequelize.query(
+        "Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE"
+        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'Credencial'")
         .then(data => {
             console.log(data);
         }).catch(err => {
