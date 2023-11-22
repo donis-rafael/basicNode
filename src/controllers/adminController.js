@@ -639,7 +639,7 @@ controller.execQuerys = async (req, res) => {
 
     const a = await sequelize.query(
         "Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE"
-        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'DM_Ingenio'")
+        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'IndDiariosClienteXFrenteXFinca'")
         .then(data => {
             console.log(data);
         }).catch(err => {
@@ -649,7 +649,7 @@ controller.execQuerys = async (req, res) => {
 
     const b = await sequelize.query(
         "Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE"
-        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'DM_Frente'")
+        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'IndSemClienteXFrenteXFinca'")
         .then(data => {
             console.log(data);
         }).catch(err => {
@@ -659,7 +659,7 @@ controller.execQuerys = async (req, res) => {
 
     const c = await sequelize.query(
         "Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE"
-        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'DM_Ingenio_Frente'")
+        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'DM_Finca'")
         .then(data => {
             console.log(data);
         }).catch(err => {
@@ -669,7 +669,7 @@ controller.execQuerys = async (req, res) => {
 
     const d = await sequelize.query(
         "Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE"
-        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'IndSemCal_ClienteXFrente'")
+        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'IndSemCal_ClienteXFrenteXFinca'")
         .then(data => {
             console.log(data);
         }).catch(err => {
@@ -679,7 +679,7 @@ controller.execQuerys = async (req, res) => {
 
     const e = await sequelize.query(
         "Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE"
-        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'IndSemCal_Cliente'")
+        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'DM_Maquina'")
         .then(data => {
             console.log(data);
         }).catch(err => {
@@ -689,7 +689,7 @@ controller.execQuerys = async (req, res) => {
 
     const f = await sequelize.query(
         "Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE"
-        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'IndDiariosClienteXFrenteXFincaXEquipo'")
+        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'IndSemCal_ClienteXFrenteXFincaXEquipo'")
         .then(data => {
             console.log(data);
         }).catch(err => {
@@ -699,7 +699,7 @@ controller.execQuerys = async (req, res) => {
 
     const g = await sequelize.query(
         "Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE"
-        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'DM_Ingenio_Frente_Finca'")
+        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'DM_Ingenio_Frente_Finca_Equipo'")
         .then(data => {
             console.log(data);
         }).catch(err => {
