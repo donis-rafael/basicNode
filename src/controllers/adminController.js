@@ -637,7 +637,7 @@ controller.execQuerys = async (req, res) => {
         });
     console.log(c);*/
 
-    const a = await sequelize.query("Select * From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio'")
+    const a = await sequelize.query("Select * From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'Credencial'")
         .then(data => {
             console.log(data);
         }).catch(err => {
@@ -645,7 +645,7 @@ controller.execQuerys = async (req, res) => {
         });
     console.log(a);
 
-    const b = await sequelize.query("SELECT name FROM sys.tables")
+    /*const b = await sequelize.query("SELECT name FROM sys.tables")
         .then(data => {
             console.log(data);
         }).catch(err => {
@@ -653,8 +653,7 @@ controller.execQuerys = async (req, res) => {
         });
     console.log(b);
     
-    
-    /*const [results_02, metadata_02] = await sequelize.query("DROP TABLE Tipo_maquina;");
+    const [results_02, metadata_02] = await sequelize.query("DROP TABLE Tipo_maquina;");
     console.log(results_02);
     console.log(metadata_02);
 
