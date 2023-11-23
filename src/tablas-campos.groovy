@@ -1092,7 +1092,8 @@ Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'IndSemC
 ]
 undefined
 Executing (default): Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE 
-From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'DM_Maquina'
+From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG 
+Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'DM_Maquina'
 [
   [
     {
@@ -1108,7 +1109,8 @@ From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingen
 ]
 undefined
 Executing (default): Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE 
-From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'IndSemCal_ClienteXFrenteXFincaXEquipo'
+From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG 
+Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'IndSemCal_ClienteXFrenteXFincaXEquipo'
 [
   [
     {
@@ -1280,7 +1282,8 @@ From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingen
 ]
 undefined
 Executing (default): Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE 
-From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'DM_Ingenio_Frente_Finca_Equipo'
+From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG 
+Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'DM_Ingenio_Frente_Finca_Equipo'
 [
   [
     {
