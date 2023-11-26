@@ -7,6 +7,4 @@ service.obtenerTodasLasFincas = async () => {
     return fincas;
 }
 
-
-
 module.exports = service;
