@@ -8,7 +8,7 @@ const indicadoresService = require('../services/indicadores.service');
  */
 controller.getFincas = async (req, res) => {
     let fincas = await indicadoresService.obtenerTodasLasFincas();
-    console.log(fincas);
+    //console.log(fincas);
 
     let data = fincas.datos;
     let estado;

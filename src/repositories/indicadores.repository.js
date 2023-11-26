@@ -44,6 +44,7 @@ repository.findAllFincas = async () => {
                     mensaje: 'sin datos'
                 }
             }
+            console.log(data);
             respuesta = {
                 mensaje: !vacio ? 'Exito' : 'Sin Datos',
                 datos: data
