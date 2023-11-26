@@ -1,12 +1,15 @@
 const { DataTypes } = require('sequelize');
 const db = require('../../config/db');
 
-const IndSemCliente = db.define("IndSemCliente", {
+const IndSemCal_ClienteXFrente = db.define("IndSemCal_ClienteXFrente", {
     id_Cliente: {
         type: DataTypes.UUID,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true
+    },
+    Frente: {
+        type: DataTypes.STRING
     },
     new_calendario: {
         type: DataTypes.INTEGER
@@ -14,8 +17,11 @@ const IndSemCliente = db.define("IndSemCliente", {
     Periodo: {
         type: DataTypes.INTEGER
     },
-    SemanaZafra: {
+    Año: {
         type: DataTypes.INTEGER
+    },
+    SemanadelAño: {
+        type: DataTypes.STRING
     },
     Efi_Correctivo: {
         type: DataTypes.FLOAT
@@ -132,7 +138,7 @@ const IndSemCliente = db.define("IndSemCliente", {
     freezeTableName: true,
 
     // define the table's name
-    tableName: 'IndSemCliente'
+    tableName: 'IndSemCal_ClienteXFrente'
 });
 
-module.exports = IndSemCliente;
+module.exports = IndSemCal_ClienteXFrente;

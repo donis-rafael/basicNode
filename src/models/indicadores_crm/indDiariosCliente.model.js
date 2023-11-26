@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../../config/db');
 
-const IndSemCliente = db.define("IndSemCliente", {
+const IndDiariosCliente = db.define("IndDiariosCliente", {
     id_Cliente: {
         type: DataTypes.UUID,
         primaryKey: true,
@@ -13,6 +13,9 @@ const IndSemCliente = db.define("IndSemCliente", {
     },
     Periodo: {
         type: DataTypes.INTEGER
+    },
+    Fecha: {
+        type: DataTypes.DATE
     },
     SemanaZafra: {
         type: DataTypes.INTEGER
@@ -132,7 +135,7 @@ const IndSemCliente = db.define("IndSemCliente", {
     freezeTableName: true,
 
     // define the table's name
-    tableName: 'IndSemCliente'
+    tableName: 'IndDiariosCliente'
 });
 
-module.exports = IndSemCliente;
+module.exports = IndDiariosCliente;

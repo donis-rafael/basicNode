@@ -629,37 +629,7 @@ controller.getProgramasDesarrollo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    /*const c = await sequelize.query("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES")
-        .then(data => {
-            console.log(data);
-        }).catch(err => {
-            console.log(err);
-        });
-    console.log(c);*/
-
-    const a = await sequelize.query(
-        "Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE"
-        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'IndSemClienteXFrenteXFincaXEquipo'")
-        .then(data => {
-            console.log(data);
-        }).catch(err => {
-            console.log(err);
-        });
-    console.log(a);
-
-    const b = await sequelize.query(
-        "Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE"
-        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'PeriodoZafra'")
-        .then(data => {
-            console.log(data);
-        }).catch(err => {
-            console.log(err);
-        });
-    console.log(b);
-
-    const c = await sequelize.query(
-        "Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE"
-        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'IndDiariosClienteXFrente'")
+    const c = await sequelize.query("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES")
         .then(data => {
             console.log(data);
         }).catch(err => {
@@ -667,56 +637,14 @@ controller.execQuerys = async (req, res) => {
         });
     console.log(c);
 
-    const d = await sequelize.query(
-        "Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE"
-        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'IndDiariosCliente'")
+    const a = await sequelize.query("SELECT * FROM Sys.Tables")
         .then(data => {
             console.log(data);
         }).catch(err => {
             console.log(err);
         });
-    console.log(d);
-
-    const e = await sequelize.query(
-        "Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE"
-        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'IndSemClienteXFrente'")
-        .then(data => {
-            console.log(data);
-        }).catch(err => {
-            console.log(err);
-        });
-    console.log(e);
-
-    const f = await sequelize.query(
-        "Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE"
-        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'IndSemCliente'")
-        .then(data => {
-            console.log(data);
-        }).catch(err => {
-            console.log(err);
-        });
-    console.log(f);
-
-    /*
-    const g = await sequelize.query(
-        "Select TABLE_CATALOG, TABLE_NAME, COLUMN_NAME, DATA_TYPE"
-        + " From INFORMATION_SCHEMA.COLUMNS Where TABLE_CATALOG Like 'TecRent_Proy_Usc_Ingenio' And TABLE_NAME Like 'DM_Maquina'")
-        .then(data => {
-            console.log(data);
-        }).catch(err => {
-            console.log(err);
-        });
-    console.log(g);
-
-    /*const b = await sequelize.query("SELECT name FROM sys.tables")
-        .then(data => {
-            console.log(data);
-        }).catch(err => {
-            console.log(err);
-        });
-    console.log(b);
-    
-    const [results_02, metadata_02] = await sequelize.query("DROP TABLE Tipo_maquina;");
+    console.log(a);
+    /*const [results_02, metadata_02] = await sequelize.query("DROP TABLE Tipo_maquina;");
     console.log(results_02);
     console.log(metadata_02);
 

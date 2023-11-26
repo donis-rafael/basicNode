@@ -1,18 +1,30 @@
 const { DataTypes } = require('sequelize');
 const db = require('../../config/db');
 
-const IndSemCliente = db.define("IndSemCliente", {
+const IndDiariosClienteXFrenteXFincaXEquipo = db.define("IndDiariosClienteXFrenteXFincaXEquipo", {
     id_Cliente: {
         type: DataTypes.UUID,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true
     },
+    Frente: {
+        type: DataTypes.STRING
+    },
+    id_Finca: {
+        type: DataTypes.STRING
+    },
+    Productid: {
+        type: DataTypes.UUID
+    },
     new_calendario: {
         type: DataTypes.INTEGER
     },
     Periodo: {
         type: DataTypes.INTEGER
+    },
+    Fecha: {
+        type: DataTypes.DATE
     },
     SemanaZafra: {
         type: DataTypes.INTEGER
@@ -115,9 +127,6 @@ const IndSemCliente = db.define("IndSemCliente", {
     },
     KPI_MTBD_Flota: {
         type: DataTypes.DOUBLE
-    },
-    ConteoFrentesXCliente: {
-        type: DataTypes.INTEGER
     }
 }, {
     // don't add the timestamp attributes (updatedAt, createdAt)
@@ -132,7 +141,7 @@ const IndSemCliente = db.define("IndSemCliente", {
     freezeTableName: true,
 
     // define the table's name
-    tableName: 'IndSemCliente'
+    tableName: 'IndDiariosClienteXFrenteXFincaXEquipo'
 });
 
-module.exports = IndSemCliente;
+module.exports = IndDiariosClienteXFrenteXFincaXEquipo;

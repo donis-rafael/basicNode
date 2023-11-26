@@ -1,12 +1,21 @@
 const { DataTypes } = require('sequelize');
 const db = require('../../config/db');
 
-const IndSemCliente = db.define("IndSemCliente", {
+const IndSemCal_ClienteXFrenteXFincaXEquipo = db.define("IndSemCal_ClienteXFrenteXFincaXEquipo", {
     id_Cliente: {
         type: DataTypes.UUID,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true
+    },
+    Frente: {
+        type: DataTypes.STRING
+    },
+    id_Finca: {
+        type: DataTypes.STRING
+    },
+    Productid: {
+        type: DataTypes.UUID
     },
     new_calendario: {
         type: DataTypes.INTEGER
@@ -14,8 +23,11 @@ const IndSemCliente = db.define("IndSemCliente", {
     Periodo: {
         type: DataTypes.INTEGER
     },
-    SemanaZafra: {
+    Año: {
         type: DataTypes.INTEGER
+    },
+    SemanadelAño: {
+        type: DataTypes.STRING
     },
     Efi_Correctivo: {
         type: DataTypes.FLOAT
@@ -115,9 +127,6 @@ const IndSemCliente = db.define("IndSemCliente", {
     },
     KPI_MTBD_Flota: {
         type: DataTypes.DOUBLE
-    },
-    ConteoFrentesXCliente: {
-        type: DataTypes.INTEGER
     }
 }, {
     // don't add the timestamp attributes (updatedAt, createdAt)
@@ -132,7 +141,7 @@ const IndSemCliente = db.define("IndSemCliente", {
     freezeTableName: true,
 
     // define the table's name
-    tableName: 'IndSemCliente'
+    tableName: 'IndSemCal_ClienteXFrenteXFincaXEquipo'
 });
 
-module.exports = IndSemCliente;
+module.exports = IndSemCal_ClienteXFrenteXFincaXEquipo;
