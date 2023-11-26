@@ -3,7 +3,10 @@ const db = require('../../config/db');
 
 const DM_Finca = db.define("DM_Finca", {
     id_Finca: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true
     },
     Nombre_Finca: {
         type: DataTypes.STRING
