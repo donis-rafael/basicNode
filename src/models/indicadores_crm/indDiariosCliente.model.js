@@ -3,10 +3,7 @@ const db = require('../../config/db');
 
 const IndDiariosCliente = db.define("IndDiariosCliente", {
     id_Cliente: {
-        type: DataTypes.UUID,
-        primaryKey: true,
-        allowNull: false,
-        autoIncrement: true
+        type: DataTypes.UUID
     },
     new_calendario: {
         type: DataTypes.INTEGER
@@ -137,5 +134,7 @@ const IndDiariosCliente = db.define("IndDiariosCliente", {
     // define the table's name
     tableName: 'IndDiariosCliente'
 });
+
+IndDiariosCliente.removeAttribute('id');
 
 module.exports = IndDiariosCliente;

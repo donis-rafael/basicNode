@@ -3,7 +3,10 @@ const db = require('../../config/db');
 
 const DM_Frente = db.define("DM_Frente", {
     frente: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true
     }
 }, {
     // don't add the timestamp attributes (updatedAt, createdAt)

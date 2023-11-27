@@ -6,7 +6,7 @@ const DM_Maquina = db.define("DM_Maquina", {
         type: DataTypes.UUID,
         primaryKey: true,
         allowNull: false,
-        autoIncrement: true
+        autoIncrement: false
     },
     nombre_producto: {
         type: DataTypes.STRING

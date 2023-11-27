@@ -3,16 +3,28 @@ const db = require('../../config/db');
 
 const DM_Ingenio_Frente_Finca_Equipo = db.define("DM_Ingenio_Frente_Finca_Equipo", {
     id_cliente: {
-        type: DataTypes.UUID
+        type: DataTypes.UUID,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: false
     },
     id_Finca: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: false
     },
     Frente: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: false
     },
     productid: {
-        type: DataTypes.UUID
+        type: DataTypes.UUID,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: false
     }
 }, {
     // don't add the timestamp attributes (updatedAt, createdAt)

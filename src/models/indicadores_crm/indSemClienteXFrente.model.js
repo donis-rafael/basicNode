@@ -3,10 +3,7 @@ const db = require('../../config/db');
 
 const IndSemClienteXFrente = db.define("IndSemClienteXFrente", {
     id_Cliente: {
-        type: DataTypes.UUID,
-        primaryKey: true,
-        allowNull: false,
-        autoIncrement: true
+        type: DataTypes.UUID
     },
     Frente: {
         type: DataTypes.STRING
@@ -137,5 +134,7 @@ const IndSemClienteXFrente = db.define("IndSemClienteXFrente", {
     // define the table's name
     tableName: 'IndSemClienteXFrente'
 });
+
+IndSemClienteXFrente.removeAttribute('id');
 
 module.exports = IndSemClienteXFrente;

@@ -3,7 +3,10 @@ const db = require('../../config/db');
 
 const DM_Ingenio = db.define("DM_Ingenio", {
     ingenio_id: {
-        type: DataTypes.UUID
+        type: DataTypes.UUID,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: false
     },
     nombre_ingenio: {
         type: DataTypes.STRING

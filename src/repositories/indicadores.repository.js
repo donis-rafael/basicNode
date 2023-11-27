@@ -1,12 +1,10 @@
 const repository = {};
 
 const DM_Finca = require('../models/indicadores_crm/dm_Finca.model');
-/*const Maquina = require('../models/reporteria_crm/maquina.model');
-const Mantenimiento = require('../models/reporteria_crm/mantenimiento.model');
-const Registro_APP = require('../models/gestion/registro.app.model');
-
-const Ingenio = require('../models/gestion/ingenio.model');
-const Finca = require('../models/gestion/finca.model');
+const DM_Frente = require('../models/indicadores_crm/dm_Frente.model');
+const DM_Ingenio = require('../models/indicadores_crm/dm_Ingenio.model');
+const DM_Maquina = require('../models/indicadores_crm/dm_Maquina.model');
+/*
 const Frente = require('../models/gestion/frente.model');
 
 // Relacion entre Registro App y Maquina
@@ -44,7 +42,6 @@ repository.findAllFincas = async () => {
                     mensaje: 'sin datos'
                 }
             }
-            console.log(data);
             respuesta = {
                 mensaje: !vacio ? 'Exito' : 'Sin Datos',
                 datos: data
@@ -76,6 +73,99 @@ repository.findFincaById = async (fincaId) => {
     });
 
     return fincaFounded;
+}
+
+/**
+ * ***************************************
+ * *************** FRENTES ***************
+ * ***************************************
+ */
+repository.findAllFrentes = async () => {
+    let respuesta, vacio = false;
+    await DM_Frente.findAll()
+        .then((data) => {
+            if (data.length <= 0) {
+                vacio = true;
+                data = {
+                    mensaje: 'sin datos'
+                }
+            }
+            respuesta = {
+                mensaje: !vacio ? 'Exito' : 'Sin Datos',
+                datos: data
+            }
+
+        }).catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                datos: err.message || "Ocurrió un error al consultar Frentes."
+            };
+        });
+
+
+    return respuesta;
+}
+
+/**
+ * ****************************************
+ * *************** INGENIOS ***************
+ * ****************************************
+ */
+repository.findAllIngenios = async () => {
+    let respuesta, vacio = false;
+    await DM_Ingenio.findAll()
+        .then((data) => {
+            if (data.length <= 0) {
+                vacio = true;
+                data = {
+                    mensaje: 'sin datos'
+                }
+            }
+            respuesta = {
+                mensaje: !vacio ? 'Exito' : 'Sin Datos',
+                datos: data
+            }
+
+        }).catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                datos: err.message || "Ocurrió un error al consultar Ingenios."
+            };
+        });
+
+
+    return respuesta;
+}
+
+/**
+ * **************************************
+ * ************** MAQUINAS **************
+ * **************************************
+ */
+repository.findAllMaquinas = async () => {
+    let respuesta, vacio = false;
+    await DM_Maquina.findAll()
+        .then((data) => {
+            if (data.length <= 0) {
+                vacio = true;
+                data = {
+                    mensaje: 'sin datos'
+                }
+            }
+            respuesta = {
+                mensaje: !vacio ? 'Exito' : 'Sin Datos',
+                datos: data
+            }
+
+        }).catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                datos: err.message || "Ocurrió un error al consultar Maquinas."
+            };
+        });
+
+
+    return respuesta;
 }
 
 /**

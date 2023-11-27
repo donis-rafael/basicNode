@@ -36,4 +36,6 @@ const PeriodoZafra = db.define("PeriodoZafra", {
     tableName: 'PeriodoZafra'
 });
 
+PeriodoZafra.removeAttribute('id');
+
 module.exports = PeriodoZafra;
