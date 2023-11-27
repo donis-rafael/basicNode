@@ -25,4 +25,10 @@ service.obtenerTodasLasMaquinas = async () => {
     return Maquinas;
 }
 
+service.obtenerTodos_Ingeio_Frente= async () => {
+    ingenio_frente = await indicadoresRepository.findAll_Ingenio_Frente();
+
+    return ingenio_frente;
+}
+
 module.exports = service;

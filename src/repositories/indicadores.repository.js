@@ -4,6 +4,17 @@ const DM_Finca = require('../models/indicadores_crm/dm_Finca.model');
 const DM_Frente = require('../models/indicadores_crm/dm_Frente.model');
 const DM_Ingenio = require('../models/indicadores_crm/dm_Ingenio.model');
 const DM_Maquina = require('../models/indicadores_crm/dm_Maquina.model');
+
+const DM_Ingenio_Frente = require('../models/indicadores_crm/dm_Ingenio_Frente.model');
+
+
+// Relacion entre Ingenio y Frente
+DM_Ingenio.hasMany(DM_Ingenio_Frente, { foreignKey: 'id_cliente' });
+DM_Ingenio_Frente.belongsTo(DM_Ingenio, { foreignKey: 'id_cliente' });
+
+DM_Frente.hasMany(DM_Ingenio_Frente, { foreignKey: 'Frente' });
+DM_Ingenio_Frente.belongsTo(DM_Frente, { foreignKey: 'Frente' });
+
 /*
 const Frente = require('../models/gestion/frente.model');
 
@@ -161,6 +172,37 @@ repository.findAllMaquinas = async () => {
             respuesta = {
                 mensaje: 'Error',
                 datos: err.message || "Ocurrió un error al consultar Maquinas."
+            };
+        });
+
+
+    return respuesta;
+}
+
+/**
+ * ************************************************
+ * *************** INGENIO - FRENTE ***************
+ * ************************************************
+ */
+repository.findAll_Ingenio_Frente = async () => {
+    let respuesta, vacio = false;
+    await DM_Ingenio_Frente.findAll()
+        .then((data) => {
+            if (data.length <= 0) {
+                vacio = true;
+                data = {
+                    mensaje: 'sin datos'
+                }
+            }
+            respuesta = {
+                mensaje: !vacio ? 'Exito' : 'Sin Datos',
+                datos: data
+            }
+
+        }).catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                datos: err.message || "Ocurrió un error al consultar Ingenio-Frente."
             };
         });
 

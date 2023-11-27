@@ -93,4 +93,27 @@ controller.getMaquinas = async (req, res) => {
     res.status(estado).send(data);
 }
 
+/**
+ * ************************************************
+ * *************** INGENIO - FRENTE ***************
+ * ************************************************
+ */
+controller.getIngeniosFrentes = async (req, res) => {
+    let ing_frente = await indicadoresService.obtenerTodos_Ingeio_Frente();
+    console.log(ing_frente);
+
+    let data = ing_frente.datos;
+    let estado;
+
+    if ((ing_frente.mensaje == 'Exito') || (ing_frente.mensaje == 'Sin Datos')) {
+        estado = 200;
+    } else if (ing_frente.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
 module.exports = controller;
