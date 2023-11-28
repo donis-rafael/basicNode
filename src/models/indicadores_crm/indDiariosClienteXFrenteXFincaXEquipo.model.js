@@ -122,7 +122,7 @@ const IndDiariosClienteXFrenteXFincaXEquipo = db.define("IndDiariosClienteXFrent
     ConteoEquipos: {
         type: DataTypes.INTEGER
     },
-    KPI_MTBD_Flota: {
+    KPI_MTBF_Flota: {
         type: DataTypes.DOUBLE
     }
 }, {
