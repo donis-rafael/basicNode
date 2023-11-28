@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../../config/db');
 
-const IndDiariosClienteXFrenteXFinca = db.define("IndDiariosClienteXFrenteXFinca", {
+let IndDiariosClienteXFrenteXFinca = db.define("IndDiariosClienteXFrenteXFinca", {
     id_Cliente: {
         type: DataTypes.UUID
     },
@@ -136,6 +136,8 @@ const IndDiariosClienteXFrenteXFinca = db.define("IndDiariosClienteXFrenteXFinca
 
     // define the table's name
     tableName: 'IndDiariosClienteXFrenteXFinca'
-}).removeAttribute('id');
+});
+
+IndDiariosClienteXFrenteXFinca.removeAttribute('id');
 
 module.exports = IndDiariosClienteXFrenteXFinca;
