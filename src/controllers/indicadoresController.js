@@ -162,4 +162,81 @@ controller.getIngeniosFrentesFincasEquipos = async (req, res) => {
     res.status(estado).send(data);
 }
 
+/**
+ * *************************************************
+ * ************** INDICADORES DIARIOS **************
+ * *************************************************
+ */
+controller.getIndicadoresDiariosCliente = async (req, res) => {
+    let indicadores_diarios_response = await indicadoresService.obtenerTodos_Indicadores_Diarios_Cliente();
+    console.log(indicadores_diarios_response);
+
+    let data = indicadores_diarios_response.datos;
+    let estado;
+
+    if ((indicadores_diarios_response.mensaje == 'Exito') || (indicadores_diarios_response.mensaje == 'Sin Datos')) {
+        estado = 200;
+    } else if (indicadores_diarios_response.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
+controller.getIndicadoresDiariosCliente_Frente = async (req, res) => {
+    let indicadores_diarios_response = await indicadoresService.obtenerTodos_Indicadores_Diarios_Cliente_Frente();
+    console.log(indicadores_diarios_response);
+
+    let data = indicadores_diarios_response.datos;
+    let estado;
+
+    if ((indicadores_diarios_response.mensaje == 'Exito') || (indicadores_diarios_response.mensaje == 'Sin Datos')) {
+        estado = 200;
+    } else if (indicadores_diarios_response.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
+controller.getIndicadoresDiariosCliente_Frente_Finca = async (req, res) => {
+    let indicadores_diarios_response = await indicadoresService.obtenerTodos_Indicadores_Diarios_Cliente_Frente_Finca();
+    console.log(indicadores_diarios_response);
+
+    let data = indicadores_diarios_response.datos;
+    let estado;
+
+    if ((indicadores_diarios_response.mensaje == 'Exito') || (indicadores_diarios_response.mensaje == 'Sin Datos')) {
+        estado = 200;
+    } else if (indicadores_diarios_response.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
+controller.getIndicadoresDiariosCliente_Frente_Finca_Equipo = async (req, res) => {
+    let indicadores_diarios_response = await indicadoresService.obtenerTodos_Indicadores_Diarios_Cliente_Frente_Finca_Equipo();
+    console.log(indicadores_diarios_response);
+
+    let data = indicadores_diarios_response.datos;
+    let estado;
+
+    if ((indicadores_diarios_response.mensaje == 'Exito') || (indicadores_diarios_response.mensaje == 'Sin Datos')) {
+        estado = 200;
+    } else if (indicadores_diarios_response.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
 module.exports = controller;

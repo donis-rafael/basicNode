@@ -12,7 +12,10 @@ router.get('/ingenio-frente', indicadores_controller.getIngeniosFrentes);
 router.get('/ingenio-frente-finca', indicadores_controller.getIngeniosFrentesFincas);
 router.get('/ingenio-frente-finca-equipo', indicadores_controller.getIngeniosFrentesFincasEquipos);
 
-// POSTS
-//router.post('/:user/registroApp', app_movil_controller.setRegistroApp);
+// INDICADORES DIARIOS
+router.get('/diario/clientes', indicadores_controller.getIndicadoresDiariosCliente);
+router.get('/diario/clientes-frente', indicadores_controller.getIndicadoresDiariosCliente_Frente);
+router.get('/diario/clientes-frente-finca', indicadores_controller.getIndicadoresDiariosCliente_Frente_Finca);
+router.get('/diario/clientes-frente-finca-equipo', indicadores_controller.getIndicadoresDiariosCliente_Frente_Finca_Equipo);
 
 module.exports = router;

@@ -43,4 +43,36 @@ service.obtenerTodos_Ingeio_Frente_Finca_Equipo = async () => {
     return ingenio_frente_finca_equipo;
 }
 
+service.obtenerTodos_Ingeio_Frente_Finca_Equipo = async () => {
+    ingenio_frente_finca_equipo = await indicadoresRepository.findAll_Ingenio_Frente_Finca_Equipo();
+
+    return ingenio_frente_finca_equipo;
+}
+
+// INDICADORES DIARIOS
+
+service.obtenerTodos_Indicadores_Diarios_Cliente = async () => {
+    indicadoresDiarios = await indicadoresRepository.findAll_IndDiariosCliente();
+
+    return indicadoresDiarios;
+}
+
+service.obtenerTodos_Indicadores_Diarios_Cliente_Frente = async () => {
+    indicadoresDiarios = await indicadoresRepository.findAll_IndDiariosCliente_Frente();
+
+    return indicadoresDiarios;
+}
+
+service.obtenerTodos_Indicadores_Diarios_Cliente_Frente_Finca = async () => {
+    indicadoresDiarios = await indicadoresRepository.findAll_IndDiariosCliente_Frente_Finca();
+
+    return indicadoresDiarios;
+}
+
+service.obtenerTodos_Indicadores_Diarios_Cliente_Frente_Finca_Equipo = async () => {
+    indicadoresDiarios = await indicadoresRepository.findAll_IndDiariosCliente_Frente_Finca_Equipo();
+
+    return indicadoresDiarios;
+}
+
 module.exports = service;

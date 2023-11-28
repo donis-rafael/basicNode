@@ -1,503 +1,21 @@
 const repository = {};
 
-const Ingenio = require('../models/gestion/ingenio.model');
 const Cargo = require('../models/gestion/cargo.model');
-const Finca = require('../models/gestion/finca.model');
-const Frente = require('../models/gestion/frente.model');
 const Rol = require('../models/gestion/rol.model');
-const Prog_Desarrollo = require('../models/gestion/fase.desarrollo.model');
 const Usuario = require('../models/gestion/usuario.model');
 const Credencial = require('../models/gestion/credencial.model');
-
-// Relacion entre Ingenio y Finca
-Ingenio.hasMany(Finca, { foreignKey: 'ingenio_id' });
-Finca.belongsTo(Ingenio, { foreignKey: 'ingenio_id' });
-
-// Relacion entre Ingenio y Frente
-Ingenio.hasMany(Frente, { foreignKey: 'ingenio_id' });
-Frente.belongsTo(Ingenio, { foreignKey: 'ingenio_id' });
 
 // Relacion entre Usuario y Rol
 Rol.hasMany(Usuario, { foreignKey: 'rol_id' });
 Usuario.belongsTo(Rol, { foreignKey: 'rol_id' });
 
-// Relacion entre Usuario e Ingenio
-Ingenio.hasMany(Usuario, { foreignKey: 'ingenio_id' });
-Usuario.belongsTo(Ingenio, { foreignKey: 'ingenio_id' });
-
 // Relacion entre Usuario y Cargo
 Cargo.hasMany(Usuario, { foreignKey: 'cargo_id' });
 Usuario.belongsTo(Cargo, { foreignKey: 'cargo_id' });
 
-// Relacion entre Usuario y Prog Desarrollo
-Prog_Desarrollo.hasMany(Usuario, { foreignKey: 'programa_desarrollo' });
-Usuario.belongsTo(Prog_Desarrollo, { foreignKey: 'programa_desarrollo' });
-
 // Relacion entre Usuario y Credencial
 Usuario.hasMany(Credencial, { foreignKey: 'usuario_id' });
 Credencial.belongsTo(Usuario, { foreignKey: 'usuario_id' });
-
-/**
- * **************************************
- * ************** INGENIOS **************
- * **************************************
- */
-repository.findAllIngenios = async () => {
-    let respuesta, vacio = false;
-    await Ingenio.findAll()
-        .then((data) => {
-            /**
-             * console.log("data: " + data);
-                console.log("data.length: " + data.length);
-                console.log("data[0].ingenio_id: " + data[0].ingenio_id);
-                console.log("data[0].nombre_ingenio: " + data[0].nombre_ingenio);
-             */
-            if (data.length <= 0) {
-                vacio = true;
-                data = {
-                    mensaje: 'sin datos'
-                }
-            }
-            respuesta = {
-                mensaje: !vacio ? 'Exito' : 'Sin Datos',
-                datos: data
-            }
-
-        }).catch(err => {
-            respuesta = {
-                mensaje: 'Error',
-                datos: err.message || "Ocurrió un error al consultar Ingenios."
-            };
-        });
-
-
-    return respuesta;
-}
-
-repository.findIngenioByNombre = async (ingenio) => {
-    let ingenioFounded;
-    await Ingenio.findOne({
-        where: {
-            nombre_ingenio: ingenio
-        }
-    }).then((data) => {
-        ingenioFounded = data;
-        console.log(ingenioFounded.toJSON());
-
-    }).catch(err => {
-        ingenioFounded = err.message || "Ocurrió un error al consultar Ingenio.";
-    });
-
-    return ingenioFounded;
-}
-
-repository.findIngenioById = async (ingenioID) => {
-    let ingenioFounded;
-    await Ingenio.findOne({
-        where: {
-            ingenio_id: ingenioID
-        }
-    }).then((data) => {
-        ingenioFounded = data;
-        console.log(ingenioFounded.toJSON());
-
-    }).catch(err => {
-        ingenioFounded = err.message || "Ocurrió un error al consultar Ingenio.";
-    });
-
-    return ingenioFounded;
-}
-
-repository.createNewIngenio = async (ingenio) => {
-    let respuesta;
-    // Guarda el Ingenio en la BD
-    await Ingenio.create(ingenio)
-        .then(data => {
-            respuesta = {
-                mensaje: 'Exito',
-                datos: data
-            }
-        })
-        .catch(err => {
-            respuesta = {
-                mensaje: 'Error',
-                datos: err.message
-            };
-        });
-
-    return respuesta;
-}
-
-repository.updateIngenio = async (ingenioId, ingenioName) => {
-    let respuesta;
-
-    // Actualiza el Ingenio en la BD
-    await Ingenio.update(
-        {
-            nombre_ingenio: ingenioName
-        },
-        {
-            where: {
-                ingenio_id: ingenioId
-            }
-        }
-    ).then(data => {
-        respuesta = {
-            mensaje: 'Exito',
-            datos: data
-        }
-    }).catch(err => {
-        respuesta = {
-            mensaje: 'Error',
-            datos: err.message
-        };
-    });
-
-    return respuesta;
-}
-
-repository.destroyIngenio = async (ingenioId) => {
-    let respuesta;
-
-    // Elimina el Ingenio en la BD
-    await Ingenio.destroy(
-        {
-            where: {
-                ingenio_id: ingenioId
-            }
-        }
-    ).then(data => {
-        respuesta = {
-            mensaje: 'Exito',
-            datos: data
-        }
-    }).catch(err => {
-        respuesta = {
-            mensaje: 'Error',
-            datos: err.message
-        };
-    });
-
-    return respuesta;
-}
-
-/**
- * ************************************
- * ************** FINCAS **************
- * ************************************
- */
-repository.findAllFincas = async () => {
-    let respuesta, vacio = false;
-    await Finca.findAll()
-        .then(data => {
-            if (data.length <= 0) {
-                vacio = true;
-                data = {
-                    mensaje: 'sin datos'
-                }
-            }
-            respuesta = {
-                mensaje: !vacio ? 'Exito' : 'Sin Datos',
-                datos: data
-            }
-
-        }).catch(err => {
-            respuesta = {
-                mensaje: 'Error',
-                datos: err.message || "Ocurrió un error al consultar Fincas."
-            };
-        });
-
-
-    return respuesta;
-}
-
-repository.findFincaById = async (fincaId) => {
-    let fincaFounded;
-    await Finca.findOne({
-        where: {
-            finca_id: fincaId
-        }
-    }).then((data) => {
-        fincaFounded = data;
-        console.log(fincaFounded.toJSON());
-
-    }).catch(err => {
-        fincaFounded = err.message || "Ocurrió un error al consultar Finca.";
-    });
-
-    return fincaFounded;
-}
-
-repository.createNewFinca = async (nuevaFinca, ingenio) => {
-    let respuesta, ingenioFounded, fincaAdded;
-
-    await Ingenio.findOne({
-        where: {
-            nombre_ingenio: ingenio
-        }
-    }).then((data) => {
-        ingenioFounded = data;
-
-    }).catch((err) => {
-        console.log(err);
-        respuesta = {
-            mensaje: 'Error',
-            datos: {
-                mensaje: `Error almacenando frente = ${nuevaFinca.nombre_finca}`,
-                content: err.message || `Error almacenando frente = ${nuevaFinca.nombre_finca}`
-            }
-        };
-    });
-
-    if (ingenioFounded != null) {
-        await Finca.create(nuevaFinca)
-            .then((data) => {
-                fincaAdded = data;
-                return ingenioFounded.addFinca(fincaAdded);
-
-            }).then((data) => {
-                respuesta = {
-                    mensaje: 'Exito',
-                    datos: {
-                        mensaje: 'finca creada exitosamente',
-                        content: fincaAdded.nombre_finca
-                    }
-                }
-
-            }).catch((err) => {
-                console.log(err);
-                respuesta = {
-                    mensaje: 'Error',
-                    datos: {
-                        mensaje: 'Error almacenando finca',
-                        content: err.message || 'Error almacenando finca'
-                    }
-                };
-            });
-    } else {
-        respuesta = {
-            mensaje: 'Error',
-            datos: {
-                mensaje: `Error almacenando finca = ${nuevaFinca.nombre_finca}`,
-                content: `No se encuentra ingenio con nombre ${ingenio}`
-            }
-        };
-    }
-    return respuesta;
-}
-
-repository.updateFinca = async (fincaId, fincaName) => {
-    let respuesta;
-
-    // Actualiza el Finca en la BD
-    await Finca.update(
-        {
-            nombre_finca: fincaName
-        },
-        {
-            where: {
-                finca_id: fincaId
-            }
-        }
-    ).then(data => {
-        respuesta = {
-            mensaje: 'Exito',
-            datos: data
-        }
-    }).catch(err => {
-        respuesta = {
-            mensaje: 'Error',
-            datos: err.message
-        };
-    });
-
-    return respuesta;
-}
-
-repository.destroyFinca = async (fincaId) => {
-    let respuesta;
-
-    // Elimina el Finca en la BD
-    await Finca.destroy(
-        {
-            where: {
-                finca_id: fincaId
-            }
-        }
-    ).then(data => {
-        respuesta = {
-            mensaje: 'Exito',
-            datos: data
-        }
-    }).catch(err => {
-        respuesta = {
-            mensaje: 'Error',
-            datos: err.message
-        };
-    });
-
-    return respuesta;
-}
-
-/**
- * *************************************
- * ************** FRENTES **************
- * *************************************
- */
-repository.findAllFrentes = async () => {
-    let respuesta, vacio = false;
-    await Frente.findAll()
-        .then(data => {
-            if (data.length <= 0) {
-                vacio = true;
-                data = {
-                    mensaje: 'sin datos'
-                }
-            }
-            respuesta = {
-                mensaje: !vacio ? 'Exito' : 'Sin Datos',
-                datos: data
-            }
-
-        }).catch(err => {
-            respuesta = {
-                mensaje: 'Error',
-                datos: err.message || "Ocurrió un error al consultar Frentes."
-            };
-        });
-
-
-    return respuesta;
-}
-
-repository.findFrenteById = async (frenteId) => {
-    let frenteFounded;
-    await Frente.findOne({
-        where: {
-            frente_id: frenteId
-        }
-    }).then((data) => {
-        frenteFounded = data;
-        console.log(frenteFounded.toJSON());
-
-    }).catch(err => {
-        frenteFounded = err.message || "Ocurrió un error al consultar Frente.";
-    });
-
-    return frenteFounded;
-}
-
-repository.createNewFrente = async (nuevoFrente, ingenio) => {
-    let respuesta, ingenioFounded, frenteAdded;
-
-    await Ingenio.findOne({
-        where: {
-            nombre_ingenio: ingenio
-        }
-    }).then((data) => {
-        ingenioFounded = data;
-
-    }).catch((err) => {
-        console.log(err);
-        respuesta = {
-            mensaje: 'Error',
-            datos: {
-                mensaje: `Error almacenando frente = ${nuevoFrente.nombre_frente}`,
-                content: err.message || `Error almacenando frente = ${nuevoFrente.nombre_frente}`
-            }
-        };
-    });
-
-    if (ingenioFounded != null) {
-        await Frente.create(nuevoFrente)
-            .then((data) => {
-                frenteAdded = data;
-                return ingenioFounded.addFrente(frenteAdded);
-            }).then((data) => {
-                respuesta = {
-                    mensaje: 'Exito',
-                    datos: {
-                        mensaje: 'frente creado exitosamente',
-                        content: frenteAdded.nombre_frente
-                    }
-                }
-
-            }).catch((err) => {
-                console.log(err);
-                respuesta = {
-                    mensaje: 'Error',
-                    datos: {
-                        mensaje: `Error almacenando frente = ${nuevoFrente.nombre_frente}`,
-                        content: err.message || `Error almacenando frente = ${nuevoFrente.nombre_frente}`
-                    }
-                };
-            });
-    } else {
-        respuesta = {
-            mensaje: 'Error',
-            datos: {
-                mensaje: `Error almacenando frente = ${nuevoFrente.nombre_frente}`,
-                content: `No se encuentra ingenio con nombre ${ingenio}`
-            }
-        };
-    }
-
-    return respuesta;
-}
-
-repository.updateFrente = async (frenteId, frenteName) => {
-    let respuesta;
-
-    // Actualiza el Frente en la BD
-    await Frente.update(
-        {
-            nombre_frente: frenteName
-        },
-        {
-            where: {
-                frente_id: frenteId
-            }
-        }
-    ).then(data => {
-        respuesta = {
-            mensaje: 'Exito',
-            datos: data
-        }
-    }).catch(err => {
-        respuesta = {
-            mensaje: 'Error',
-            datos: err.message
-        };
-    });
-
-    return respuesta;
-}
-
-repository.destroyFrente = async (frenteId) => {
-    let respuesta;
-
-    // Elimina el Frente en la BD
-    await Frente.destroy(
-        {
-            where: {
-                frente_id: frenteId
-            }
-        }
-    ).then(data => {
-        respuesta = {
-            mensaje: 'Exito',
-            datos: data
-        }
-    }).catch(err => {
-        respuesta = {
-            mensaje: 'Error',
-            datos: err.message
-        };
-    });
-
-    return respuesta;
-}
 
 /**
  * ***********************************
@@ -742,53 +260,6 @@ repository.destroyCargo = async (cargoId) => {
 }
 
 /**
- * **********************************************
- * ************** PROG. DESARROLLO **************
- * **********************************************
- */
-repository.findAllProgsDesarrollo = async () => {
-    let respuesta, vacio = false;
-    await Prog_Desarrollo.findAll()
-        .then(data => {
-            if (data.length <= 0) {
-                vacio = true;
-                data = {
-                    mensaje: 'sin datos'
-                }
-            }
-            respuesta = {
-                mensaje: !vacio ? 'Exito' : 'Sin Datos',
-                datos: data
-            }
-
-        }).catch(err => {
-            respuesta = {
-                mensaje: 'Error',
-                datos: err.message || "Ocurrió un error al consultar Programa de desarrollo."
-            };
-        });
-
-
-    return respuesta;
-}
-
-repository.findProgDesarrolloByNombre = async (progDesarrollo) => {
-    let progDesarrolloFounded;
-    await Prog_Desarrollo.findOne({
-        where: {
-            nombre_programa_desarrollo: progDesarrollo
-        }
-    }).then((data) => {
-        progDesarrolloFounded = data;
-
-    }).catch(err => {
-        progDesarrolloFounded = err.message || "Ocurrió un error al consultar programa Desarrollo.";
-    });
-
-    return progDesarrolloFounded;
-}
-
-/**
  * **************************************
  * ************** USUARIOS **************
  * **************************************
@@ -897,10 +368,10 @@ repository.findUserById = async (userId) => {
     return usuarioFounded;
 }
 
-repository.findAllUsers_Rol_Ingenio_Cargo = async () => {
+repository.findAllUsers_Rol_Cargo = async () => {
     let respuesta, vacio = false;
     await Usuario.findAll({
-        include: [Rol, Ingenio, Cargo, Prog_Desarrollo]
+        include: [Rol, Cargo]
     })
         .then(data => {
             if (data.length <= 0) {
@@ -925,15 +396,9 @@ repository.findAllUsers_Rol_Ingenio_Cargo = async () => {
     return respuesta;
 }
 
-repository.createNewUsuario = async (nuevoUsuario, rol, cargo, ingenio, progDesarrollo) => {
+repository.createNewUsuario = async (nuevoUsuario, rol, cargo) => {
     let respuesta;
-    let ingenioFounded, rolFounded, cargoFounded, progDesarrolloFounded, userAdded;
-
-    if (ingenio) {
-        ingenioFounded = await repository.findIngenioByNombre(ingenio);
-    } else {
-        ingenioFounded = null;
-    }
+    let rolFounded, cargoFounded, userAdded;
 
     if (rol) {
         rolFounded = await repository.findRolByNombre(rol);
@@ -947,30 +412,17 @@ repository.createNewUsuario = async (nuevoUsuario, rol, cargo, ingenio, progDesa
         cargoFounded = null;
     }
 
-    if (progDesarrollo) {
-        progDesarrolloFounded = await repository.findProgDesarrolloByNombre(progDesarrollo);
-    } else {
-        progDesarrolloFounded = null;
-    }
-
     let UserObject = await repository.createEmptyUserAsync(nuevoUsuario);
     userAdded = UserObject.usuario;
 
     if (UserObject.mensaje != 'error') {
-        if (ingenioFounded != null) {
-            await relacionarIngenioUsuario(userAdded, ingenioFounded);
-        }
 
         if (rolFounded != null) {
             await relacionarRolUsuario(userAdded, rolFounded);
         }
 
         if (cargoFounded != null) {
-            await relacionarCargiUsuario(userAdded, cargoFounded);
-        }
-
-        if (progDesarrolloFounded != null) {
-            await relacionarProgramaUsuario(userAdded, progDesarrolloFounded);
+            await relacionarCargoUsuario(userAdded, cargoFounded);
         }
 
         respuesta = {
@@ -1138,17 +590,6 @@ repository.findAllCreds = async () => {
  * *****************************************************
  */
 
-async function relacionarIngenioUsuario(userAdded, ingenioFounded) {
-    let mensajeReturn;
-    await ingenioFounded.addUsuario(userAdded).
-        then((data) => {
-            mensajeReturn = 'exito';
-        }).catch((err) => {
-            mensajeReturn = err.mensaje;
-        })
-
-    return mensajeReturn;
-}
 
 async function relacionarRolUsuario(userAdded, rolFounded) {
     let mensajeReturn;
@@ -1162,21 +603,9 @@ async function relacionarRolUsuario(userAdded, rolFounded) {
     return mensajeReturn;
 }
 
-async function relacionarCargiUsuario(userAdded, cargoFounded) {
+async function relacionarCargoUsuario(userAdded, cargoFounded) {
     let mensajeReturn;
     await cargoFounded.addUsuario(userAdded).
-        then((data) => {
-            mensajeReturn = 'exito';
-        }).catch((err) => {
-            mensajeReturn = err.mensaje;
-        })
-
-    return mensajeReturn;
-}
-
-async function relacionarProgramaUsuario(userAdded, progDesarrolloFounded) {
-    let mensajeReturn;
-    await progDesarrolloFounded.addUsuario(userAdded).
         then((data) => {
             mensajeReturn = 'exito';
         }).catch((err) => {
