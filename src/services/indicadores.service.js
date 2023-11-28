@@ -64,11 +64,7 @@ service.obtenerTodos_Indicadores_Diarios_Cliente_Frente = async () => {
 }
 
 service.obtenerTodos_Indicadores_Diarios_Cliente_Frente_Finca = async () => {
-    try {
-        indicadoresDiarios = await indicadoresRepository.findAll_IndDiariosCliente_Frente_Finca();
-    } catch (error) {
-        indicadoresDiarios = error;
-    }
+    indicadoresDiarios = await indicadoresRepository.findAll_IndDiariosCliente_Frente_Finca();
 
     return indicadoresDiarios;
 }

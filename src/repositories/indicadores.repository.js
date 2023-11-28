@@ -316,43 +316,34 @@ repository.findAll_IndDiariosCliente_Frente = async () => {
 
 repository.findAll_IndDiariosCliente_Frente_Finca = async () => {
     let respuesta, vacio = false;
-    try {
-        await IndDiariosCliente_Frente_Finca.findAll({
-            limit: 5,
-            order: [
-                ['id_Cliente', 'DESC']]
-        })
-            .then((data) => {
-                console.log("IndDiariosCliente_Frente_Finca");
-                console.log("data: perro");
-                console.log("data: " + data);
-                if (data.length <= 0) {
-                    vacio = true;
-                    data = {
-                        mensaje: 'sin datos'
-                    }
+
+    await IndDiariosCliente_Frente_Finca.findAll({
+        limit: 5,
+        order: [
+            ['id_Cliente', 'DESC']]
+    })
+        .then((data) => {
+            console.log("IndDiariosCliente_Frente_Finca");
+            console.log("data: perro");
+            console.log("data: " + data);
+            if (data.length <= 0) {
+                vacio = true;
+                data = {
+                    mensaje: 'sin datos'
                 }
+            }
 
-                respuesta = {
-                    mensaje: !vacio ? 'Exito' : 'Sin Datos',
-                    datos: data
-                }
-                /*
-                            respuesta = {
-                                mensaje: !vacio ? 'Exito' : 'Sin Datos',
-                                datos: 'data'
-                            }*/
+            respuesta = {
+                mensaje: !vacio ? 'Exito' : 'Sin Datos',
+                datos: data
+            }
 
-            }).catch(err => {
-                respuesta = {
-                    mensaje: 'Error',
-                    datos: err.message || "Ocurrió un error al consultar Indicadores diarios de cliente - frente - finca."
-                };
-            });
-
-    } catch (err) {
-        console.log(err);
-    }
+        }).catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                datos: err.message || "Ocurrió un error al consultar Indicadores diarios de cliente - frente - finca."
+            };
+        });
 
     return respuesta;
 }
@@ -394,20 +385,20 @@ repository.findAll_IndDiariosCliente_Frente_Finca_Equipo = async () => {
  *//*
 
 repository.findMaquinaById = async (maquinaId) => {
-  let maquinaFounded;
-  await Maquina.findOne({
-      where: {
-          maquina_id: maquinaId
-      }
-  }).then((data) => {
-      maquinaFounded = data;
-      console.log(maquinaFounded.toJSON());
+ let maquinaFounded;
+ await Maquina.findOne({
+     where: {
+         maquina_id: maquinaId
+     }
+ }).then((data) => {
+     maquinaFounded = data;
+     console.log(maquinaFounded.toJSON());
 
-  }).catch(err => {
-      maquinaFounded = err.message || "Ocurrió un error al consultar Maquina.";
-  });
+ }).catch(err => {
+     maquinaFounded = err.message || "Ocurrió un error al consultar Maquina.";
+ });
 
-  return maquinaFounded;
+ return maquinaFounded;
 }
 */
 
