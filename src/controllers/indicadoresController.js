@@ -224,6 +224,7 @@ controller.getIndicadoresDiariosCliente_Frente_Finca = async (req, res) => {
 } catch (error) {
     console.log('ERROR:');
     console.log(error);
+    data = error;
 }
 
     res.status(estado).send(data);
