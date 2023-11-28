@@ -318,6 +318,8 @@ repository.findAll_IndDiariosCliente_Frente_Finca = async () => {
     let respuesta, vacio = false;
     await IndDiariosCliente_Frente_Finca.findAll()
         .then((data) => {
+            console.log("IndDiariosCliente_Frente_Finca");
+            console.log(data);
             if (data.length <= 0) {
                 vacio = true;
                 data = {
@@ -344,6 +346,8 @@ repository.findAll_IndDiariosCliente_Frente_Finca_Equipo = async () => {
     let respuesta, vacio = false;
     await IndDiariosCliente_Frente_Finca_Equipo.findAll()
         .then((data) => {
+            console.log("IndDiariosCliente_Frente_Finca_Equipo");
+            console.log(data);
             if (data.length <= 0) {
                 vacio = true;
                 data = {
