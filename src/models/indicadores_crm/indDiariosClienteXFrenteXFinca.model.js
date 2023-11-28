@@ -18,7 +18,7 @@ const IndDiariosClienteXFrenteXFinca = db.define("IndDiariosClienteXFrenteXFinca
         type: DataTypes.INTEGER
     },
     Fecha: {
-        type: DataTypes.DATETIME
+        type: DataTypes.DATE
     },
     SemanaZafra: {
         type: DataTypes.INTEGER

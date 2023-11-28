@@ -316,6 +316,7 @@ repository.findAll_IndDiariosCliente_Frente = async () => {
 
 repository.findAll_IndDiariosCliente_Frente_Finca = async () => {
     let respuesta, vacio = false;
+    try{
     await IndDiariosCliente_Frente_Finca.findAll()
         .then((data) => {
             console.log("IndDiariosCliente_Frente_Finca");
@@ -338,6 +339,9 @@ repository.findAll_IndDiariosCliente_Frente_Finca = async () => {
             };
         });
 
+    }catch(err){
+        console.log(err);
+    }
 
     return respuesta;
 }
