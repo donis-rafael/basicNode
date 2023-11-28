@@ -116,4 +116,50 @@ controller.getIngeniosFrentes = async (req, res) => {
     res.status(estado).send(data);
 }
 
+/**
+ * ********************************************************
+ * *************** INGENIO - FRENTE - FINCA ***************
+ * ********************************************************
+ */
+controller.getIngeniosFrentesFincas = async (req, res) => {
+    let ing_frente_finc = await indicadoresService.obtenerTodos_Ingeio_Frente_Finca();
+    console.log(ing_frente_finc);
+
+    let data = ing_frente_finc.datos;
+    let estado;
+
+    if ((ing_frente_finc.mensaje == 'Exito') || (ing_frente_finc.mensaje == 'Sin Datos')) {
+        estado = 200;
+    } else if (ing_frente_finc.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
+/**
+ * *****************************************************************
+ * *************** INGENIO - FRENTE - FINCA - EQUIPO ***************
+ * *****************************************************************
+ */
+controller.getIngeniosFrentesFincasEquipos = async (req, res) => {
+    let ing_frente_finc_equipo = await indicadoresService.obtenerTodos_Ingeio_Frente_Finca_Equipo();
+    console.log(ing_frente_finc_equipo);
+
+    let data = ing_frente_finc_equipo.datos;
+    let estado;
+
+    if ((ing_frente_finc_equipo.mensaje == 'Exito') || (ing_frente_finc_equipo.mensaje == 'Sin Datos')) {
+        estado = 200;
+    } else if (ing_frente_finc_equipo.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
 module.exports = controller;

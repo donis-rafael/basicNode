@@ -25,10 +25,22 @@ service.obtenerTodasLasMaquinas = async () => {
     return Maquinas;
 }
 
-service.obtenerTodos_Ingeio_Frente= async () => {
+service.obtenerTodos_Ingeio_Frente = async () => {
     ingenio_frente = await indicadoresRepository.findAll_Ingenio_Frente();
 
     return ingenio_frente;
+}
+
+service.obtenerTodos_Ingeio_Frente_Finca = async () => {
+    ingenio_frente_finca = await indicadoresRepository.findAll_Ingenio_Frente_Finca();
+
+    return ingenio_frente_finca;
+}
+
+service.obtenerTodos_Ingeio_Frente_Finca_Equipo = async () => {
+    ingenio_frente_finca_equipo = await indicadoresRepository.findAll_Ingenio_Frente_Finca_Equipo();
+
+    return ingenio_frente_finca_equipo;
 }
 
 module.exports = service;

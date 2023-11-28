@@ -6,6 +6,8 @@ const DM_Ingenio = require('../models/indicadores_crm/dm_Ingenio.model');
 const DM_Maquina = require('../models/indicadores_crm/dm_Maquina.model');
 
 const DM_Ingenio_Frente = require('../models/indicadores_crm/dm_Ingenio_Frente.model');
+const DM_Ingenio_Frente_Finca = require('../models/indicadores_crm/dm_Ingenio_Frente_Finca.model');
+const DM_Ingenio_Frente_Finca_Equipo = require('../models/indicadores_crm/dm_Ingenio_Frente_Finca_Equipo.model');
 
 
 // Relacion entre Ingenio y Frente
@@ -14,29 +16,6 @@ DM_Ingenio_Frente.belongsTo(DM_Ingenio, { foreignKey: 'id_cliente' });
 
 DM_Frente.hasMany(DM_Ingenio_Frente, { foreignKey: 'Frente' });
 DM_Ingenio_Frente.belongsTo(DM_Frente, { foreignKey: 'Frente' });
-
-/*
-const Frente = require('../models/gestion/frente.model');
-
-// Relacion entre Registro App y Maquina
-Maquina.hasMany(Registro_APP, { foreignKey: 'maquina_id' });
-Registro_APP.belongsTo(Maquina, { foreignKey: 'maquina_id' });
-
-// Relacion entre Registro App y Ingenio
-Ingenio.hasMany(Registro_APP, { foreignKey: 'ingenio_id' });
-Registro_APP.belongsTo(Ingenio, { foreignKey: 'ingenio_id' });
-
-// Relacion entre Registro App y Finca
-Finca.hasMany(Registro_APP, { foreignKey: 'finca_id' });
-Registro_APP.belongsTo(Finca, { foreignKey: 'finca_id' });
-
-// Relacion entre Registro App y Frente
-Frente.hasMany(Registro_APP, { foreignKey: 'frente_id' });
-Registro_APP.belongsTo(Frente, { foreignKey: 'frente_id' });
-
-// Relacion entre Registro App y Mantenimiento
-Mantenimiento.hasMany(Registro_APP, { foreignKey: 'mantenimiento_id' });
-Registro_APP.belongsTo(Mantenimiento, { foreignKey: 'mantenimiento_id' });*/
 
 /**
  * **************************************
@@ -211,13 +190,13 @@ repository.findAll_Ingenio_Frente = async () => {
 }
 
 /**
- * **************************************
- * ************** MAQUINAS **************
- * **************************************
- *//*
-repository.findAllMaquinas = async () => {
+ * ********************************************************
+ * *************** INGENIO - FRENTE - FINCA ***************
+ * ********************************************************
+ */
+repository.findAll_Ingenio_Frente_Finca = async () => {
     let respuesta, vacio = false;
-    await Maquina.findAll()
+    await DM_Ingenio_Frente_Finca.findAll()
         .then((data) => {
             if (data.length <= 0) {
                 vacio = true;
@@ -233,13 +212,50 @@ repository.findAllMaquinas = async () => {
         }).catch(err => {
             respuesta = {
                 mensaje: 'Error',
-                datos: err.message || "Ocurrió un error al consultar Maquinas."
+                datos: err.message || "Ocurrió un error al consultar Ingenio-Frente-Finca."
             };
         });
 
 
     return respuesta;
 }
+
+/**
+ * *****************************************************************
+ * *************** INGENIO - FRENTE - FINCA - EQUIPO ***************
+ * *****************************************************************
+ */
+repository.findAll_Ingenio_Frente_Finca_Equipo = async () => {
+    let respuesta, vacio = false;
+    await DM_Ingenio_Frente_Finca_Equipo.findAll()
+        .then((data) => {
+            if (data.length <= 0) {
+                vacio = true;
+                data = {
+                    mensaje: 'sin datos'
+                }
+            }
+            respuesta = {
+                mensaje: !vacio ? 'Exito' : 'Sin Datos',
+                datos: data
+            }
+
+        }).catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                datos: err.message || "Ocurrió un error al consultar Ingenio-Frente-Finca-Equipo."
+            };
+        });
+
+
+    return respuesta;
+}
+
+/**
+ * **************************************
+ * ************** MAQUINAS **************
+ * **************************************
+ *//*
 
 repository.findMaquinaById = async (maquinaId) => {
     let maquinaFounded;
