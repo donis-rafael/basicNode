@@ -317,7 +317,9 @@ repository.findAll_IndDiariosCliente_Frente = async () => {
 repository.findAll_IndDiariosCliente_Frente_Finca = async () => {
     let respuesta, vacio = false;
     try{
-    await IndDiariosCliente_Frente_Finca.findAll()
+    await IndDiariosCliente_Frente_Finca.findAll({
+        limit: 5
+    })
         .then((data) => {
             console.log("IndDiariosCliente_Frente_Finca");
             console.log("data: perro");
@@ -334,7 +336,10 @@ repository.findAll_IndDiariosCliente_Frente_Finca = async () => {
                 datos: data
             }*/
 
-            respuesta = 'hola';
+            respuesta = {
+                mensaje: !vacio ? 'Exito' : 'Sin Datos',
+                datos: 'data'
+            }
 
         }).catch(err => {
             respuesta = {
