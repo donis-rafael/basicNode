@@ -321,12 +321,12 @@ repository.findAll_IndDiariosCliente_Frente_Finca = async () => {
         .then((data) => {
             console.log("IndDiariosCliente_Frente_Finca");
             console.log("data: "+data);
-            if (data.length <= 0) {
+            /*if (data.length <= 0) {
                 vacio = true;
                 data = {
                     mensaje: 'sin datos'
                 }
-            }
+            }*/
 
             respuesta = {
                 mensaje: !vacio ? 'Exito' : 'Sin Datos',
