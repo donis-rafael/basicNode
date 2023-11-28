@@ -327,6 +327,7 @@ repository.findAll_IndDiariosCliente_Frente_Finca = async () => {
                     mensaje: 'sin datos'
                 }
             }
+            
             respuesta = {
                 mensaje: !vacio ? 'Exito' : 'Sin Datos',
                 datos: data
