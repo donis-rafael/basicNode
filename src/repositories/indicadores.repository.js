@@ -320,14 +320,14 @@ repository.findAll_IndDiariosCliente_Frente_Finca = async () => {
     await IndDiariosCliente_Frente_Finca.findAll()
         .then((data) => {
             console.log("IndDiariosCliente_Frente_Finca");
-            console.log(data);
+            console.log("data: "+data);
             if (data.length <= 0) {
                 vacio = true;
                 data = {
                     mensaje: 'sin datos'
                 }
             }
-            
+
             respuesta = {
                 mensaje: !vacio ? 'Exito' : 'Sin Datos',
                 datos: data
