@@ -323,8 +323,8 @@ repository.findAll_IndDiariosCliente_Frente_Finca = async () => {
         .then((data) => {
             console.log("IndDiariosCliente_Frente_Finca");
             console.log("data: perro");
-            //console.log("data: "+data);
-            /*if (data.length <= 0) {
+            console.log("data: "+data);
+            if (data.length <= 0) {
                 vacio = true;
                 data = {
                     mensaje: 'sin datos'
@@ -334,12 +334,12 @@ repository.findAll_IndDiariosCliente_Frente_Finca = async () => {
             respuesta = {
                 mensaje: !vacio ? 'Exito' : 'Sin Datos',
                 datos: data
-            }*/
-
+            }
+/*
             respuesta = {
                 mensaje: !vacio ? 'Exito' : 'Sin Datos',
                 datos: 'data'
-            }
+            }*/
 
         }).catch(err => {
             respuesta = {

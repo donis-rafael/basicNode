@@ -136,8 +136,6 @@ const IndDiariosClienteXFrenteXFinca = db.define("IndDiariosClienteXFrenteXFinca
 
     // define the table's name
     tableName: 'IndDiariosClienteXFrenteXFinca'
-});
-
-IndDiariosClienteXFrenteXFinca.removeAttribute('id');
+}).removeAttribute('id');
 
 module.exports = IndDiariosClienteXFrenteXFinca;
