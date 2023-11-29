@@ -244,7 +244,6 @@ controller.getIndicadoresDiariosCliente_Frente_Finca_Equipo = async (req, res) =
  */
 controller.getIndicadoresSemanalesCliente = async (req, res) => {
     let indicadores_semanales_response = await indicadoresService.obtenerTodos_Indicadores_Semanales_Cliente();
-    console.log(indicadores_diarios_response);
 
     let data = indicadores_semanales_response.datos;
     let estado;
@@ -268,7 +267,6 @@ controller.getIndicadoresSemanalesCliente = async (req, res) => {
  */
 controller.getIndicadoresSemanalesCalendarioCliente = async (req, res) => {
     let indicadores_semanales_calendario_response = await indicadoresService.obtenerTodos_Indicadores_Semanales_Calendario_Cliente();
-    console.log(indicadores_diarios_response);
 
     let data = indicadores_semanales_calendario_response.datos;
     let estado;
