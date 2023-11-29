@@ -486,6 +486,7 @@ repository.findAll_IndSemCliente_Frente_Finca_Equipo = async () => {
             }
 
         }).catch(err => {
+            console.log('Error: '+err);
             respuesta = {
                 mensaje: 'Error',
                 datos: err.message || "Ocurrió un error al consultar Indicadores semanales de cliente - frente - finca - equipo."
