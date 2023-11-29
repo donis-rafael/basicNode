@@ -17,9 +17,15 @@ const IndDiariosCliente_Frente_Finca_Equipo = require('../models/indicadores_crm
 
 // Indicadores Semanales
 const IndSemCliente = require('../models/indicadores_crm/indSemCliente.model');
+const IndSemClienteXFrente = require('../models/indicadores_crm/indSemClienteXFrente.model');
+const IndSemClienteXFrenteXFinca = require('../models/indicadores_crm/indSemClienteXFrenteXFinca.model');
+const IndSemClienteXFrenteXFincaXEquipo = require('../models/indicadores_crm/indSemClienteXFrenteXFincaXEquipo.model');
 
 // Indicadores Semanales Calendario
 const IndSemCal_Cliente = require('../models/indicadores_crm/indSemCal_Cliente.model');
+const IndSemCal_ClienteXFrente = require('../models/indicadores_crm/indSemCal_ClienteXFrente.model');
+const IndSemCal_ClienteXFrenteXFinca = require('../models/indicadores_crm/indSemCal_ClienteXFrenteXFinca.model');
+const IndSemCal_ClienteXFrenteXFincaXEquipo = require('../models/indicadores_crm/indSemCal_ClienteXFrenteXFincaXEquipo.model');
 
 
 // Relacion entre Ingenio y Frente
@@ -412,6 +418,84 @@ repository.findAll_IndSemCliente = async () => {
     return respuesta;
 }
 
+repository.findAll_IndSemCliente_Frente = async () => {
+    let respuesta, vacio = false;
+    await IndSemClienteXFrente.findAll()
+        .then((data) => {
+            if (data.length <= 0) {
+                vacio = true;
+                data = {
+                    mensaje: 'sin datos'
+                }
+            }
+            respuesta = {
+                mensaje: !vacio ? 'Exito' : 'Sin Datos',
+                datos: data
+            }
+
+        }).catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                datos: err.message || "Ocurrió un error al consultar Indicadores semanales de cliente - frente."
+            };
+        });
+
+
+    return respuesta;
+}
+
+repository.findAll_IndSemCliente_Frente_Finca = async () => {
+    let respuesta, vacio = false;
+    await IndSemClienteXFrenteXFinca.findAll()
+        .then((data) => {
+            if (data.length <= 0) {
+                vacio = true;
+                data = {
+                    mensaje: 'sin datos'
+                }
+            }
+            respuesta = {
+                mensaje: !vacio ? 'Exito' : 'Sin Datos',
+                datos: data
+            }
+
+        }).catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                datos: err.message || "Ocurrió un error al consultar Indicadores semanales de cliente - frente - finca."
+            };
+        });
+
+
+    return respuesta;
+}
+
+repository.findAll_IndSemCliente_Frente_Finca_Equipo = async () => {
+    let respuesta, vacio = false;
+    await IndSemClienteXFrenteXFincaXEquipo.findAll()
+        .then((data) => {
+            if (data.length <= 0) {
+                vacio = true;
+                data = {
+                    mensaje: 'sin datos'
+                }
+            }
+            respuesta = {
+                mensaje: !vacio ? 'Exito' : 'Sin Datos',
+                datos: data
+            }
+
+        }).catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                datos: err.message || "Ocurrió un error al consultar Indicadores semanales de cliente - frente - finca - equipo."
+            };
+        });
+
+
+    return respuesta;
+}
+
 /**
  * **************************************************************
  * ************** INDICADORES SEMANALES CALENDARIO **************
@@ -436,6 +520,84 @@ repository.findAll_IndSemCal_Cliente = async () => {
             respuesta = {
                 mensaje: 'Error',
                 datos: err.message || "Ocurrió un error al consultar Indicadores semanales calendario de cliente."
+            };
+        });
+
+
+    return respuesta;
+}
+
+repository.findAll_IndSemCal_Cliente_Frente = async () => {
+    let respuesta, vacio = false;
+    await IndSemCal_ClienteXFrente.findAll()
+        .then((data) => {
+            if (data.length <= 0) {
+                vacio = true;
+                data = {
+                    mensaje: 'sin datos'
+                }
+            }
+            respuesta = {
+                mensaje: !vacio ? 'Exito' : 'Sin Datos',
+                datos: data
+            }
+
+        }).catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                datos: err.message || "Ocurrió un error al consultar Indicadores semanales calendario de cliente - frente."
+            };
+        });
+
+
+    return respuesta;
+}
+
+repository.findAll_IndSemCal_Cliente_Frente_Finca = async () => {
+    let respuesta, vacio = false;
+    await IndSemCal_ClienteXFrenteXFinca.findAll()
+        .then((data) => {
+            if (data.length <= 0) {
+                vacio = true;
+                data = {
+                    mensaje: 'sin datos'
+                }
+            }
+            respuesta = {
+                mensaje: !vacio ? 'Exito' : 'Sin Datos',
+                datos: data
+            }
+
+        }).catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                datos: err.message || "Ocurrió un error al consultar Indicadores semanales calendario de cliente - frente - finca."
+            };
+        });
+
+
+    return respuesta;
+}
+
+repository.findAll_IndSemCal_Cliente_Frente_Finca_Equipo = async () => {
+    let respuesta, vacio = false;
+    await IndSemCal_ClienteXFrenteXFincaXEquipo.findAll()
+        .then((data) => {
+            if (data.length <= 0) {
+                vacio = true;
+                data = {
+                    mensaje: 'sin datos'
+                }
+            }
+            respuesta = {
+                mensaje: !vacio ? 'Exito' : 'Sin Datos',
+                datos: data
+            }
+
+        }).catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                datos: err.message || "Ocurrió un error al consultar Indicadores semanales calendario de cliente - frente - finca - equipo."
             };
         });
 

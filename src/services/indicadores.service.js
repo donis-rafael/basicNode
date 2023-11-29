@@ -82,9 +82,45 @@ service.obtenerTodos_Indicadores_Semanales_Cliente = async () => {
     return indicadoresSemanales;
 }
 
+service.obtenerTodos_Indicadores_Semanales_Cliente_Frente = async () => {
+    indicadoresSemanales = await indicadoresRepository.findAll_IndSemCliente_Frente();
+
+    return indicadoresSemanales;
+}
+
+service.obtenerTodos_Indicadores_Semanales_Cliente_Frente_Finca = async () => {
+    indicadoresSemanales = await indicadoresRepository.findAll_IndSemCliente_Frente_Finca();
+
+    return indicadoresSemanales;
+}
+
+service.obtenerTodos_Indicadores_Semanales_Cliente_Frente_Finca_Equipo = async () => {
+    indicadoresSemanales = await indicadoresRepository.findAll_IndSemCliente_Frente_Finca_Equipo();
+
+    return indicadoresSemanales;
+}
+
 // Indicadores Semanales Calendario
 service.obtenerTodos_Indicadores_Semanales_Calendario_Cliente = async () => {
     indicadoresSemanalesCalendario = await indicadoresRepository.findAll_IndSemCal_Cliente();
+
+    return indicadoresSemanalesCalendario;
+}
+
+service.obtenerTodos_Indicadores_Semanales_Calendario_Cliente_Frente = async () => {
+    indicadoresSemanalesCalendario = await indicadoresRepository.findAll_IndSemCal_Cliente_Frente();
+
+    return indicadoresSemanalesCalendario;
+}
+
+service.obtenerTodos_Indicadores_Semanales_Calendario_Cliente_Frente_Finca = async () => {
+    indicadoresSemanalesCalendario = await indicadoresRepository.findAll_IndSemCal_Cliente_Frente_Finca();
+
+    return indicadoresSemanalesCalendario;
+}
+
+service.obtenerTodos_Indicadores_Semanales_Calendario_Cliente_Frente_Finca_Equipo = async () => {
+    indicadoresSemanalesCalendario = await indicadoresRepository.findAll_IndSemCal_Cliente_Frente_Finca_Equipo();
 
     return indicadoresSemanalesCalendario;
 }

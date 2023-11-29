@@ -20,8 +20,14 @@ router.get('/diario/clientes-frente-finca-equipo', indicadores_controller.getInd
 
 // Indicadores Semanales
 router.get('/semanal/clientes', indicadores_controller.getIndicadoresSemanalesCliente);
+router.get('/semanal/clientes-frente', indicadores_controller.getIndicadoresSemanalesCliente_Frente);
+router.get('/semanal/clientes-frente-finca', indicadores_controller.getIndicadoresSemanalesCliente_Frente_Finca);
+router.get('/semanal/clientes-frente-finca-equipo', indicadores_controller.getIndicadoresSemanalesCliente_Frente_Finca_Equipo);
 
 // Indicadores Semanales Calendario
 router.get('/semanal/calendario/clientes', indicadores_controller.getIndicadoresSemanalesCalendarioCliente);
+router.get('/semanal/calendario/clientes-frente', indicadores_controller.getIndicadoresSemanalesCalendarioCliente_Frente);
+router.get('/semanal/calendario/clientes-frente-finca', indicadores_controller.getIndicadoresSemanalesCalendarioCliente_Frente_Finca);
+router.get('/semanal/calendario/clientes-frente-finca-equipo', indicadores_controller.getIndicadoresSemanalesCalendarioCliente_Frente_Finca_Equipo);
 
 module.exports = router;
