@@ -351,7 +351,7 @@ repository.findAll_IndDiariosCliente_Frente_Finca = async () => {
 repository.findAll_IndDiariosCliente_Frente_Finca_Equipo = async () => {
     let respuesta, vacio = false;
     await IndDiariosCliente_Frente_Finca_Equipo.findAll({
-        limit: 25000,
+        limit: 20000,
         order: [
             ['Fecha', 'DESC']]
     })
