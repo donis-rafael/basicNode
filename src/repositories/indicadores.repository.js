@@ -316,12 +316,15 @@ repository.findAll_IndDiariosCliente_Frente = async () => {
 
 repository.findAll_IndDiariosCliente_Frente_Finca = async () => {
     let respuesta, vacio = false;
+    /**
+     * {
+            limit: 5,
+            order: [
+                ['id_Cliente', 'DESC']]
+        }
+    */
 
-    await IndDiariosCliente_Frente_Finca.findAll({
-        limit: 5,
-        order: [
-            ['id_Cliente', 'DESC']]
-    })
+    await IndDiariosCliente_Frente_Finca.findAll()
         .then((data) => {
             console.log("IndDiariosCliente_Frente_Finca");
             console.log("data: perro");
@@ -385,20 +388,20 @@ repository.findAll_IndDiariosCliente_Frente_Finca_Equipo = async () => {
  *//*
 
 repository.findMaquinaById = async (maquinaId) => {
- let maquinaFounded;
- await Maquina.findOne({
-     where: {
-         maquina_id: maquinaId
-     }
- }).then((data) => {
-     maquinaFounded = data;
-     console.log(maquinaFounded.toJSON());
+let maquinaFounded;
+await Maquina.findOne({
+   where: {
+       maquina_id: maquinaId
+   }
+}).then((data) => {
+   maquinaFounded = data;
+   console.log(maquinaFounded.toJSON());
 
- }).catch(err => {
-     maquinaFounded = err.message || "Ocurrió un error al consultar Maquina.";
- });
+}).catch(err => {
+   maquinaFounded = err.message || "Ocurrió un error al consultar Maquina.";
+});
 
- return maquinaFounded;
+return maquinaFounded;
 }
 */
 
