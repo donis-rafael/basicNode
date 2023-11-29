@@ -351,7 +351,7 @@ repository.findAll_IndDiariosCliente_Frente_Finca = async () => {
 repository.findAll_IndDiariosCliente_Frente_Finca_Equipo = async () => {
     let respuesta, vacio = false;
     await IndDiariosCliente_Frente_Finca_Equipo.findAll({
-        limit: 29000,
+        limit: 25000,
         order: [
             ['Fecha', 'DESC']]
     })
@@ -392,7 +392,7 @@ repository.findMaquinaById = async (maquinaId) => {
 let maquinaFounded;
 await Maquina.findOne({
 where: {
- maquina_id: maquinaId
+maquina_id: maquinaId
 }
 }).then((data) => {
 maquinaFounded = data;
