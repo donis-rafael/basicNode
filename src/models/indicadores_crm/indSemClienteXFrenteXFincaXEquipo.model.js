@@ -20,9 +20,6 @@ const IndSemClienteXFrenteXFincaXEquipo = db.define("IndSemClienteXFrenteXFincaX
     Periodo: {
         type: DataTypes.INTEGER
     },
-    Fecha: {
-        type: DataTypes.DATE
-    },
     SemanaZafra: {
         type: DataTypes.INTEGER
     },
