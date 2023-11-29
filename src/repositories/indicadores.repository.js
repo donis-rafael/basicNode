@@ -356,8 +356,6 @@ repository.findAll_IndDiariosCliente_Frente_Finca_Equipo = async () => {
             ['Fecha', 'DESC']]
     })
         .then((data) => {
-            console.log("IndDiariosCliente_Frente_Finca_Equipo");
-            console.log(data);
             if (data.length <= 0) {
                 vacio = true;
                 data = {
