@@ -15,6 +15,12 @@ const IndDiariosCliente_Frente = require('../models/indicadores_crm/indDiariosCl
 const IndDiariosCliente_Frente_Finca = require('../models/indicadores_crm/indDiariosClienteXFrenteXFinca.model');
 const IndDiariosCliente_Frente_Finca_Equipo = require('../models/indicadores_crm/indDiariosClienteXFrenteXFincaXEquipo.model');
 
+// Indicadores Semanales
+const IndSemCliente = require('../models/indicadores_crm/indSemCliente.model');
+
+// Indicadores Semanales Calendario
+const IndSemCal_Cliente = require('../models/indicadores_crm/indSemCal_Cliente.model');
+
 
 // Relacion entre Ingenio y Frente
 DM_Ingenio.hasMany(DM_Ingenio_Frente, { foreignKey: 'id_cliente' });
@@ -316,9 +322,6 @@ repository.findAll_IndDiariosCliente_Frente = async () => {
 
 repository.findAll_IndDiariosCliente_Frente_Finca = async () => {
     let respuesta, vacio = false;
-    /**
-     * 
-    */
 
     await IndDiariosCliente_Frente_Finca.findAll({
         limit: 30000,
@@ -371,6 +374,68 @@ repository.findAll_IndDiariosCliente_Frente_Finca_Equipo = async () => {
             respuesta = {
                 mensaje: 'Error',
                 datos: err.message || "Ocurrió un error al consultar Indicadores diarios de cliente - frente - finca - equipo."
+            };
+        });
+
+
+    return respuesta;
+}
+
+/**
+ * ***************************************************
+ * ************** INDICADORES SEMANALES **************
+ * ***************************************************
+ */
+repository.findAll_IndSemCliente = async () => {
+    let respuesta, vacio = false;
+    await IndSemCliente.findAll()
+        .then((data) => {
+            if (data.length <= 0) {
+                vacio = true;
+                data = {
+                    mensaje: 'sin datos'
+                }
+            }
+            respuesta = {
+                mensaje: !vacio ? 'Exito' : 'Sin Datos',
+                datos: data
+            }
+
+        }).catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                datos: err.message || "Ocurrió un error al consultar Indicadores semanales de cliente."
+            };
+        });
+
+
+    return respuesta;
+}
+
+/**
+ * **************************************************************
+ * ************** INDICADORES SEMANALES CALENDARIO **************
+ * **************************************************************
+ */
+repository.findAll_IndSemCal_Cliente = async () => {
+    let respuesta, vacio = false;
+    await IndSemCal_Cliente.findAll()
+        .then((data) => {
+            if (data.length <= 0) {
+                vacio = true;
+                data = {
+                    mensaje: 'sin datos'
+                }
+            }
+            respuesta = {
+                mensaje: !vacio ? 'Exito' : 'Sin Datos',
+                datos: data
+            }
+
+        }).catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                datos: err.message || "Ocurrió un error al consultar Indicadores semanales calendario de cliente."
             };
         });
 

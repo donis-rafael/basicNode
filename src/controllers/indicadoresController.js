@@ -237,4 +237,51 @@ controller.getIndicadoresDiariosCliente_Frente_Finca_Equipo = async (req, res) =
     res.status(estado).send(data);
 }
 
+/**
+ * ***************************************************
+ * ************** INDICADORES SEMANALES **************
+ * ***************************************************
+ */
+controller.getIndicadoresSemanalesCliente = async (req, res) => {
+    let indicadores_semanales_response = await indicadoresService.obtenerTodos_Indicadores_Semanales_Cliente();
+    console.log(indicadores_diarios_response);
+
+    let data = indicadores_semanales_response.datos;
+    let estado;
+
+    if ((indicadores_semanales_response.mensaje == 'Exito') || (indicadores_semanales_response.mensaje == 'Sin Datos')) {
+        estado = 200;
+    } else if (indicadores_semanales_response.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
+
+/**
+ * **************************************************************
+ * ************** INDICADORES SEMANALES CALENDARIO **************
+ * **************************************************************
+ */
+controller.getIndicadoresSemanalesCalendarioCliente = async (req, res) => {
+    let indicadores_semanales_calendario_response = await indicadoresService.obtenerTodos_Indicadores_Semanales_Calendario_Cliente();
+    console.log(indicadores_diarios_response);
+
+    let data = indicadores_semanales_calendario_response.datos;
+    let estado;
+
+    if ((indicadores_semanales_calendario_response.mensaje == 'Exito') || (indicadores_semanales_calendario_response.mensaje == 'Sin Datos')) {
+        estado = 200;
+    } else if (indicadores_semanales_calendario_response.mensaje == 'Error') {
+        estado = 500;
+    } else {
+        estado = 300;
+    }
+
+    res.status(estado).send(data);
+}
+
 module.exports = controller;

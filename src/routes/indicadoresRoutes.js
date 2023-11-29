@@ -18,4 +18,10 @@ router.get('/diario/clientes-frente', indicadores_controller.getIndicadoresDiari
 router.get('/diario/clientes-frente-finca', indicadores_controller.getIndicadoresDiariosCliente_Frente_Finca);
 router.get('/diario/clientes-frente-finca-equipo', indicadores_controller.getIndicadoresDiariosCliente_Frente_Finca_Equipo);
 
+// Indicadores Semanales
+router.get('/semanal/clientes', indicadores_controller.getIndicadoresSemanalesCliente);
+
+// Indicadores Semanales Calendario
+router.get('/semanal/calendario/clientes', indicadores_controller.getIndicadoresSemanalesCalendarioCliente);
+
 module.exports = router;

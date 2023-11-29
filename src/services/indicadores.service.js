@@ -75,4 +75,18 @@ service.obtenerTodos_Indicadores_Diarios_Cliente_Frente_Finca_Equipo = async () 
     return indicadoresDiarios;
 }
 
+// Indicadores Semanales
+service.obtenerTodos_Indicadores_Semanales_Cliente = async () => {
+    indicadoresSemanales = await indicadoresRepository.findAll_IndSemCliente();
+
+    return indicadoresSemanales;
+}
+
+// Indicadores Semanales Calendario
+service.obtenerTodos_Indicadores_Semanales_Calendario_Cliente = async () => {
+    indicadoresSemanalesCalendario = await indicadoresRepository.findAll_IndSemCal_Cliente();
+
+    return indicadoresSemanalesCalendario;
+}
+
 module.exports = service;
