@@ -2,7 +2,7 @@ const service = {};
 const helper = require('../config/helper');
 const adminRepository = require('../repositories/admin_auth.repository');
 
-service.registrarNuevoUsuario = async (user, password, nombreUsuario, correo, rol, ingenio, cargo, progDesarrollo) => {
+service.registrarNuevoUsuario = async (user, password, nombreUsuario, correo, rol, ingenioId, cargo, ingenioNombre) => {
     // ENCRIPTA CONTRASEÑA
     const passEncripted = await helper.encryptPassword(password);
     const tokenRegistro = await helper.encryptPassword(user + "_" + passEncripted);
@@ -13,7 +13,7 @@ service.registrarNuevoUsuario = async (user, password, nombreUsuario, correo, ro
         correo: correo
     };
 
-    let userAdded = await adminRepository.createNewUsuario(usuario, rol, cargo, ingenio, progDesarrollo);
+    let userAdded = await adminRepository.createNewUsuario(usuario, rol, cargo, ingenioId, ingenioNombre);
     let respuesta;
 
     if (userAdded.mensaje == 'Exito') {
@@ -43,7 +43,7 @@ service.iniciarSesion = async (usuario, contrasenia) => {
     let respuesta;
     let credencial = await adminRepository.login(usuario);
 
-    if(credencial.message != 'error'){
+    if (credencial.message != 'error') {
         let sesion = credencial.cuerpo;
 
         const matchPass = await helper.comparaPassword(contrasenia, sesion.contrasenia);
@@ -67,7 +67,7 @@ service.iniciarSesion = async (usuario, contrasenia) => {
             };
         }
 
-    }else{
+    } else {
         respuesta = {
             mensaje: 'Error',
             datos: {

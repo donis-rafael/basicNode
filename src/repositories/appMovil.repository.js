@@ -1,13 +1,13 @@
 const repository = {};
 const sequelize = require("sequelize");
 
-const Maquina = require('../models/reporteria_crm/maquina.model');
 const Mantenimiento = require('../models/reporteria_crm/mantenimiento.model');
 const Registro_APP = require('../models/gestion/registro.app.model');
 
-const Ingenio = require('../models/gestion/ingenio.model');
-const Finca = require('../models/gestion/finca.model');
-const Frente = require('../models/gestion/frente.model');
+const Maquina = require('../models/indicadores_crm/dm_Maquina.model');
+const Ingenio = require('../models/indicadores_crm/dm_Ingenio.model');
+const Finca = require('../models/indicadores_crm/dm_Finca.model');
+const Frente = require('../models/indicadores_crm/dm_Frente.model');
 
 // Relacion entre Registro App y Maquina
 Maquina.hasMany(Registro_APP, { foreignKey: 'maquina_id' });
@@ -34,31 +34,6 @@ Registro_APP.belongsTo(Mantenimiento, { foreignKey: 'mantenimiento_id' });
  * ************** MAQUINAS **************
  * **************************************
  */
-repository.findAllMaquinas = async () => {
-    let respuesta, vacio = false;
-    await Maquina.findAll()
-        .then((data) => {
-            if (data.length <= 0) {
-                vacio = true;
-                data = {
-                    mensaje: 'sin datos'
-                }
-            }
-            respuesta = {
-                mensaje: !vacio ? 'Exito' : 'Sin Datos',
-                datos: data
-            }
-
-        }).catch(err => {
-            respuesta = {
-                mensaje: 'Error',
-                datos: err.message || "Ocurrió un error al consultar Maquinas."
-            };
-        });
-
-
-    return respuesta;
-}
 
 repository.findMaquinaById = async (maquinaId) => {
     let maquinaFounded;

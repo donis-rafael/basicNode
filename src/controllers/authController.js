@@ -9,7 +9,7 @@ controller.iniciarSesion = async (req, res) => {
         });
         return;
     }
-    
+
     const { token } = req.headers;
     const { user, password } = req.body;
 
@@ -52,9 +52,9 @@ controller.iniciarSesion = async (req, res) => {
 }
 
 controller.registro = async (req, res) => {
-    const { user, password, nombreUsuario, correo, rol, ingenio, cargo, progDesarrollo } = req.body;
+    const { user, password, nombreUsuario, correo, rol, ingenioId, cargo, ingenioNombre } = req.body;
 
-    let newUsuario = await authService.registrarNuevoUsuario(user, password, nombreUsuario, correo, rol, ingenio, cargo, progDesarrollo);
+    let newUsuario = await authService.registrarNuevoUsuario(user, password, nombreUsuario, correo, rol, ingenioId, cargo, ingenioNombre);
 
     let data = newUsuario.datos;
     let estado;

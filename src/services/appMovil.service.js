@@ -1,27 +1,32 @@
 const service = {};
 const adminRepository = require('../repositories/admin_auth.repository');
+const indicadoresRepository = require('../repositories/indicadores.repository');
 const appRepository = require('../repositories/appMovil.repository');
 
 service.obtenerTodosLosIngenios = async () => {
-    ingenios = await adminRepository.findAllIngenios();
+    //ingenios = await adminRepository.findAllIngenios();
+    ingenios = await indicadoresRepository.findAllIngenios();
 
     return ingenios;
 }
 
 service.obtenerTodasLasFincas = async () => {
-    fincas = await adminRepository.findAllFincas();
+    //fincas = await adminRepository.findAllFincas();
+    fincas = await indicadoresRepository.findAllFincas();
 
     return fincas;
 }
 
 service.obtenerTodosLosFrentes = async () => {
-    frentes = await adminRepository.findAllFrentes();
+    //frentes = await adminRepository.findAllFrentes();
+    frentes = await indicadoresRepository.findAllFrentes();
 
     return frentes;
 }
 
 service.obtenerTodasLasMaquinas = async () => {
-    maquinas = await appRepository.findAllMaquinas();
+    //maquinas = await appRepository.findAllMaquinas();
+    maquinas = await indicadoresRepository.findAllMaquinas();
 
     return maquinas;
 }

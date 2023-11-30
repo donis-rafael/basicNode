@@ -396,7 +396,7 @@ repository.findAllUsers_Rol_Cargo = async () => {
     return respuesta;
 }
 
-repository.createNewUsuario = async (nuevoUsuario, rol, cargo) => {
+repository.createNewUsuario = async (nuevoUsuario, rol, cargo, ingenioId, ingenioNombre) => {
     let respuesta;
     let rolFounded, cargoFounded, userAdded;
 
