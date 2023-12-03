@@ -402,7 +402,7 @@ controller.execQuerys = async (req, res) => {
         });
     console.log(c);*/
 
-    const a = await sequelize.query("SHOW COLUMNS FROM Registro_app;")
+    const a = await sequelize.query("SELECT column_name FROM user_tab_cols WHERE table_name = 'Registro_app';")
         .then(data => {
             console.log(data);
         }).catch(err => {
