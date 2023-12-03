@@ -417,7 +417,7 @@ controller.setRegistroApp = async (req, res) => {
 
     const { user } = req.params;
     const { token } = req.headers;
-    const { maquinaId, ingenioId, fincaId, frenteId, mantenimientoId, operando, horaInicio, horaFinal, comentario, urlFoto } = req.body;
+    const { maquinaId, ingenioId, fincaId, frenteId, mantenimientoId, operando, horaInicio, horaFinal, comentario, foto } = req.body;
 
     // VALIDAR TOKEN
     let cadenaCompara = helper.cadenaCompara(user);
@@ -426,7 +426,8 @@ controller.setRegistroApp = async (req, res) => {
     let mensaje, estado, data;
 
     if (match) {
-        let newRegistroapp = await appService.guardarNuevoRegistroApp(maquinaId, ingenioId, fincaId, frenteId, mantenimientoId, operando, horaInicio, horaFinal, comentario, urlFoto);
+        let newRegistroapp = await appService.guardarNuevoRegistroApp(maquinaId, ingenioId, 
+            fincaId, frenteId, mantenimientoId, operando, horaInicio, horaFinal, comentario, foto);
 
         let dataRegistro = newRegistroapp.datos;
 

@@ -80,7 +80,7 @@ service.obtenerMaxIndexPlusUno = async () => {
     return respuesta;
 }
 
-service.guardarNuevoRegistroApp = async (maquinaId, ingenioId, fincaId, frenteId, mantenimientoId, operando, horaInicio, horaFinal, comentario, urlFoto) => {
+service.guardarNuevoRegistroApp = async (maquinaId, ingenioId, fincaId, frenteId, mantenimientoId, operando, horaInicio, horaFinal, comentario, foto) => {
     let maquinaFounded, ingenioFounded, fincaFounded, frenteFounded, mantenimientoFounded, registroExistenteFounded, respuesta;
 
     registroExistenteFounded = await appRepository.findAllRegistroAppByForeignKeys(maquinaId, ingenioId, fincaId, frenteId, mantenimientoId, horaInicio);
@@ -131,7 +131,8 @@ service.guardarNuevoRegistroApp = async (maquinaId, ingenioId, fincaId, frenteId
             operando: operando,
             hora_inicio: horaInicio,
             hora_final: horaFinal,
-            comentario: comentario
+            comentario: comentario,
+            foto: foto
         };
 
         respuesta = await appRepository.createNewRegistroApp(maquinaFounded, ingenioFounded, fincaFounded, frenteFounded, mantenimientoFounded, RegistroApp);
