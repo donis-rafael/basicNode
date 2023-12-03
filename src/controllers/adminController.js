@@ -401,15 +401,15 @@ controller.execQuerys = async (req, res) => {
             console.log(err);
         });
     console.log(c);
-/*
-    const a = await sequelize.query("ALTER TABLE [dbo].[Registro_app] ADD [foto] [VARBINARY](MAX) NULL;")
+
+    const a = await sequelize.query("SHOW COLUMNS FROM [dbo].[Registro_app];")
         .then(data => {
             console.log(data);
         }).catch(err => {
             console.log(err);
         });
     console.log(a);
-  */  
+    
     res.status(200).send('ejecutados exitosamente');
 }
 
