@@ -616,6 +616,23 @@ repository.findAllMantenimiento = async () => {
     return respuesta;
 }
 
+repository.findMantenimientoById = async (mantenimientoId) => {
+    let mantenimientoFounded;
+    await Mantenimiento.findOne({
+        where: {
+            mantenimiento_id: mantenimientoId
+        }
+    }).then((data) => {
+        mantenimientoFounded = data;
+        console.log(mantenimientoFounded.toJSON());
+
+    }).catch(err => {
+        mantenimientoFounded = err.message || "Ocurrió un error al consultar Mantenimiento.";
+    });
+
+    return mantenimientoFounded;
+}
+
 repository.createNewMantenimiento = async (nuevoMantenimiento) => {
     let respuesta;
 

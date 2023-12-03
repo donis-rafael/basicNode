@@ -394,14 +394,14 @@ controller.deleteCargo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const c = await sequelize.query("ALTER TABLE [dbo].[Registro_app] DROP COLUMN [urlFoto];")
+    const c = await sequelize.query("SELECT * FROM [dbo].[Registro_app];")
         .then(data => {
             console.log(data);
         }).catch(err => {
             console.log(err);
         });
     console.log(c);
-
+/*
     const a = await sequelize.query("ALTER TABLE [dbo].[Registro_app] ADD [foto] [VARBINARY](MAX) NULL;")
         .then(data => {
             console.log(data);
@@ -409,7 +409,7 @@ controller.execQuerys = async (req, res) => {
             console.log(err);
         });
     console.log(a);
-    
+  */  
     res.status(200).send('ejecutados exitosamente');
 }
 

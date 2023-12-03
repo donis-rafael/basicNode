@@ -32,7 +32,7 @@ service.obtenerTodasLasMaquinas = async () => {
 }
 
 service.obtenerTodosLosMantenimientos = async () => {
-    mantenimientos = await appRepository.findAllMantenimiento();
+    mantenimientos = await adminRepository.findAllMantenimiento();
 
     return mantenimientos;
 }

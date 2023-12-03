@@ -1,7 +1,7 @@
 const repository = {};
 const sequelize = require("sequelize");
 
-const Mantenimiento = require('../models/reporteria_crm/mantenimiento.model');
+const Mantenimiento = require('../models/gestion/mantenimiento.model');
 const Registro_APP = require('../models/gestion/registro.app.model');
 
 const Maquina = require('../models/indicadores_crm/dm_Maquina.model');
@@ -57,32 +57,6 @@ repository.findMaquinaById = async (maquinaId) => {
  * ************** MANTENIMIENTO **************
  * *******************************************
  */
-repository.findAllMantenimiento = async () => {
-    let respuesta, vacio = false;
-    await Mantenimiento.findAll()
-        .then((data) => {
-            if (data.length <= 0) {
-                vacio = true;
-                data = {
-                    mensaje: 'sin datos'
-                }
-            }
-            respuesta = {
-                mensaje: !vacio ? 'Exito' : 'Sin Datos',
-                datos: data
-            }
-
-        }).catch(err => {
-            respuesta = {
-                mensaje: 'Error',
-                datos: err.message || "Ocurrió un error al consultar Mantenimiento."
-            };
-        });
-
-
-    return respuesta;
-}
-
 repository.findMantenimientoById = async (mantenimientoId) => {
     let mantenimientoFounded;
     await Mantenimiento.findOne({
