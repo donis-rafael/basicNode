@@ -26,6 +26,31 @@ service.eliminarRol = async (rolId) => {
 }
 // fin Roles
 
+// inicio Mantenimiento
+service.obtenerTodosLosMantenimientos = async () => {
+    mantenimientos = await adminRepository.findAllMantenimiento();
+
+    return mantenimientos;
+}
+
+service.guardarNuevoMantenimientos = async (nombreMantenimientos) => {
+    // Crea Mantenimientos
+    const mantenimiento = {
+        nombre_mantenimiento: nombreMantenimientos
+    };
+
+    return await adminRepository.createNewMantenimiento(mantenimiento);
+}
+
+service.actualizarMantenimientos = async (mantenimientoId, mantenimientoName) => {
+    return await adminRepository.updateMantenimiento(mantenimientoId, mantenimientoName);
+}
+
+service.eliminarMantenimientos = async (mantenimientoId) => {
+    return await adminRepository.destroyMantenimiento(mantenimientoId);
+}
+// fin Mantenimiento
+
 // inicio Cargos
 service.obtenerTodosLosCargos = async () => {
     cargos = await adminRepository.findAllCargos();

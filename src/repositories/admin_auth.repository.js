@@ -4,6 +4,7 @@ const Cargo = require('../models/gestion/cargo.model');
 const Rol = require('../models/gestion/rol.model');
 const Usuario = require('../models/gestion/usuario.model');
 const Credencial = require('../models/gestion/credencial.model');
+const Mantenimiento = require('../models/gestion/mantenimiento.model');
 
 // Relacion entre Usuario y Rol
 Rol.hasMany(Usuario, { foreignKey: 'rol_id' });
@@ -580,6 +581,111 @@ repository.findAllCreds = async () => {
             };
         });
 
+
+    return respuesta;
+}
+
+/**
+ * *******************************************
+ * ************** MANTENIMIENTO **************
+ * *******************************************
+ */
+repository.findAllMantenimiento = async () => {
+    let respuesta, vacio = false;
+    await Mantenimiento.findAll()
+        .then(data => {
+            if (data.length <= 0) {
+                vacio = true;
+                data = {
+                    mensaje: 'sin datos'
+                }
+            }
+            respuesta = {
+                mensaje: !vacio ? 'Exito' : 'Sin Datos',
+                datos: data
+            }
+
+        }).catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                datos: err.message || "Ocurrió un error al consultar Mantenimientos."
+            };
+        });
+
+
+    return respuesta;
+}
+
+repository.createNewMantenimiento = async (nuevoMantenimiento) => {
+    let respuesta;
+
+    // Guarda el Mantenimiento en la BD
+    await Mantenimiento.create(nuevoMantenimiento)
+        .then(data => {
+            respuesta = {
+                mensaje: 'Exito',
+                datos: data
+            }
+        })
+        .catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                datos: err.message
+            };
+        });
+
+    return respuesta;
+}
+
+repository.updateMantenimiento = async (mantenimientoId, mantenimientoName) => {
+    let respuesta;
+
+    // Guarda el Mantenimiento en la BD
+    await Mantenimiento.update(
+        {
+            nombre_mantenimiento: mantenimientoName
+        },
+        {
+            where: {
+                mantenimiento_id: mantenimientoId
+            }
+        }
+    ).then(data => {
+        respuesta = {
+            mensaje: 'Exito',
+            datos: data
+        }
+    }).catch(err => {
+        respuesta = {
+            mensaje: 'Error',
+            datos: err.message
+        };
+    });
+
+    return respuesta;
+}
+
+repository.destroyMantenimiento = async (mantenimientoId) => {
+    let respuesta;
+
+    // Elimina el Mantenimiento en la BD
+    await Mantenimiento.destroy(
+        {
+            where: {
+                mantenimiento_id: mantenimientoId
+            }
+        }
+    ).then(data => {
+        respuesta = {
+            mensaje: 'Exito',
+            datos: data
+        }
+    }).catch(err => {
+        respuesta = {
+            mensaje: 'Error',
+            datos: err.message
+        };
+    });
 
     return respuesta;
 }
