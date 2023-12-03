@@ -394,15 +394,15 @@ controller.deleteCargo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const c = await sequelize.query("SELECT * FROM [dbo].[Registro_app];")
+    /*const c = await sequelize.query("SELECT * FROM [dbo].[Registro_app];")
         .then(data => {
             console.log(data);
         }).catch(err => {
             console.log(err);
         });
-    console.log(c);
+    console.log(c);*/
 
-    const a = await sequelize.query("SHOW COLUMNS FROM [dbo].[Registro_app];")
+    const a = await sequelize.query("SHOW COLUMNS FROM Registro_app;")
         .then(data => {
             console.log(data);
         }).catch(err => {
