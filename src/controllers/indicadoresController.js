@@ -24,9 +24,6 @@ controller.getFincas = async (req, res) => {
     res.status(estado).send(data);
 }
 
-
-
-
 /**
  * **************************************
  * *************** FRENTES ***************
