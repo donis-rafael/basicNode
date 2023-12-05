@@ -529,7 +529,7 @@ repository.login = async (userSearch) => {
             console.log("RESPUESTA0_0: " + JSON.stringify(data));
         } else {
             mensaje = 'error';
-            credFounded = `No fue posible iniciar con el usuario ${usuario}`;
+            credFounded = `No fue posible iniciar con el usuario ${userSearch}`;
             console.log("RESPUESTA0_1: " + credFounded);
         }
 
