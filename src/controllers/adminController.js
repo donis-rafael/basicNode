@@ -42,7 +42,8 @@ controller.getUsuarios_Rol_Cargo = async (req, res) => {
     res.status(estado).send(data);
 }
 
-controller.setUsuario = async (req, res) => {
+// SE USA EL REGISTRO
+/*controller.setUsuario = async (req, res) => {
     // Valida información del Request
     if (!req.body.nombreUsuario) {
         res.status(400).send({
@@ -51,9 +52,9 @@ controller.setUsuario = async (req, res) => {
         return;
     }
 
-    const { nombreUsuario, correo, rol, cargo, ingenio, progDesarrollo } = req.body;
+    const { nombreUsuario, correo, rol, cargo, ingenioId, ingenioNombre } = req.body;
 
-    let newUsuario = await adminService.guardarNuevoUsuario(nombreUsuario, correo, rol, cargo, ingenio, progDesarrollo);
+    let newUsuario = await adminService.guardarNuevoUsuario(nombreUsuario, correo, rol, cargo, ingenioId, ingenioNombre);
 
     let data = newUsuario.datos;
     let estado;
@@ -68,7 +69,7 @@ controller.setUsuario = async (req, res) => {
 
     res.status(estado).send(data);
 
-}
+}*/
 
 /**
  * ***********************************
@@ -409,7 +410,7 @@ controller.execQuerys = async (req, res) => {
             console.log(err);
         });
     console.log(a);
-    
+
     res.status(200).send('ejecutados exitosamente');
 }
 

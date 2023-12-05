@@ -1,5 +1,7 @@
 const repository = {};
+const { Op } = require("sequelize");
 
+const Ingenio = require('../models/indicadores_crm/dm_Ingenio.model');
 const Cargo = require('../models/gestion/cargo.model');
 const Rol = require('../models/gestion/rol.model');
 const Usuario = require('../models/gestion/usuario.model');
@@ -10,6 +12,10 @@ const Mantenimiento = require('../models/gestion/mantenimiento.model');
 Rol.hasMany(Usuario, { foreignKey: 'rol_id' });
 Usuario.belongsTo(Rol, { foreignKey: 'rol_id' });
 
+// Relacion entre Usuario e Ingenio
+Ingenio.hasMany(Usuario, { foreignKey: 'ingenio_id' });
+Usuario.belongsTo(Ingenio, { foreignKey: 'ingenio_id' });
+
 // Relacion entre Usuario y Cargo
 Cargo.hasMany(Usuario, { foreignKey: 'cargo_id' });
 Usuario.belongsTo(Cargo, { foreignKey: 'cargo_id' });
@@ -17,6 +23,32 @@ Usuario.belongsTo(Cargo, { foreignKey: 'cargo_id' });
 // Relacion entre Usuario y Credencial
 Usuario.hasMany(Credencial, { foreignKey: 'usuario_id' });
 Credencial.belongsTo(Usuario, { foreignKey: 'usuario_id' });
+
+/**
+ * **************************************
+ * ************** INGENIOS **************
+ * **************************************
+ */
+
+repository.findIngenioById_Nombre = async (ingenioId, ingenioNombre) => {
+    let ingenioFounded;
+    await Ingenio.findOne({
+        where: {
+            [Op.and]: [
+                { ingenio_id: ingenioId },
+                { nombre_ingenio: ingenioNombre }
+            ]
+        }
+    }).then((data) => {
+        ingenioFounded = data;
+        console.log(ingenioFounded.toJSON());
+
+    }).catch(err => {
+        ingenioFounded = err.message || "Ocurrió un error al consultar Ingenio.";
+    });
+
+    return ingenioFounded;
+}
 
 /**
  * ***********************************
@@ -302,8 +334,8 @@ repository.findAllUserByRol = async (rol) => {
 
         if (data.length <= 0) {
             vacio = true;
-        } else {
 
+        } else {
             rolFounded = data;
         }
 
@@ -399,7 +431,13 @@ repository.findAllUsers_Rol_Cargo = async () => {
 
 repository.createNewUsuario = async (nuevoUsuario, rol, cargo, ingenioId, ingenioNombre) => {
     let respuesta;
-    let rolFounded, cargoFounded, userAdded;
+    let ingenioFounded, rolFounded, cargoFounded, userAdded;
+
+    if (ingenioId && ingenioNombre) {
+        ingenioFounded = await repository.findIngenioById_Nombre(ingenioId, ingenioNombre);
+    } else {
+        ingenioFounded = null;
+    }
 
     if (rol) {
         rolFounded = await repository.findRolByNombre(rol);
@@ -417,6 +455,10 @@ repository.createNewUsuario = async (nuevoUsuario, rol, cargo, ingenioId, ingeni
     userAdded = UserObject.usuario;
 
     if (UserObject.mensaje != 'error') {
+
+        if (ingenioFounded != null) {
+            await relacionarIngenioUsuario(userAdded, ingenioFounded);
+        }
 
         if (rolFounded != null) {
             await relacionarRolUsuario(userAdded, rolFounded);
@@ -713,6 +755,17 @@ repository.destroyMantenimiento = async (mantenimientoId) => {
  * *****************************************************
  */
 
+async function relacionarIngenioUsuario(userAdded, ingenioFounded) {
+    let mensajeReturn;
+    await ingenioFounded.addUsuario(userAdded).
+        then((data) => {
+            mensajeReturn = 'exito';
+        }).catch((err) => {
+            mensajeReturn = err.mensaje;
+        })
+
+    return mensajeReturn;
+}
 
 async function relacionarRolUsuario(userAdded, rolFounded) {
     let mensajeReturn;

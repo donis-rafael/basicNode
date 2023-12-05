@@ -10,7 +10,7 @@ router.get('/cargos', admin_controller.getCargos);
 router.get('/mantenimientos', admin_controller.getMantenimiento);
 
 // POSTS
-router.post('/usuarios', admin_controller.setUsuario);
+//router.post('/usuarios', admin_controller.setUsuario); // SE USA EL REGISTRO
 router.post('/roles', admin_controller.setRol);
 router.post('/cargos', admin_controller.setCargo);
 router.post('/mantenimientos', admin_controller.setMantenimiento);

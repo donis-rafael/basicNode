@@ -89,14 +89,14 @@ service.obtenerTodosLosUsuarios_Rol_Cargo = async () => {
     return usuarios;
 }
 
-service.guardarNuevoUsuario = async (nombreUsuario, correo, rol, cargo) => {
+service.guardarNuevoUsuario = async (nombreUsuario, correo, rol, cargo, ingenioId, ingenioNombre) => {
     // Crea Usuario
     const usuario = {
         nombre_usuario: nombreUsuario,
         correo: correo
     };
 
-    return await adminRepository.createNewUsuario(usuario, rol, cargo);
+    return await adminRepository.createNewUsuario(usuario, rol, cargo, ingenioId, ingenioNombre);
 }
 // fin Usuarios
 
