@@ -23,7 +23,7 @@ controller.getIngenios = async (req, res) => {
     // VALIDAR TOKEN
     let cadenaCompara = helper.cadenaCompara(user);
     let cadenaComparaEncripted = await helper.encryptPassword(cadenaCompara);
-    console.log(cadenaComparaEncripted);
+    //log(cadenaComparaEncripted);
 
     const match = await helper.comparaPassword(cadenaCompara, token);
 
@@ -426,7 +426,7 @@ controller.setRegistroApp = async (req, res) => {
     let mensaje, estado, data;
 
     if (match) {
-        let newRegistroapp = await appService.guardarNuevoRegistroApp(maquinaId, ingenioId, 
+        let newRegistroapp = await appService.guardarNuevoRegistroApp(maquinaId, ingenioId,
             fincaId, frenteId, mantenimientoId, operando, horaInicio, horaFinal, comentario, foto);
 
         let dataRegistro = newRegistroapp.datos;

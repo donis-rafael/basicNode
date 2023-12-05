@@ -8,7 +8,6 @@ const indicadoresService = require('../services/indicadores.service');
  */
 controller.getFincas = async (req, res) => {
     let fincas = await indicadoresService.obtenerTodasLasFincas();
-    console.log(fincas);
 
     let data = fincas.datos;
     let estado;
@@ -31,7 +30,6 @@ controller.getFincas = async (req, res) => {
  */
 controller.getFrentes = async (req, res) => {
     let frentes = await indicadoresService.obtenerTodasLasFrentes();
-    console.log(frentes);
 
     let data = frentes.datos;
     let estado;
@@ -54,7 +52,6 @@ controller.getFrentes = async (req, res) => {
  */
 controller.getIngenios = async (req, res) => {
     let ingenios = await indicadoresService.obtenerTodasLasIngenios();
-    console.log(ingenios);
 
     let data = ingenios.datos;
     let estado;
@@ -77,7 +74,6 @@ controller.getIngenios = async (req, res) => {
  */
 controller.getMaquinas = async (req, res) => {
     let maquinas = await indicadoresService.obtenerTodasLasMaquinas();
-    console.log(maquinas);
 
     let data = maquinas.datos;
     let estado;
@@ -100,7 +96,6 @@ controller.getMaquinas = async (req, res) => {
  */
 controller.getIngeniosFrentes = async (req, res) => {
     let ing_frente = await indicadoresService.obtenerTodos_Ingeio_Frente();
-    console.log(ing_frente);
 
     let data = ing_frente.datos;
     let estado;
@@ -123,7 +118,6 @@ controller.getIngeniosFrentes = async (req, res) => {
  */
 controller.getIngeniosFrentesFincas = async (req, res) => {
     let ing_frente_finc = await indicadoresService.obtenerTodos_Ingeio_Frente_Finca();
-    console.log(ing_frente_finc);
 
     let data = ing_frente_finc.datos;
     let estado;
@@ -146,7 +140,6 @@ controller.getIngeniosFrentesFincas = async (req, res) => {
  */
 controller.getIngeniosFrentesFincasEquipos = async (req, res) => {
     let ing_frente_finc_equipo = await indicadoresService.obtenerTodos_Ingeio_Frente_Finca_Equipo();
-    console.log(ing_frente_finc_equipo);
 
     let data = ing_frente_finc_equipo.datos;
     let estado;
@@ -169,7 +162,6 @@ controller.getIngeniosFrentesFincasEquipos = async (req, res) => {
  */
 controller.getIndicadoresDiariosCliente = async (req, res) => {
     let indicadores_diarios_response = await indicadoresService.obtenerTodos_Indicadores_Diarios_Cliente();
-    console.log(indicadores_diarios_response);
 
     let data = indicadores_diarios_response.datos;
     let estado;
@@ -187,7 +179,6 @@ controller.getIndicadoresDiariosCliente = async (req, res) => {
 
 controller.getIndicadoresDiariosCliente_Frente = async (req, res) => {
     let indicadores_diarios_response = await indicadoresService.obtenerTodos_Indicadores_Diarios_Cliente_Frente();
-    console.log(indicadores_diarios_response);
 
     let data = indicadores_diarios_response.datos;
     let estado;

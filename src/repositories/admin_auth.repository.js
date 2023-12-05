@@ -41,7 +41,6 @@ repository.findIngenioById_Nombre = async (ingenioId, ingenioNombre) => {
         }
     }).then((data) => {
         ingenioFounded = data;
-        console.log(ingenioFounded.toJSON());
 
     }).catch(err => {
         ingenioFounded = err.message || "Ocurrió un error al consultar Ingenio.";
@@ -392,7 +391,6 @@ repository.findUserById = async (userId) => {
         include: [Rol, Ingenio]
     }).then((data) => {
         usuarioFounded = data;
-        console.log(usuarioFounded.toJSON());
 
     }).catch(err => {
         usuarioFounded = err.message || "Ocurrió un error al consultar usuario.";
@@ -491,7 +489,7 @@ repository.createNewUsuario = async (nuevoUsuario, rol, cargo, ingenioId, ingeni
 
 repository.createEmptyUserAsync = async (newUser) => {
     let userAdded, mensajeReturn;
-    console.log('newUser: ' + JSON.stringify(newUser))
+
     await Usuario.create(newUser).
         then((data) => {
             userAdded = data;
@@ -526,24 +524,21 @@ repository.login = async (userSearch) => {
         if (data != null) {
             mensaje = 'exito';
             credFounded = data;
-            console.log("RESPUESTA0_0: " + JSON.stringify(data));
+
         } else {
             mensaje = 'error';
             credFounded = `No fue posible iniciar con el usuario ${userSearch}`;
-            console.log("RESPUESTA0_1: " + credFounded);
         }
 
     }).catch(err => {
         mensaje = 'error';
         credFounded = err.message || "Ocurrió un error al consultar sesión.";
-        console.log("RESPUESTA0_2: " + credFounded);
     });
 
     let respuesta = {
         message: mensaje,
         cuerpo: credFounded
     }
-    console.log("RESPUESTA1: " + JSON.stringify(respuesta));
 
     return respuesta;
 }
@@ -591,7 +586,7 @@ repository.createNewCredencial = async (credencial, usuarioNew) => {
 
 repository.createEmptyCredencialAsync = async (newCredential) => {
     let credAdded, mensajeReturn;
-    console.log('newCredential: ' + JSON.stringify(newCredential));
+
     await Credencial.create(newCredential).
         then((data) => {
             credAdded = data;
@@ -675,7 +670,6 @@ repository.findMantenimientoById = async (mantenimientoId) => {
         }
     }).then((data) => {
         mantenimientoFounded = data;
-        console.log(mantenimientoFounded.toJSON());
 
     }).catch(err => {
         mantenimientoFounded = err.message || "Ocurrió un error al consultar Mantenimiento.";

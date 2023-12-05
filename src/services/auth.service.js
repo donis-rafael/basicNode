@@ -42,7 +42,6 @@ service.registrarNuevoUsuario = async (user, password, nombreUsuario, correo, ro
 service.iniciarSesion = async (usuario, contrasenia) => {
     let respuesta;
     let credencial = await adminRepository.login(usuario);
-    console.log("CRED: " + JSON.stringify(credencial));
 
     if (credencial.message != 'error') {
         let sesion = credencial.cuerpo;

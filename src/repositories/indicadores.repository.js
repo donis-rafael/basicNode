@@ -74,7 +74,6 @@ repository.findFincaById = async (fincaId) => {
         }
     }).then((data) => {
         fincaFounded = data;
-        console.log(fincaFounded.toJSON());
 
     }).catch(err => {
         fincaFounded = err.message || "Ocurrió un error al consultar Maquina.";
@@ -603,32 +602,5 @@ repository.findAll_IndSemCal_Cliente_Frente_Finca_Equipo = async () => {
 
     return respuesta;
 }
-
-
-
-/**
- * **************************************
- * ************** MAQUINAS **************
- * **************************************
- *//*
-
-repository.findMaquinaById = async (maquinaId) => {
-let maquinaFounded;
-await Maquina.findOne({
-where: {
-maquina_id: maquinaId
-}
-}).then((data) => {
-maquinaFounded = data;
-console.log(maquinaFounded.toJSON());
-
-}).catch(err => {
-maquinaFounded = err.message || "Ocurrió un error al consultar Maquina.";
-});
-
-return maquinaFounded;
-}
-*/
-
 
 module.exports = repository;

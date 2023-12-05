@@ -43,7 +43,6 @@ repository.findMaquinaById = async (maquinaId) => {
         }
     }).then((data) => {
         maquinaFounded = data;
-        console.log(maquinaFounded.toJSON());
 
     }).catch(err => {
         maquinaFounded = err.message || "Ocurrió un error al consultar Maquina.";
@@ -65,7 +64,6 @@ repository.findMantenimientoById = async (mantenimientoId) => {
         }
     }).then((data) => {
         mantenimientoFounded = data;
-        console.log(mantenimientoFounded.toJSON());
 
     }).catch(err => {
         mantenimientoFounded = err.message || "Ocurrió un error al consultar Mantenimiento.";
@@ -206,12 +204,7 @@ repository.createNewRegistroApp = async (maquina, ingenio, finca, frente, manten
 
 repository.createEmptyRegistroAppAsync = async (newRegistro) => {
     let registroAppFounded, registroAppAdded, mensajeReturn;
-    console.log('newRegistro: ' + JSON.stringify(newRegistro));
 
-    /**
-     * probar consulta con Include...
-     * probar where en include
-     */
     await Registro_APP.findAll({
         where: {
             hora_inicio: newRegistro.hora_inicio
