@@ -16,6 +16,7 @@ controller.iniciarSesion = async (req, res) => {
     // VALIDAR TOKEN
     let cadenaCompara = helper.cadenaCompara(user);
     const match = await helper.comparaPassword(cadenaCompara, token);
+    console.log(cadenaCompara);
 
     let mensaje, estado, data;
 
