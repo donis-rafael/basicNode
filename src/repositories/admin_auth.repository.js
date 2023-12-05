@@ -523,8 +523,13 @@ repository.login = async (userSearch) => {
         },
         include: [Usuario]
     }).then((data) => {
-        mensaje = 'exito';
-        credFounded = data;
+        if (data != null) {
+            mensaje = 'exito';
+            credFounded = data;
+        } else {
+            mensaje = 'error';
+            credFounded = `No fue posible iniciar con el usuario ${usuario}`;
+        }
 
     }).catch(err => {
         mensaje = 'error';

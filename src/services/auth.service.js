@@ -73,7 +73,7 @@ service.iniciarSesion = async (usuario, contrasenia) => {
             mensaje: 'Error',
             datos: {
                 mensaje: 'Error iniciando sesión',
-                content: `No fue posible iniciar con el usuario ${usuario}`
+                content: credencial.cuerpo
             }
         };
     }
