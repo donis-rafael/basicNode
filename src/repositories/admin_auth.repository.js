@@ -535,7 +535,7 @@ repository.login = async (userSearch) => {
         message: mensaje,
         cuerpo: credFounded
     }
-    console.log("RESPUESTA: " + respuesta);
+    console.log("RESPUESTA: " + JSON.stringify(respuesta));
 
     return respuesta;
 }
