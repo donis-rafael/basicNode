@@ -526,21 +526,24 @@ repository.login = async (userSearch) => {
         if (data != null) {
             mensaje = 'exito';
             credFounded = data;
+            console.log("RESPUESTA0_0: " + JSON.stringify(data));
         } else {
             mensaje = 'error';
             credFounded = `No fue posible iniciar con el usuario ${usuario}`;
+            console.log("RESPUESTA0_1: " + credFounded);
         }
 
     }).catch(err => {
         mensaje = 'error';
         credFounded = err.message || "Ocurrió un error al consultar sesión.";
+        console.log("RESPUESTA0_2: " + credFounded);
     });
 
     let respuesta = {
         message: mensaje,
         cuerpo: credFounded
     }
-    console.log("RESPUESTA: " + JSON.stringify(respuesta));
+    console.log("RESPUESTA1: " + JSON.stringify(respuesta));
 
     return respuesta;
 }
