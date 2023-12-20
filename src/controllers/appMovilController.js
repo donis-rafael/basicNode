@@ -23,7 +23,7 @@ controller.getIngenios = async (req, res) => {
     // VALIDAR TOKEN
     let cadenaCompara = helper.cadenaCompara(user);
     let cadenaComparaEncripted = await helper.encryptPassword(cadenaCompara);
-    console.log(cadenaComparaEncripted);
+    //log(cadenaComparaEncripted);
 
     const match = await helper.comparaPassword(cadenaCompara, token);
 
