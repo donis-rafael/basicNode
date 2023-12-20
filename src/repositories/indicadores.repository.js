@@ -1,4 +1,5 @@
 const repository = {};
+const { Sequelize, Op } = require('sequelize');
 
 const DM_Finca = require('../models/indicadores_crm/dm_Finca.model');
 const DM_Frente = require('../models/indicadores_crm/dm_Frente.model');
@@ -119,7 +120,20 @@ repository.findAllFrentes = async () => {
  */
 repository.findAllIngenios = async () => {
     let respuesta, vacio = false;
-    await DM_Ingenio.findAll()
+    await DM_Ingenio.findAll({
+        where: {
+            [Op.substring]: 'ngenio'
+        }
+        /*[
+            Sequelize.fn(
+                'lower', Sequelize.col('nombre_ingenio')
+            ),
+            {
+                $like: '%ingenio%'
+            }
+        ]*/
+
+    })
         .then((data) => {
             if (data.length <= 0) {
                 vacio = true;
