@@ -122,7 +122,9 @@ repository.findAllIngenios = async () => {
     let respuesta, vacio = false;
     await DM_Ingenio.findAll({
         where: {
-            [Op.substring]: 'ngenio'
+            nombre_ingenio: {
+                [Op.like]: '\'%ngenio%\''
+            }
         }
         /*[
             Sequelize.fn(
