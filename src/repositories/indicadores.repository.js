@@ -123,7 +123,7 @@ repository.findAllIngenios = async () => {
     await DM_Ingenio.findAll({
         where: {
             nombre_ingenio: {
-                [Op.like]: '\'%ngenio%\''
+                [Op.substring]: 'ngenio'
             }
         }
         /*[
