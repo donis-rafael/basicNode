@@ -96,7 +96,9 @@ repository.findAllFrentes = async (ingenio) => {
             include: [
                 {
                     model: DM_Ingenio_Frente,
-                    on: { 'DM_Ingenio_Frente.Frente': 'DM_Frente.frente' },
+                    where: {
+                        Frente: frente
+                    },
                     include: {
                         model: DM_Ingenio,
                         where: {
