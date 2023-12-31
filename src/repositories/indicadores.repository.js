@@ -31,7 +31,7 @@ const IndSemCal_ClienteXFrenteXFincaXEquipo = require('../models/indicadores_crm
 
 // Relacion entre Ingenio y Frente
 DM_Ingenio.hasMany(DM_Ingenio_Frente, { foreignKey: 'id_cliente' });
-DM_Ingenio_Frente.belongsTo(DM_Ingenio, { foreignKey: 'id_cliente' });
+DM_Ingenio_Frente.belongsTo(DM_Ingenio, { foreignKey: 'id_cliente', as: '_Ingenios' });
 
 DM_Frente.hasMany(DM_Ingenio_Frente, { foreignKey: 'Frente' });
 DM_Ingenio_Frente.belongsTo(DM_Frente, { foreignKey: 'Frente' });
@@ -91,22 +91,18 @@ repository.findFincaById = async (fincaId) => {
 repository.findAllFrentes = async (ingenio) => {
     let respuesta, vacio = false;
 
-    await DM_Frente.findAll(
+    await DM_Frente.findAll
+    (
         {
-            include: [
-                {
-                    model: DM_Ingenio_Frente,
+            include: {
+                model: DM_Ingenio_Frente,
+                include: {
+                    model: DM_Ingenio,
                     where: {
-                        Frente: frente
-                    },
-                    include: {
-                        model: DM_Ingenio,
-                        where: {
-                            ingenio_id: ingenio
-                        }
+                        ingenio_id: ingenio
                     }
                 }
-            ]
+            }
         }
     ).then((data) => {
         if (data.length <= 0) {
