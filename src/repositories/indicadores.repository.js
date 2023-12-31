@@ -30,7 +30,7 @@ const IndSemCal_ClienteXFrenteXFincaXEquipo = require('../models/indicadores_crm
 
 
 // Relacion entre Ingenio y Frente
-DM_Ingenio.hasMany(DM_Ingenio_Frente, { foreignKey: 'id_cliente' });
+DM_Ingenio.hasMany(DM_Ingenio_Frente, { foreignKey: 'id_cliente', as: 'Ingenios' });
 DM_Ingenio_Frente.belongsTo(DM_Ingenio, { foreignKey: 'id_cliente', as: 'Ingenios' });
 
 DM_Frente.hasMany(DM_Ingenio_Frente, { foreignKey: 'Frente', as: 'Frentes' });
@@ -126,6 +126,8 @@ repository.findAllFrentes = async (ingenio) => {
             datos: err.message || "Ocurrió un error al consultar Frentes."
         };
     });
+
+    //https://dev-tesis.onrender.com/api/app-movil/jonnathan/0B0D2467-F38E-E911-A95C-000D3A4F149A/frentes
 
     /*await DM_Frente.findAll()
         .then((data) => {
