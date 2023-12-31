@@ -82,10 +82,9 @@ controller.getFrentes = async (req, res) => {
 
     // VALIDAR TOKEN
     let cadenaCompara = helper.cadenaCompara(user);
-    const match = await helper.comparaPassword(cadenaCompara, token);
+    const match = true;//await helper.comparaPassword(cadenaCompara, token);
 
     let mensaje, estado, data;
-    match = true;
 
     if (match) {
         let frentes = await appService.obtenerTodosLosFrentes(ingenio);
