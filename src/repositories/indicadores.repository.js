@@ -88,9 +88,42 @@ repository.findFincaById = async (fincaId) => {
  * *************** FRENTES ***************
  * ***************************************
  */
-repository.findAllFrentes = async () => {
+repository.findAllFrentes = async (ingenio) => {
     let respuesta, vacio = false;
-    await DM_Frente.findAll()
+
+    await DM_Frente.findAll(
+        {
+            include: {
+                model: DM_Ingenio_Frente,
+                where: {
+                    '$Ingenios.ingenio_id$': ingenio
+                },
+                include: {
+                    model: DM_Ingenio,
+                    as: 'Ingenios'
+                }
+            }
+        }
+    ).then((data) => {
+        if (data.length <= 0) {
+            vacio = true;
+            data = {
+                mensaje: 'sin datos'
+            }
+        }
+        respuesta = {
+            mensaje: !vacio ? 'Exito' : 'Sin Datos',
+            datos: data
+        }
+
+    }).catch(err => {
+        respuesta = {
+            mensaje: 'Error',
+            datos: err.message || "Ocurrió un error al consultar Frentes."
+        };
+    });
+
+    /*await DM_Frente.findAll()
         .then((data) => {
             if (data.length <= 0) {
                 vacio = true;
@@ -108,7 +141,7 @@ repository.findAllFrentes = async () => {
                 mensaje: 'Error',
                 datos: err.message || "Ocurrió un error al consultar Frentes."
             };
-        });
+        });*/
 
     return respuesta;
 }

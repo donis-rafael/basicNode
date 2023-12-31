@@ -17,9 +17,9 @@ service.obtenerTodasLasFincas = async () => {
     return fincas;
 }
 
-service.obtenerTodosLosFrentes = async () => {
+service.obtenerTodosLosFrentes = async (ingenio) => {
     //frentes = await adminRepository.findAllFrentes();
-    frentes = await indicadoresRepository.findAllFrentes();
+    frentes = await indicadoresRepository.findAllFrentes(ingenio);
 
     return frentes;
 }

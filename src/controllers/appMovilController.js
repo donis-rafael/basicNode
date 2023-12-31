@@ -62,6 +62,63 @@ controller.getIngenios = async (req, res) => {
     res.status(estado).send(data);
 };
 
+controller.getFrentes = async (req, res) => {
+    if (!req.headers['token']) {
+        res.status(400).send({
+            message: "Carece de token"
+        });
+        return;
+    }
+
+    if (!req.params['user']) {
+        res.status(400).send({
+            message: "Carece de usuario"
+        });
+        return;
+    }
+
+    const { user, ingenio } = req.params;
+    const { token } = req.headers;
+
+    // VALIDAR TOKEN
+    let cadenaCompara = helper.cadenaCompara(user);
+    const match = await helper.comparaPassword(cadenaCompara, token);
+
+    let mensaje, estado, data;
+    match = true;
+
+    if (match) {
+        let frentes = await appService.obtenerTodosLosFrentes(ingenio);
+
+        let dataFrentes = frentes.datos;
+
+        if ((frentes.mensaje == 'Exito') || (frentes.mensaje == 'Sin Datos')) {
+            mensaje = 'Exito';
+            estado = 200;
+        } else if (frentes.mensaje == 'Error') {
+            mensaje = 'Error';
+            estado = 500;
+        } else {
+            mensaje = 'Error';
+            estado = 300;
+            dataFrentes = ''
+        }
+
+        data = {
+            mensaje: mensaje,
+            datos: dataFrentes
+        };
+    } else {
+        estado = 500;
+        data = {
+            mensaje: 'Error',
+            datos: "Token no válido"
+        };
+    }
+
+    res.status(estado).send(data);
+};
+
 controller.getFincas = async (req, res) => {
     if (!req.headers['token']) {
         res.status(400).send({
@@ -77,7 +134,7 @@ controller.getFincas = async (req, res) => {
         return;
     }
 
-    const { user } = req.params;
+    const { user, ingenio, frente } = req.params;
     const { token } = req.headers;
 
     // VALIDAR TOKEN
@@ -108,62 +165,6 @@ controller.getFincas = async (req, res) => {
             datos: dataFincas
         };
 
-    } else {
-        estado = 500;
-        data = {
-            mensaje: 'Error',
-            datos: "Token no válido"
-        };
-    }
-
-    res.status(estado).send(data);
-};
-
-controller.getFrentes = async (req, res) => {
-    if (!req.headers['token']) {
-        res.status(400).send({
-            message: "Carece de token"
-        });
-        return;
-    }
-
-    if (!req.params['user']) {
-        res.status(400).send({
-            message: "Carece de usuario"
-        });
-        return;
-    }
-
-    const { user } = req.params;
-    const { token } = req.headers;
-
-    // VALIDAR TOKEN
-    let cadenaCompara = helper.cadenaCompara(user);
-    const match = await helper.comparaPassword(cadenaCompara, token);
-
-    let mensaje, estado, data;
-
-    if (match) {
-        let frentes = await appService.obtenerTodosLosFrentes();
-
-        let dataFrentes = frentes.datos;
-
-        if ((frentes.mensaje == 'Exito') || (frentes.mensaje == 'Sin Datos')) {
-            mensaje = 'Exito';
-            estado = 200;
-        } else if (frentes.mensaje == 'Error') {
-            mensaje = 'Error';
-            estado = 500;
-        } else {
-            mensaje = 'Error';
-            estado = 300;
-            dataFrentes = ''
-        }
-
-        data = {
-            mensaje: mensaje,
-            datos: dataFrentes
-        };
     } else {
         estado = 500;
         data = {
