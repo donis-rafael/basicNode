@@ -33,7 +33,7 @@ const IndSemCal_ClienteXFrenteXFincaXEquipo = require('../models/indicadores_crm
 DM_Ingenio.hasMany(DM_Ingenio_Frente, { foreignKey: 'id_cliente' });
 DM_Ingenio_Frente.belongsTo(DM_Ingenio, { foreignKey: 'id_cliente' });
 
-DM_Frente.hasMany(DM_Ingenio_Frente, { foreignKey: 'Frente', as: 'Frentes' });
+DM_Frente.hasMany(DM_Ingenio_Frente, { foreignKey: 'Frente' });
 DM_Ingenio_Frente.belongsTo(DM_Frente, { foreignKey: 'Frente' });
 
 /**
@@ -93,13 +93,10 @@ repository.findAllFrentes = async (ingenio) => {
 
     await DM_Frente.findAll(
         {
-            where: {
-                frente: '$Frentes.Frente$'
-            },
             include: [
                 {
                     model: DM_Ingenio_Frente,
-                    as: 'Frentes',
+                    on: { 'DM_Ingenio_Frente.Frente': 'DM_Frente.frente' },
                     include: {
                         model: DM_Ingenio,
                         where: {
