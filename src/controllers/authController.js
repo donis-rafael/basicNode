@@ -10,6 +10,8 @@ controller.iniciarSesion = async (req, res) => {
         return;
     }
 
+
+
     const { token } = req.headers;
     const { user, password } = req.body;
 
