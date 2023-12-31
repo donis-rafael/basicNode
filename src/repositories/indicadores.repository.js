@@ -96,17 +96,18 @@ repository.findAllFrentes = async (ingenio) => {
             where: {
                 frente: '$Frentes.Frente$'
             },
-            include: {
-                model: DM_Ingenio_Frente,
-                as: 'Frentes',
-                include: {
-                    model: DM_Ingenio,
-                    as: 'Ingenios'
-                },
-                where: {
-                    '$Ingenios.ingenio_id$': ingenio
+            include: [
+                {
+                    model: DM_Ingenio_Frente,
+                    as: 'Frentes',
+                    include: {
+                        model: DM_Ingenio,
+                        where: {
+                            ingenio_id: ingenio
+                        }
+                    }
                 }
-            }
+            ]
         }
     ).then((data) => {
         if (data.length <= 0) {
