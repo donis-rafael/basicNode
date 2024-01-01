@@ -22,7 +22,8 @@ service.obtenerTodosLosFrentes = async (ingenio) => {
     //frentes = await indicadoresRepository.findAllFrentes(ingenio);
     //let frentes = [];
     frentes = await indicadoresRepository.findAll_Ingenio_FrenteByIngenio(ingenio);
-    console.log(frentes_ingenio.datos);
+    //console.log(frentes_ingenio.datos);
+    console.log(frentes.datos);
 
     return frentes;
 }
