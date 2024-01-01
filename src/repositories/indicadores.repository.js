@@ -91,18 +91,13 @@ repository.findFincaById = async (fincaId) => {
 repository.findAllFrentes = async (ingenio) => {
     let respuesta, vacio = false;
 
-    await DM_Frente.findAll
-    (
+    await DM_Frente.findAll(
         {
-            include: {
-                model: DM_Ingenio_Frente,
-                include: {
-                    model: DM_Ingenio,
-                    where: {
-                        ingenio_id: ingenio
-                    }
+            include: [
+                {
+                    model: DM_Ingenio_Frente,
                 }
-            }
+            ]
         }
     ).then((data) => {
         if (data.length <= 0) {
@@ -251,6 +246,39 @@ repository.findAll_Ingenio_Frente = async () => {
             };
         });
 
+
+    return respuesta;
+}
+
+repository.findAll_Ingenio_FrenteByIngenio = async (ingenio) => {
+    let respuesta, vacio = false;
+    await DM_Ingenio_Frente.findAll(
+        {
+            include: {
+                model: DM_Ingenio,
+                where: {
+                    ingenio_id: ingenio
+                }
+            }
+        }
+    ).then((data) => {
+        if (data.length <= 0) {
+            vacio = true;
+            data = {
+                mensaje: 'sin datos'
+            }
+        }
+        respuesta = {
+            mensaje: !vacio ? 'Exito' : 'Sin Datos',
+            datos: data
+        }
+
+    }).catch(err => {
+        respuesta = {
+            mensaje: 'Error',
+            datos: err.message || "Ocurrió un error al consultar Ingenio-Frente."
+        };
+    });
 
     return respuesta;
 }
