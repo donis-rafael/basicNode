@@ -19,7 +19,10 @@ service.obtenerTodasLasFincas = async () => {
 
 service.obtenerTodosLosFrentes = async (ingenio) => {
     //frentes = await adminRepository.findAllFrentes();
-    frentes = await indicadoresRepository.findAllFrentes(ingenio);
+    //frentes = await indicadoresRepository.findAllFrentes(ingenio);
+    //let frentes = [];
+    frentes = await indicadoresRepository.findAll_Ingenio_FrenteByIngenio(ingenio);
+    console.log(frentes_ingenio.datos);
 
     return frentes;
 }
