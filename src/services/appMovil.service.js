@@ -51,7 +51,7 @@ service.obtenerTodosLosFrentesPorIngenio = async (ingenio) => {
         }
     }
 
-    return frentes;
+    return frentesResponse;
 }
 
 service.obtenerTodasLasMaquinas = async () => {
