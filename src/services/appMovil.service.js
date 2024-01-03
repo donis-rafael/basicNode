@@ -18,19 +18,29 @@ service.obtenerTodasLasFincas = async () => {
 }
 
 service.obtenerTodosLosFrentesPorIngenio = async (ingenio) => {
-    let frentesResponse = [];
+    let cuerpoFrentes = [];
+    let frentesResponse;
+
     frentes = await indicadoresRepository.findAll_Ingenio_FrenteByIngenio(ingenio);
-    //console.log(frentes_ingenio.datos);
-    //console.log(frentes.datos);
 
-    /*for (i = 0; i < frentes.datos.length; i++) {
-    }*/
-    frentes.datos.forEach(function (val) {
-        console.log('ingenio: ' + val.DM_Ingenio.nombre_ingenio);
-        console.log('frente: ' + val.Frente);
-    });
+    if (frentes.mensaje != 'Sin Datos' && frentes.mensaje != 'Error') {
 
-    return frentes;
+        frentes.datos.forEach(function (val) {
+            cuerpoFrentes.push(val.Frente);
+        });
+
+        frentesResponse = {
+            mensaje: frentes.mensaje,
+            ingenio_id: ingenio,
+            ingenio_nombre: frentes.datos[0].DM_Ingenio.nombre_ingenio,
+            frentes: cuerpoFrentes
+        };
+
+    } else {
+        frentesResponse = frentes;
+    }
+
+    return frentesResponse;
 }
 
 service.obtenerTodasLasMaquinas = async () => {
