@@ -28,11 +28,12 @@ service.obtenerTodosLosFrentesPorIngenio = async (ingenio) => {
         frentes.datos.forEach(function (val) {
             cuerpoFrentes.push(val.Frente);
         });
+        console.log('---------------- ' + frentes.datos[0].DM_Ingenio.nombre_ingenio);
 
         frentesResponse = {
             mensaje: frentes.mensaje,
             ingenio_id: ingenio,
-            ingenio_nombre: frentes.datos[0].DM_Ingenio.nombre_ingenio,
+            ingenio_nombre: 'frentes.datos[0].DM_Ingenio.nombre_ingenio',
             frentes: cuerpoFrentes
         };
 
