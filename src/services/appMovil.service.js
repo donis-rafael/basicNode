@@ -27,13 +27,7 @@ service.obtenerTodosLosFrentesPorIngenio = async (ingenio) => {
 
         frentes.datos.forEach(function (val) {
             cuerpoFrentes.push(val.Frente);
-            console.log('---------------- ' + val.Frente);
         });
-        console.log('  ');
-        console.log('********************** ' + frentes.mensaje);
-        console.log('********************** ' + ingenio);
-        console.log('********************** ' + frentes.datos[0].DM_Ingenio.nombre_ingenio);
-        console.log('********************** ' + cuerpoFrentes);
 
         frentesResponse = {
             mensaje: frentes.mensaje,
@@ -50,9 +44,6 @@ service.obtenerTodosLosFrentesPorIngenio = async (ingenio) => {
             frentes: frentes.datos
         }
     }
-
-    console.log('  ');
-    console.log('////////////////////////// ' + JSON.stringify(frentesResponse));
 
     return frentesResponse;
 }

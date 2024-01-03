@@ -89,8 +89,6 @@ controller.getFrentes = async (req, res) => {
     if (match) {
         let frentes = await appService.obtenerTodosLosFrentesPorIngenio(ingenio);
 
-        let dataFrentes = frentes.datos;
-
         if ((frentes.mensaje == 'Exito') || (frentes.mensaje == 'Sin Datos')) {
             mensaje = 'Exito';
             estado = 200;
@@ -100,13 +98,9 @@ controller.getFrentes = async (req, res) => {
         } else {
             mensaje = 'Error';
             estado = 300;
-            dataFrentes = ''
         }
 
-        data = {
-            mensaje: mensaje,
-            datos: dataFrentes
-        };
+        data = frentes;
     } else {
         estado = 500;
         data = {
