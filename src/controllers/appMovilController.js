@@ -592,7 +592,7 @@ controller.getIngeniosFrentesFincasEquipos = async (req, res) => {
     let cadenaComparaEncripted = await helper.encryptPassword(cadenaCompara);
     console.log(cadenaComparaEncripted);
 
-    const match = true;//await helper.comparaPassword(cadenaCompara, token);
+    const match = await helper.comparaPassword(cadenaCompara, token);
 
     let mensaje, estado, data;
 
