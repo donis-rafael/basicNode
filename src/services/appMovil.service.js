@@ -51,6 +51,9 @@ service.obtenerTodosLosFrentesPorIngenio = async (ingenio) => {
         }
     }
 
+    console.log('  ');
+    console.log('////////////////////////// ' + frentesResponse);
+
     return frentesResponse;
 }
 
