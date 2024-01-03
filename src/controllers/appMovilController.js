@@ -82,7 +82,7 @@ controller.getFrentes = async (req, res) => {
 
     // VALIDAR TOKEN
     let cadenaCompara = helper.cadenaCompara(user);
-    const match = true;//await helper.comparaPassword(cadenaCompara, token);
+    const match = await helper.comparaPassword(cadenaCompara, token);
 
     let mensaje, estado, data;
 
@@ -438,6 +438,186 @@ controller.setRegistroApp = async (req, res) => {
             datos: dataRegistro
         };
 
+    } else {
+        estado = 500;
+        data = {
+            mensaje: 'Error',
+            datos: "Token no válido"
+        };
+    }
+
+    res.status(estado).send(data);
+};
+
+controller.getIngeniosFrentes = async (req, res) => {
+    if (!req.headers['token']) {
+        res.status(400).send({
+            message: "Carece de token"
+        });
+        return;
+    }
+
+    if (!req.params['user']) {
+        res.status(400).send({
+            message: "Carece de usuario"
+        });
+        return;
+    }
+
+    const { user } = req.params;
+    const { token } = req.headers;
+
+    // VALIDAR TOKEN
+    let cadenaCompara = helper.cadenaCompara(user);
+    let cadenaComparaEncripted = await helper.encryptPassword(cadenaCompara);
+    console.log(cadenaComparaEncripted);
+
+    const match = await helper.comparaPassword(cadenaCompara, token);
+
+    let mensaje, estado, data;
+
+    if (match) {
+        console.log('Token válido');
+        let ingen_frente = await appService.obtenerTodosLosIngeniosFrentes();
+
+        let dataIngenios = ingen_frente.datos;
+
+        if ((ingen_frente.mensaje == 'Exito') || (ingen_frente.mensaje == 'Sin Datos')) {
+            mensaje = 'Exito';
+            estado = 200;
+        } else if (ingen_frente.mensaje == 'Error') {
+            mensaje = 'Error';
+            estado = 500;
+        } else {
+            mensaje = 'Error';
+            estado = 300;
+            dataIngenios = ''
+        }
+
+        data = {
+            mensaje: mensaje,
+            datos: dataIngenios
+        };
+    } else {
+        estado = 500;
+        data = {
+            mensaje: 'Error',
+            datos: "Token no válido"
+        };
+    }
+
+    res.status(estado).send(data);
+};
+
+controller.getIngeniosFrentesFincas = async (req, res) => {
+    if (!req.headers['token']) {
+        res.status(400).send({
+            message: "Carece de token"
+        });
+        return;
+    }
+
+    if (!req.params['user']) {
+        res.status(400).send({
+            message: "Carece de usuario"
+        });
+        return;
+    }
+
+    const { user } = req.params;
+    const { token } = req.headers;
+
+    // VALIDAR TOKEN
+    let cadenaCompara = helper.cadenaCompara(user);
+    let cadenaComparaEncripted = await helper.encryptPassword(cadenaCompara);
+    console.log(cadenaComparaEncripted);
+
+    const match = await helper.comparaPassword(cadenaCompara, token);
+
+    let mensaje, estado, data;
+
+    if (match) {
+        console.log('Token válido');
+        let ingen_frente_finc = await appService.obtenerTodosLosIngeniosFrentesFincas();
+
+        let dataIngenios = ingen_frente_finc.datos;
+
+        if ((ingen_frente_finc.mensaje == 'Exito') || (ingen_frente_finc.mensaje == 'Sin Datos')) {
+            mensaje = 'Exito';
+            estado = 200;
+        } else if (ingen_frente_finc.mensaje == 'Error') {
+            mensaje = 'Error';
+            estado = 500;
+        } else {
+            mensaje = 'Error';
+            estado = 300;
+            dataIngenios = ''
+        }
+
+        data = {
+            mensaje: mensaje,
+            datos: dataIngenios
+        };
+    } else {
+        estado = 500;
+        data = {
+            mensaje: 'Error',
+            datos: "Token no válido"
+        };
+    }
+
+    res.status(estado).send(data);
+};
+
+controller.getIngeniosFrentesFincasEquipos = async (req, res) => {
+    if (!req.headers['token']) {
+        res.status(400).send({
+            message: "Carece de token"
+        });
+        return;
+    }
+
+    if (!req.params['user']) {
+        res.status(400).send({
+            message: "Carece de usuario"
+        });
+        return;
+    }
+
+    const { user } = req.params;
+    const { token } = req.headers;
+
+    // VALIDAR TOKEN
+    let cadenaCompara = helper.cadenaCompara(user);
+    let cadenaComparaEncripted = await helper.encryptPassword(cadenaCompara);
+    console.log(cadenaComparaEncripted);
+
+    const match = true;//await helper.comparaPassword(cadenaCompara, token);
+
+    let mensaje, estado, data;
+
+    if (match) {
+        console.log('Token válido');
+        let ingen_frente_finc_equi = await appService.obtenerTodosLosIngeniosFrentesFincasEquipos();
+
+        let dataIngenios = ingen_frente_finc_equi.datos;
+
+        if ((ingen_frente_finc_equi.mensaje == 'Exito') || (ingen_frente_finc_equi.mensaje == 'Sin Datos')) {
+            mensaje = 'Exito';
+            estado = 200;
+        } else if (ingen_frente_finc_equi.mensaje == 'Error') {
+            mensaje = 'Error';
+            estado = 500;
+        } else {
+            mensaje = 'Error';
+            estado = 300;
+            dataIngenios = ''
+        }
+
+        data = {
+            mensaje: mensaje,
+            datos: dataIngenios
+        };
     } else {
         estado = 500;
         data = {

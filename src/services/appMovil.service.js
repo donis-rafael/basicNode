@@ -165,4 +165,22 @@ service.guardarNuevoRegistroApp = async (maquinaId, ingenioId, fincaId, frenteId
     return respuesta;
 }
 
+service.obtenerTodosLosIngeniosFrentes = async () => {
+    ingenios_frentes = await indicadoresRepository.findAll_Ingenio_Frente();
+
+    return ingenios_frentes;
+}
+
+service.obtenerTodosLosIngeniosFrentesFincas = async () => {
+    ingenios_frentes_fincas = await indicadoresRepository.findAll_Ingenio_Frente_Finca();
+
+    return ingenios_frentes_fincas;
+}
+
+service.obtenerTodosLosIngeniosFrentesFincasEquipos = async () => {
+    ingenios_frentes_fincas_equip = await indicadoresRepository.findAll_Ingenio_Frente_Finca_Equipo();
+
+    return ingenios_frentes_fincas_equip;
+}
+
 module.exports = service;
