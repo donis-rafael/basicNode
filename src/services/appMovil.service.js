@@ -17,13 +17,16 @@ service.obtenerTodasLasFincas = async () => {
     return fincas;
 }
 
-service.obtenerTodosLosFrentes = async (ingenio) => {
-    //frentes = await adminRepository.findAllFrentes();
-    //frentes = await indicadoresRepository.findAllFrentes(ingenio);
-    //let frentes = [];
+service.obtenerTodosLosFrentesPorIngenio = async (ingenio) => {
+    let frentesResponse = [];
     frentes = await indicadoresRepository.findAll_Ingenio_FrenteByIngenio(ingenio);
     //console.log(frentes_ingenio.datos);
-    console.log(frentes.datos);
+    //console.log(frentes.datos);
+
+    for (i = 0; i < frentes.datos.length; i++) {
+        console.log('ingenio: ' + frentes.datos.get(i).DM_Ingenio.nombre_ingenio);
+        console.log('frente: ' + frentes.datos.get(i).Frente);
+    }
 
     return frentes;
 }
