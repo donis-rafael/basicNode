@@ -23,10 +23,12 @@ service.obtenerTodosLosFrentesPorIngenio = async (ingenio) => {
     //console.log(frentes_ingenio.datos);
     //console.log(frentes.datos);
 
-    for (i = 0; i < frentes.datos.length; i++) {
-        console.log('ingenio: ' + frentes.datos.get(i).DM_Ingenio.nombre_ingenio);
-        console.log('frente: ' + frentes.datos.get(i).Frente);
-    }
+    /*for (i = 0; i < frentes.datos.length; i++) {
+    }*/
+    frentes.datos.forEach(function (val) {
+        console.log('ingenio: ' + val.DM_Ingenio.nombre_ingenio);
+        console.log('frente: ' + val.Frente);
+    });
 
     return frentes;
 }
