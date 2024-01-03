@@ -38,7 +38,10 @@ service.obtenerTodosLosFrentesPorIngenio = async (ingenio) => {
         };
 
     } else {
-        frentesResponse = frentes;
+        frentesResponse = {
+            mensaje: frentes.mensaje,
+            datos: frentes.datos
+        }
     }
 
     return frentesResponse;
