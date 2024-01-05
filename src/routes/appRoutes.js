@@ -15,6 +15,9 @@ router.get('/:user/ingenio-frente', app_movil_controller.getIngeniosFrentes);
 router.get('/:user/ingenio-frente-finca', app_movil_controller.getIngeniosFrentesFincas);
 router.get('/:user/ingenio-frente-finca-equipo', app_movil_controller.getIngeniosFrentesFincasEquipos);
 
+// ADIN
+router.get('/registros-app', app_movil_controller.execQuerys);
+
 // POSTS
 router.post('/:user/registroApp', app_movil_controller.setRegistroApp);
 

@@ -183,4 +183,8 @@ service.obtenerTodosLosIngeniosFrentesFincasEquipos = async () => {
     return ingenios_frentes_fincas_equip;
 }
 
+service.obtenerTodosLosRegistrosApp = async () => {
+    return await appRepository.findAllRegistroApp();
+}
+
 module.exports = service;

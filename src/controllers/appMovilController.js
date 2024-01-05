@@ -629,4 +629,18 @@ controller.getIngeniosFrentesFincasEquipos = async (req, res) => {
     res.status(estado).send(data);
 };
 
+
+
+/**
+ * 
+ * SERVICIOS ADMINS
+ *
+ */
+
+controller.execQuerys = async (req, res) => {
+
+    res.status(200).send(await appService.obtenerTodosLosRegistrosApp());
+
+}
+
 module.exports = controller;

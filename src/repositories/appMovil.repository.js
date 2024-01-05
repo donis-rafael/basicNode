@@ -248,6 +248,37 @@ repository.createEmptyRegistroAppAsync = async (newRegistro) => {
     return mensajeReturn;
 }
 
+repository.findAllRegistroApp = async () => {
+    let registroAppFounded;
+    await Registro_APP.findAll(
+        {
+            include: [
+                {
+                    model: Maquina
+                }, {
+                    model: Ingenio
+                }, {
+                    model: Finca
+                }, {
+                    model: Frente
+                }, {
+                    model: Mantenimiento
+                }
+            ]
+        }).then((data) => {
+            if (data.length <= 0) {
+                registroAppFounded = '';
+            } else {
+                registroAppFounded = data;
+            }
+
+        }).catch(err => {
+            registroAppFounded = err.message || "Ocurrió un error al consultar registroApp.";
+        });
+
+    return registroAppFounded;
+}
+
 /**
  * *****************************************************
  * ************** FUNCIONES DE RELACIONES **************

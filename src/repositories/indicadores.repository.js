@@ -91,37 +91,17 @@ repository.findFincaById = async (fincaId) => {
 repository.findAllFrentes = async (ingenio) => {
     let respuesta, vacio = false;
 
-    await DM_Frente.findAll(
-        {
-            include: [
-                {
-                    model: DM_Ingenio_Frente,
-                }
-            ]
-        }
-    ).then((data) => {
-        if (data.length <= 0) {
-            vacio = true;
-            data = {
-                mensaje: 'sin datos'
+    await DM_Frente.findAll
+        (
+            {
+                include: [
+                    {
+                        model: DM_Ingenio_Frente,
+                    }
+                ]
             }
-        }
-        respuesta = {
-            mensaje: !vacio ? 'Exito' : 'Sin Datos',
-            datos: data
-        }
 
-    }).catch(err => {
-        respuesta = {
-            mensaje: 'Error',
-            datos: err.message || "Ocurrió un error al consultar Frentes."
-        };
-    });
-
-    //https://dev-tesis.onrender.com/api/app-movil/jonnathan/0B0D2467-F38E-E911-A95C-000D3A4F149A/frentes
-
-    /*await DM_Frente.findAll()
-        .then((data) => {
+        ).then((data) => {
             if (data.length <= 0) {
                 vacio = true;
                 data = {
@@ -138,7 +118,7 @@ repository.findAllFrentes = async (ingenio) => {
                 mensaje: 'Error',
                 datos: err.message || "Ocurrió un error al consultar Frentes."
             };
-        });*/
+        });
 
     return respuesta;
 }
@@ -156,15 +136,6 @@ repository.findAllIngenios = async () => {
                 [Op.substring]: 'ngenio'
             }
         }
-        /*[
-            Sequelize.fn(
-                'lower', Sequelize.col('nombre_ingenio')
-            ),
-            {
-                $like: '%ingenio%'
-            }
-        ]*/
-
     })
         .then((data) => {
             if (data.length <= 0) {
