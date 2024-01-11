@@ -638,8 +638,14 @@ controller.getIngeniosFrentesFincasEquipos = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
+    let ingen_frente_finc_equi = await appService.obtenerTodosLosRegistrosApp();
 
-    res.status(200).send(await appService.obtenerTodosLosRegistrosApp());
+    data = {
+        mensaje: 'mensaje',
+        datos: ingen_frente_finc_equi
+    };
+
+    res.status(200).send(data);
 
 }
 
