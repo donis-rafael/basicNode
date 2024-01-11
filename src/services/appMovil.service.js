@@ -109,6 +109,8 @@ service.guardarNuevoRegistroApp = async (maquinaId, ingenioId, fincaId, frenteId
 
     registroExistenteFounded = await appRepository.findAllRegistroAppByForeignKeys(maquinaId, ingenioId, fincaId, frenteId, mantenimientoId, horaInicio);
 
+    console.log('... ' + registroExistenteFounded);
+
     if (registroExistenteFounded != '') {
         //retorna error/
         respuesta = {
