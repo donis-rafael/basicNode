@@ -107,7 +107,7 @@ service.obtenerMaxIndexPlusUno = async () => {
 service.guardarNuevoRegistroApp = async (maquinaId, ingenioId, fincaId, frenteId, mantenimientoId, operando, horaInicio, horaFinal, comentario, foto) => {
     let maquinaFounded, ingenioFounded, fincaFounded, frenteFounded, mantenimientoFounded, registroExistenteFounded, respuesta;
 
-    registroExistenteFounded = await appRepository.findAllRegistroAppByForeignKeys(maquinaId, ingenioId, fincaId, frenteId, mantenimientoId, horaInicio);
+    /*registroExistenteFounded = await appRepository.findAllRegistroAppByForeignKeys(maquinaId, ingenioId, fincaId, frenteId, mantenimientoId, horaInicio);
 
     console.log('... ' + registroExistenteFounded);
 
@@ -120,49 +120,49 @@ service.guardarNuevoRegistroApp = async (maquinaId, ingenioId, fincaId, frenteId
                 content: 'Ya existe un registro de app'
             }
         };
+    } else {*/
+
+    if (maquinaId) {
+        maquinaFounded = await appRepository.findMaquinaById(maquinaId);
     } else {
-
-        if (maquinaId) {
-            maquinaFounded = await appRepository.findMaquinaById(maquinaId);
-        } else {
-            maquinaFounded = null;
-        }
-
-        if (ingenioId) {
-            ingenioFounded = await adminRepository.findIngenioById(ingenioId);
-        } else {
-            ingenioFounded = null;
-        }
-
-        if (fincaId) {
-            fincaFounded = await adminRepository.findFincaById(fincaId);
-        } else {
-            fincaFounded = null;
-        }
-
-        if (frenteId) {
-            frenteFounded = await adminRepository.findFrenteById(frenteId);
-        } else {
-            frenteFounded = null;
-        }
-
-        if (mantenimientoId) {
-            mantenimientoFounded = await appRepository.findMantenimientoById(mantenimientoId);
-        } else {
-            mantenimientoFounded = null;
-        }
-
-        // Crea RegistroApp
-        const RegistroApp = {
-            operando: operando,
-            hora_inicio: horaInicio,
-            hora_final: horaFinal,
-            comentario: comentario,
-            foto: foto
-        };
-
-        respuesta = await appRepository.createNewRegistroApp(maquinaFounded, ingenioFounded, fincaFounded, frenteFounded, mantenimientoFounded, RegistroApp);
+        maquinaFounded = null;
     }
+
+    if (ingenioId) {
+        ingenioFounded = await adminRepository.findIngenioById(ingenioId);
+    } else {
+        ingenioFounded = null;
+    }
+
+    if (fincaId) {
+        fincaFounded = await adminRepository.findFincaById(fincaId);
+    } else {
+        fincaFounded = null;
+    }
+
+    if (frenteId) {
+        frenteFounded = await adminRepository.findFrenteById(frenteId);
+    } else {
+        frenteFounded = null;
+    }
+
+    if (mantenimientoId) {
+        mantenimientoFounded = await appRepository.findMantenimientoById(mantenimientoId);
+    } else {
+        mantenimientoFounded = null;
+    }
+
+    // Crea RegistroApp
+    const RegistroApp = {
+        operando: operando,
+        hora_inicio: horaInicio,
+        hora_final: horaFinal,
+        comentario: comentario,
+        foto: foto
+    };
+
+    respuesta = await appRepository.createNewRegistroApp(maquinaFounded, ingenioFounded, fincaFounded, frenteFounded, mantenimientoFounded, RegistroApp);
+    //}
 
     return respuesta;
 }
