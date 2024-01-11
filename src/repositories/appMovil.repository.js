@@ -250,6 +250,23 @@ repository.createEmptyRegistroAppAsync = async (newRegistro) => {
 
 repository.findAllRegistroApp = async () => {
     let registroAppFounded;
+    await Registro_APP.findAll()
+        .then((data) => {
+            if (data.length <= 0) {
+                registroAppFounded = '';
+            } else {
+                registroAppFounded = data;
+            }
+
+        }).catch(err => {
+            registroAppFounded = err.message || "Ocurrió un error al consultar registroApp.";
+        });
+
+    return registroAppFounded;
+}
+
+repository.findAllRegistroAppComplete = async () => {
+    let registroAppFounded;
     await Registro_APP.findAll(
         {
             include: [
