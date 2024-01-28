@@ -83,6 +83,34 @@ repository.findAllRegistroAppByForeignKeys = async (maquinaId, ingenioId, fincaI
     await Registro_APP.findAll(
         {
             where: {
+                [Op.and]: [
+                    { hora_inicio: horaInicio },
+                    { maquina_id: maquinaId },
+                    { ingenio_id: ingenioId },
+                    { finca_id: fincaId },
+                    { frente_id: frenteId },
+                    { mantenimiento_id: mantenimientoId }
+                ]
+            }
+        }).then((data) => {
+            if (data.length <= 0) {
+                registroAppFounded = ' ';
+            } else {
+                registroAppFounded = data;
+            }
+
+        }).catch(err => {
+            registroAppFounded = err.message || "Ocurrió un error al consultar registroApp.";
+        });
+
+    return registroAppFounded;
+}
+
+/*repository.findAllRegistroAppByForeignKeys = async (maquinaId, ingenioId, fincaId, frenteId, mantenimientoId, horaInicio) => {
+    let registroAppFounded;
+    await Registro_APP.findAll(
+        {
+            where: {
                 hora_inicio: horaInicio
             },
             include: [
@@ -125,7 +153,7 @@ repository.findAllRegistroAppByForeignKeys = async (maquinaId, ingenioId, fincaI
         });
 
     return registroAppFounded;
-}
+}*/
 
 repository.findMaxPlusOneRegistroAppIndex = async () => {
     let maxIndexAppFounded;
@@ -155,7 +183,29 @@ repository.findMaxPlusOneRegistroAppIndex = async () => {
     return respuesta;
 }
 
-repository.createNewRegistroApp = async (maquina, ingenio, finca, frente, mantenimiento, newRegistro) => {
+repository.createNewRegistroApp = async (newRegistro) => {
+    let respuesta;
+
+    await Registro_APP.create(newRegistro).
+        then((data) => {
+            respuesta = {
+                mensaje: 'Exito',
+                datos: {
+                    mensaje: 'Registro App creado exitosamente',
+                    content: data
+                }
+            }
+        }).catch(err => {
+            respuesta = {
+                mensaje: 'Error',
+                registro: err.message || "Ocurrió un error al almacenar Registro_APP."
+            };
+        });
+
+    return respuesta;
+}
+
+/*repository.createNewRegistroApp = async (maquina, ingenio, finca, frente, mantenimiento, newRegistro) => {
     let respuesta, registroAppAdded;
     let RegistroAdddedObject = await repository.createEmptyRegistroAppAsync(newRegistro);
     registroAppAdded = RegistroAdddedObject.registro;
@@ -200,9 +250,9 @@ repository.createNewRegistroApp = async (maquina, ingenio, finca, frente, manten
     }
 
     return respuesta;
-}
+}*/
 
-repository.createEmptyRegistroAppAsync = async (newRegistro) => {
+/*repository.createEmptyRegistroAppAsync = async (newRegistro) => {
     let registroAppFounded, registroAppAdded, mensajeReturn;
 
     await Registro_APP.findAll({
@@ -212,19 +262,19 @@ repository.createEmptyRegistroAppAsync = async (newRegistro) => {
         include: [Maquina, Ingenio, Finca, Frente, Mantenimiento]
     }).then((data) => {
         if (data.length <= 0) {
-            registroAppFounded = '';
+            registroAppFounded = ' ';
         } else {
             registroAppAdded = data;
         }
     }).catch((err) => {
-        registroAppAdded = '';
+        registroAppAdded = ' ';
         mensajeReturn = {
             mensaje: 'error',
             registro: err.message || "Ocurrió un error al consultar Registro_APP."
         };
     });
 
-    if (registroAppFounded != '') {
+    if (registroAppFounded == ' ') {
         await Registro_APP.create(newRegistro).
             then((data) => {
                 registroAppAdded = data;
@@ -241,12 +291,12 @@ repository.createEmptyRegistroAppAsync = async (newRegistro) => {
     } else {
         mensajeReturn = {
             mensaje: 'error',
-            registro: "Ocurrió un error al consultar Registro_APP."
+            registro: "ya existe registro con esos datos."
         };
     }
 
     return mensajeReturn;
-}
+}*/
 
 repository.findAllRegistroApp = async () => {
     let registroAppFounded;
