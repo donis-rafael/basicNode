@@ -399,7 +399,7 @@ controller.execQuerys = async (req, res) => {
     const g = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Registro_app';");
     console.log(g);
 
-    const h = await sequelize.query("ALTER TABLE Registro_app DROP CONSTRAINT FK_RegistroApp5");
+    /*const h = await sequelize.query("ALTER TABLE Registro_app DROP CONSTRAINT FK_RegistroApp5");
     console.log(h);
 
     const i = await sequelize.query("ALTER TABLE Registro_app DROP CONSTRAINT FK_Registro_app_Frente");
