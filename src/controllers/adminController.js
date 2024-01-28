@@ -396,23 +396,18 @@ controller.deleteCargo = async (req, res) => {
 
 controller.execQuerys = async (req, res) => {
 
-    /*const c = await sequelize.query("SELECT * FROM [dbo].[Registro_app];")
+    const g = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Registro_app';");
+    console.log(g);
+
+    /*const a = await sequelize.query("select column_name, data_type, character_maximum_length from INFORMATION_SCHEMA.COLUMNS where table_name = 'Registro_app';")
         .then(data => {
             console.log(data);
         }).catch(err => {
             console.log(err);
         });
-    console.log(c);
+    console.log(a);*/
 
-    const a = await sequelize.query("select column_name, data_type, character_maximum_length from INFORMATION_SCHEMA.COLUMNS where table_name = 'Registro_app';")
-        .then(data => {
-            console.log(data);
-        }).catch(err => {
-            console.log(err);
-        });
-    console.log(a);
-
-    res.status(200).send('ejecutados exitosamente');*/
+    res.status(200).send('ejecutados exitosamente \n' + g);
 }
 
 module.exports = controller;
