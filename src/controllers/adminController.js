@@ -397,9 +397,9 @@ controller.deleteCargo = async (req, res) => {
 controller.execQuerys = async (req, res) => {
 
     const g = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Registro_app';");
-    //console.log(g);
+    console.log(g);
 
-    const h = await sequelize.query("ALTER TABLE Cargo DROP CONSTRAINT FK_RegistroApp5");
+    /*const h = await sequelize.query("ALTER TABLE Cargo DROP CONSTRAINT FK_RegistroApp5");
     console.log(h);
 
     const i = await sequelize.query("ALTER TABLE Cargo DROP CONSTRAINT FK_Registro_app_Frente");
@@ -422,7 +422,7 @@ controller.execQuerys = async (req, res) => {
         });
     console.log(a);*/
 
-    res.status(200).send('ejecutados exitosamente \n' + JSON.stringify(g));
+    res.status(200).send('ejecutados exitosamente \n' + JSON.parse(g));
 }
 
 module.exports = controller;
