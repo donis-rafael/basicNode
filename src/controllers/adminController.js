@@ -397,7 +397,22 @@ controller.deleteCargo = async (req, res) => {
 controller.execQuerys = async (req, res) => {
 
     const g = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Registro_app';");
-    console.log(g);
+    //console.log(g);
+
+    const h = await sequelize.query("ALTER TABLE Cargo DROP CONSTRAINT FK_RegistroApp5");
+    console.log(h);
+
+    const i = await sequelize.query("ALTER TABLE Cargo DROP CONSTRAINT FK_Registro_app_Frente");
+    console.log(i);
+
+    const j = await sequelize.query("ALTER TABLE Cargo DROP CONSTRAINT FK_Registro_app_Finca");
+    console.log(j);
+
+    const k = await sequelize.query("ALTER TABLE Cargo DROP CONSTRAINT FK_Registro_app_Maquina");
+    console.log(k);
+
+    const l = await sequelize.query("ALTER TABLE Cargo DROP CONSTRAINT FK_Registro_app_Ingenio");
+    console.log(l);
 
     /*const a = await sequelize.query("select column_name, data_type, character_maximum_length from INFORMATION_SCHEMA.COLUMNS where table_name = 'Registro_app';")
         .then(data => {
@@ -407,7 +422,7 @@ controller.execQuerys = async (req, res) => {
         });
     console.log(a);*/
 
-    res.status(200).send('ejecutados exitosamente \n' + g);
+    res.status(200).send('ejecutados exitosamente \n' + JSON.stringify(g));
 }
 
 module.exports = controller;
