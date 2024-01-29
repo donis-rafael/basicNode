@@ -189,6 +189,9 @@ repository.createNewRegistroApp = async (newRegistro) => {
 
     await Registro_APP.create(newRegistro).
         then((data) => {
+            console.log('creación');
+            console.log(data);
+            console.log(JSON.stringify(data));
             respuesta = {
                 mensaje: 'Exito',
                 datos: {

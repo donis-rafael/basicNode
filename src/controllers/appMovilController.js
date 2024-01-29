@@ -425,6 +425,8 @@ controller.setRegistroApp = async (req, res) => {
 
         let dataRegistro = newRegistroapp.datos;
 
+        console.log(JSON.stringify(newRegistroapp));
+
         if (newRegistroapp.mensaje == 'Exito') {
             estado = 200;
         } else if (newRegistroapp.mensaje == 'Error') {
