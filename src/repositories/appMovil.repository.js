@@ -1,5 +1,6 @@
 const repository = {};
 const sequelize = require("sequelize");
+const { Op } = require("sequelize");
 
 const Mantenimiento = require('../models/gestion/mantenimiento.model');
 const Registro_APP = require('../models/gestion/registro.app.model');
