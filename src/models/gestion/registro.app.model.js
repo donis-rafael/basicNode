@@ -22,6 +22,21 @@ const Registro_APP = db.define("Registro_app", {
     },
     foto: {
         type: DataTypes.BLOB
+    },
+    maquina_id: {
+        type: DataTypes.UUID
+    },
+    ingenio_id: {
+        type: DataTypes.UUID
+    },
+    finca_id: {
+        type: DataTypes.STRING
+    },
+    frente_id: {
+        type: DataTypes.STRING
+    },
+    mantenimiento_id: {
+        type: DataTypes.INTEGER
     }
 }, {
     // don't add the timestamp attributes (updatedAt, createdAt)
