@@ -395,7 +395,7 @@ controller.deleteCargo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const [results, metadata] = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Registro_app';");
+    const [results, metadata] = await sequelize.query("SELECT * FROM Registro_app;");
     console.log(results);
     console.log(metadata);
 
