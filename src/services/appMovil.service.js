@@ -170,11 +170,11 @@ service.guardarNuevoRegistroApp = async (maquinaId, ingenioId, fincaId, frenteId
             hora_final: horaFinal,
             comentario: comentario,
             foto: foto,
-            maquinaId: maquinaId,
-            ingenioId: ingenioId,
-            fincaId: fincaId,
-            frenteId: frenteId,
-            mantenimientoId: mantenimientoId
+            maquina_id: maquinaId,
+            ingenio_id: ingenioId,
+            finca_id: fincaId,
+            frente_id: frenteId,
+            mantenimiento_id: mantenimientoId
         };
         //console.log(JSON.stringify(RegistroApp));
 
