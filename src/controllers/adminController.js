@@ -395,7 +395,7 @@ controller.deleteCargo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const [results, metadata] = await sequelize.query("SELECT * FROM Registro_app;");
+    const [results, metadata] = await sequelize.query("SELECT TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = 'Registro_app';");
     console.log(results);
     console.log(metadata);
 
@@ -423,9 +423,9 @@ controller.execQuerys = async (req, res) => {
         }).catch(err => {
             console.log(err);
         });
-    console.log(a);*
+    console.log(a);*/
 
-    res.status(200).send('ejecutados exitosamente \n' + JSON.stringify(g));*/
+    res.status(200).send('ejecutados exitosamente');
 }
 
 module.exports = controller;
