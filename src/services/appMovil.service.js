@@ -176,6 +176,7 @@ service.guardarNuevoRegistroApp = async (maquinaId, ingenioId, fincaId, frenteId
             frenteId: frenteId,
             mantenimientoId: mantenimientoId
         };
+        //console.log(JSON.stringify(RegistroApp));
 
         //respuesta = await appRepository.createNewRegistroApp(maquinaFounded, ingenioFounded, fincaFounded, frenteFounded, mantenimientoFounded, RegistroApp);
         respuesta = await appRepository.createNewRegistroApp(RegistroApp);
