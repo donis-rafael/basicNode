@@ -2,6 +2,9 @@ const { DataTypes } = require('sequelize');
 const db = require('../../config/db');
 
 const IndDiariosCliente = db.define("IndDiariosCliente", {
+    id: {
+        type: DataTypes.UUID
+    },
     id_Cliente: {
         type: DataTypes.UUID
     },
