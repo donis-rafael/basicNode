@@ -352,7 +352,8 @@ repository.findAll_IndDiariosCliente = async () => {
 repository.findAll_IndDiariosCliente_Frente = async () => {
     let respuesta, vacio = false;
     await IndDiariosCliente_Frente.findAll({
-        limit: 5
+        limit: 5,
+        order: [['id_Cliente', 'ASC']] // Adjust the field and order as needed
     })
         .then((data) => {
             if (data.length <= 0) {
