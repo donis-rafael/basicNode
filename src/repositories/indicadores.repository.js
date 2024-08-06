@@ -323,7 +323,9 @@ repository.findAll_Ingenio_Frente_Finca_Equipo = async () => {
  */
 repository.findAll_IndDiariosCliente = async () => {
     let respuesta, vacio = false;
-    await IndDiariosCliente.findAll()
+    await IndDiariosCliente.findAll({
+        limit: 100
+    })
         .then((data) => {
             if (data.length <= 0) {
                 vacio = true;
