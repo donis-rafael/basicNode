@@ -323,9 +323,7 @@ repository.findAll_Ingenio_Frente_Finca_Equipo = async () => {
  */
 repository.findAll_IndDiariosCliente = async () => {
     let respuesta, vacio = false;
-    await IndDiariosCliente.findAll({
-        limit: 100
-    })
+    await IndDiariosCliente.findAll()
         .then((data) => {
             if (data.length <= 0) {
                 vacio = true;
@@ -351,10 +349,7 @@ repository.findAll_IndDiariosCliente = async () => {
 
 repository.findAll_IndDiariosCliente_Frente = async () => {
     let respuesta, vacio = false;
-    await IndDiariosCliente_Frente.findAll({
-        limit: 5,
-        order: [['id_Cliente', 'ASC']] // Adjust the field and order as needed
-    })
+    await IndDiariosCliente_Frente.findAll()
         .then((data) => {
             if (data.length <= 0) {
                 vacio = true;
