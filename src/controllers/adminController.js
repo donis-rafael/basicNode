@@ -395,7 +395,7 @@ controller.deleteCargo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    const { tabla, condicion } = req.body;
+    /*const { tabla, condicion } = req.body;
     let consulta = 'SELECT * FROM ' + tabla;
 
     if (condicion !== ' ') {

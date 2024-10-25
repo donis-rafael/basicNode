@@ -23,8 +23,7 @@
     "express-validator": "^7.0.1",
     "mssql": "^9.1.1",
     "proyecto-tesis-back": "file:",
-    "sequelize": "^6.32.0",
-    "tedious": "^14.0.0"
+    "sequelize": "^6.32.0"
   },
   "devDependencies": {
     "morgan": "^1.10.0",
