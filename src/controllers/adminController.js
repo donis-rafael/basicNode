@@ -412,7 +412,6 @@ controller.execQuerys = async (req, res) => {
             console.error('Error en la consulta:', error);
         });
 
-
     /*const a = await sequelize.query("select column_name, data_type, character_maximum_length from INFORMATION_SCHEMA.COLUMNS where table_name = 'Registro_app';")
         .then(data => {
             console.log(data);
