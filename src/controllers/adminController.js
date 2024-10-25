@@ -402,7 +402,7 @@ controller.execQuerys = async (req, res) => {
         consulta += ' ' + condicion
     }
 
-    sequelize.query(consulta, {
+    await sequelize.query(consulta, {
         type: sequelize.QueryTypes.SELECT
     })
         .then(resultados => {
