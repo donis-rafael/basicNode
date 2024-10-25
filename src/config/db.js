@@ -17,4 +17,7 @@ const sequelize = new Sequelize(
     },
   });
 
+console.log('ljflasjfaskldfjakls')
+console.log(sequelize)
+
 module.exports = sequelize;
