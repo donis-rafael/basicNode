@@ -7,9 +7,6 @@
     "start": "node src/",
     "dev": "nodemon src/"
   },
-  "engines": {
-    "node": ">=20.18.0"
-  },
   "repository": {
     "type": "git",
     "url": ""
