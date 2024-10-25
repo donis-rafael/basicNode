@@ -401,12 +401,14 @@ controller.execQuerys = async (req, res) => {
     if (condicion !== ' ') {
         consulta += ' ' + condicion
     }
+    let result = ''
 
     await sequelize.query(consulta, {
         type: sequelize.QueryTypes.SELECT
     })
         .then(resultados => {
             console.log(resultados); // Mostrar los resultados
+            result = resultados
         })
         .catch(error => {
             console.error('Error en la consulta:', error);
@@ -420,7 +422,7 @@ controller.execQuerys = async (req, res) => {
         });
     console.log(a);*/
 
-    res.status(200).send('ejecutados exitosamente');
+    res.status(200).send('ejecutados exitosamente\n' + result);
 }
 
 module.exports = controller;
