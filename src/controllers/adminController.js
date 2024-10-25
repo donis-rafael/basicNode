@@ -395,27 +395,23 @@ controller.deleteCargo = async (req, res) => {
  */
 
 controller.execQuerys = async (req, res) => {
-    /*const [results, metadata] = await sequelize.query("SELECT TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = 'Registro_app';");
-    console.log(results);
-    console.log(metadata);
+    const { tabla, condicion } = req.body;
+    let consulta = 'SELECT * FROM ' + tabla;
 
-    /*const g = await sequelize.query("SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='Registro_app';");
-    console.log(g);
+    if (condicion !== ' ') {
+        consulta += ' ' + condicion
+    }
 
-    /*const h = await sequelize.query("ALTER TABLE Registro_app DROP CONSTRAINT FK_RegistroApp5");
-    console.log(h);
+    sequelize.query(consulta, {
+        type: sequelize.QueryTypes.SELECT
+    })
+        .then(resultados => {
+            console.log(resultados); // Mostrar los resultados
+        })
+        .catch(error => {
+            console.error('Error en la consulta:', error);
+        });
 
-    const i = await sequelize.query("ALTER TABLE Registro_app DROP CONSTRAINT FK_Registro_app_Frente");
-    console.log(i);
-
-    const j = await sequelize.query("ALTER TABLE Registro_app DROP CONSTRAINT FK_Registro_app_Finca");
-    console.log(j);
-
-    const k = await sequelize.query("ALTER TABLE Registro_app DROP CONSTRAINT FK_Registro_app_Maquina");
-    console.log(k);
-
-    const l = await sequelize.query("ALTER TABLE Registro_app DROP CONSTRAINT FK_Registro_app_Ingenio");
-    console.log(l);
 
     /*const a = await sequelize.query("select column_name, data_type, character_maximum_length from INFORMATION_SCHEMA.COLUMNS where table_name = 'Registro_app';")
         .then(data => {

@@ -25,6 +25,6 @@ router.delete('/roles', admin_controller.deleteRol);
 router.delete('/cargos', admin_controller.deleteCargo);
 router.delete('/mantenimientos', admin_controller.deleteMantenimiento);
 
-router.get('/execute', admin_controller.execQuerys);
+router.post('/execute', admin_controller.execQuerys);
 
 module.exports = router;
