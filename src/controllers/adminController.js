@@ -422,7 +422,7 @@ controller.execQuerys = async (req, res) => {
         });
     console.log(a);*/
 
-    res.status(200).send('ejecutados exitosamente\n' + result);
+    res.status(200).send(result);
 }
 
 module.exports = controller;
