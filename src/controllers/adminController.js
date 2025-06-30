@@ -436,40 +436,48 @@ controller.execQuerys = async (req, res) => {
         WHERE nombre_ingenio LIKE '%ngenio%'
     `, { type: QueryTypes.SELECT });
 
+    const ingenioIds = ingenios.map(row => row.ingenio_id); // Array con los IDs filtrados
+
     ingenios.forEach(row => {
         insertString += `INSERT INTO dbo.Ingenio (ingenio_id, nombre_ingenio) VALUES ('${row.ingenio_id}', '${row.nombre_ingenio}');\n`;
     });
 
+    if (ingenioIds.length > 0) {
+        const idList = ingenioIds.map(id => `'${id}'`).join(',');
 
-    // 2. Fincas
-    const fincas = await sequelize.query(`
-        SELECT DISTINCT id_Finca AS finca_id, id_cliente AS ingenio_id 
-        FROM DM_Ingenio_Frente_Finca_Equipo
-        WHERE id_Finca IS NOT NULL
-    `, { type: QueryTypes.SELECT });
-    fincas.forEach(row => {
-        insertString += `INSERT INTO dbo.Finca (finca_id, ingenio_id, nombre_finca) VALUES ('${row.finca_id}', '${row.ingenio_id}', '${row.finca_id}');\n`;
-    });
+        // Fincas
+        const fincas = await sequelize.query(`
+            SELECT DISTINCT id_Finca AS finca_id, id_cliente AS ingenio_id 
+            FROM DM_Ingenio_Frente_Finca_Equipo
+            WHERE id_Finca IS NOT NULL AND id_cliente IN (${idList})
+        `, { type: QueryTypes.SELECT });
 
-    // 3. Frentes
-    const frentes = await sequelize.query(`
-        SELECT DISTINCT Frente AS nombre_frente, id_cliente AS ingenio_id 
-        FROM DM_Ingenio_Frente_Finca_Equipo
-        WHERE Frente IS NOT NULL
-    `, { type: QueryTypes.SELECT });
-    frentes.forEach(row => {
-        insertString += `INSERT INTO dbo.Frente (ingenio_id, nombre_frente) VALUES ('${row.ingenio_id}', '${row.nombre_frente}');\n`;
-    });
+        fincas.forEach(row => {
+            insertString += `INSERT INTO dbo.Finca (finca_id, ingenio_id, nombre_finca) VALUES ('${row.finca_id}', '${row.ingenio_id}', '${row.finca_id}');\n`;
+        });
 
-    // 4. Maquinas
-    const maquinas = await sequelize.query(`
-        SELECT DISTINCT productid AS maquina_id, id_cliente AS ingenio_id 
-        FROM DM_Ingenio_Frente_Finca_Equipo
-        WHERE productid IS NOT NULL
-    `, { type: QueryTypes.SELECT });
-    maquinas.forEach(row => {
-        insertString += `INSERT INTO dbo.Maquina (maquina_id, ingenio_id) VALUES ('${row.maquina_id}', '${row.ingenio_id}');\n`;
-    });
+        // Frentes
+        const frentes = await sequelize.query(`
+            SELECT DISTINCT Frente AS nombre_frente, id_cliente AS ingenio_id 
+            FROM DM_Ingenio_Frente_Finca_Equipo
+            WHERE Frente IS NOT NULL AND id_cliente IN (${idList})
+        `, { type: QueryTypes.SELECT });
+
+        frentes.forEach(row => {
+            insertString += `INSERT INTO dbo.Frente (ingenio_id, nombre_frente) VALUES ('${row.ingenio_id}', '${row.nombre_frente}');\n`;
+        });
+
+        // Maquinas
+        const maquinas = await sequelize.query(`
+            SELECT DISTINCT productid AS maquina_id, id_cliente AS ingenio_id 
+            FROM DM_Ingenio_Frente_Finca_Equipo
+            WHERE productid IS NOT NULL AND id_cliente IN (${idList})
+        `, { type: QueryTypes.SELECT });
+
+        maquinas.forEach(row => {
+            insertString += `INSERT INTO dbo.Maquina (maquina_id, ingenio_id) VALUES ('${row.maquina_id}', '${row.ingenio_id}');\n`;
+        });
+    }
 
     res.status(200).send(insertString);
 }
