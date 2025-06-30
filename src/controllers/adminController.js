@@ -438,9 +438,9 @@ controller.execQuerys = async (req, res) => {
 
     const ingenioIds = ingenios.map(row => row.ingenio_id); // Array con los IDs filtrados
 
-    ingenios.forEach(row => {
+    /*ingenios.forEach(row => {
         insertString += `INSERT INTO dbo.Ingenio (ingenio_id, nombre_ingenio) VALUES ('${row.ingenio_id}', '${row.nombre_ingenio}');\n`;
-    });
+    });*/
 
     if (ingenioIds.length > 0) {
         const idList = ingenioIds.map(id => `'${id}'`).join(',');
@@ -481,7 +481,7 @@ controller.execQuerys = async (req, res) => {
         const semanales = await sequelize.query(`
         SELECT TOP 15000 *
         FROM IndSemClienteXFrenteXFincaXEquipo
-        WHERE id_cliente IN (${idList})
+        WHERE id_Cliente IN (${idList})
         ORDER BY new_calendario DESC, Periodo DESC, SemanaZafra DESC
     `, { type: QueryTypes.SELECT });
 
@@ -499,7 +499,7 @@ controller.execQuerys = async (req, res) => {
             ConteoEquipos, KPI_MTBF_Flota
         ) VALUES (
             '${row.id_Finca}', 
-            (SELECT frente_id FROM Frente WHERE nombre_frente = '${row.Frente}' AND ingenio_id = '${row.id_cliente}'), 
+            (SELECT frente_id FROM Frente WHERE nombre_frente = '${row.Frente}' AND ingenio_id = '${row.id_Cliente}'), 
             '${row.Productid}', 
             ${row.new_calendario}, ${row.Periodo}, ${row.SemanaZafra},
             ${row.Efi_Correctivo ?? 'NULL'}, ${row.Efi_Correctivo_Kpi ?? 'NULL'}, ${row.Efi_Cuchillas ?? 'NULL'},
@@ -513,7 +513,7 @@ controller.execQuerys = async (req, res) => {
             ${row.MTTR_HORAS ?? 'NULL'}, ${row.MTBF_HORAS ?? 'NULL'}, ${row.KPI_No_Planeados ?? 'NULL'},
             ${row.KPI_PMRS ?? 'NULL'}, ${row.HorasNODisponibles ?? 'NULL'}, ${row.Cant_Casos_Daño_Maquinaria ?? 'NULL'},
             ${row.Cant_Casos_Correctivo ?? 'NULL'}, ${row.ConteoEquipos ?? 'NULL'}, ${row.KPI_MTBF_Flota ?? 'NULL'}
-        );\n`;
+        );\n\n`;
         });
     }
 
