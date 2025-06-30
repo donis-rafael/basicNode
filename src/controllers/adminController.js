@@ -519,7 +519,7 @@ controller.execQuerys = async (req, res) => {
         const diarios = await sequelize.query(`
             SELECT TOP 15000 *
             FROM IndDiariosClienteXFrenteXFincaXEquipo
-            WHERE id_cliente IN (${idList})
+            WHERE id_Cliente IN (${idList})
             ORDER BY new_calendario DESC, Periodo DESC, SemanaZafra DESC
         `, { type: QueryTypes.SELECT });
 
@@ -537,7 +537,7 @@ controller.execQuerys = async (req, res) => {
                 ConteoEquipos, KPI_MTBF_Flota
             ) VALUES (
                 '${row.id_Finca}', 
-                (SELECT frente_id FROM Frente WHERE nombre_frente = '${row.Frente}' AND ingenio_id = '${row.id_cliente}'), 
+                (SELECT frente_id FROM Frente WHERE nombre_frente = '${row.Frente}' AND ingenio_id = '${row.id_Cliente}'), 
                 '${row.Productid}', 
                 ${row.new_calendario}, ${row.Periodo}, ${row.SemanaZafra},
                 ${row.Efi_Correctivo ?? 'NULL'}, ${row.Efi_Correctivo_Kpi ?? 'NULL'}, ${row.Efi_Cuchillas ?? 'NULL'},
