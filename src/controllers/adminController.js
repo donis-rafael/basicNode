@@ -454,7 +454,7 @@ controller.execQuerys = async (req, res) => {
 
         fincas.forEach(row => {
             insertString += `INSERT INTO dbo.Finca (finca_id, ingenio_id, nombre_finca) VALUES ('${row.finca_id}', '${row.ingenio_id}', '${row.finca_id}');\n`;
-        });
+        });*/
 
         // Frentes
         const frentes = await sequelize.query(`
@@ -462,7 +462,7 @@ controller.execQuerys = async (req, res) => {
             FROM DM_Ingenio_Frente_Finca_Equipo
             WHERE Frente IS NOT NULL AND id_cliente IN (${idList})
         `, { type: QueryTypes.SELECT });
-
+/*
         frentes.forEach(row => {
             insertString += `INSERT INTO dbo.Frente (ingenio_id, nombre_frente) VALUES ('${row.ingenio_id}', '${row.nombre_frente}');\n`;
         });
@@ -476,56 +476,25 @@ controller.execQuerys = async (req, res) => {
 
         maquinas.forEach(row => {
             insertString += `INSERT INTO dbo.Maquina (maquina_id, ingenio_id) VALUES ('${row.maquina_id}', '${row.ingenio_id}');\n`;
-        });
-
-        const semanales = await sequelize.query(`
-        SELECT TOP 15000 *
-        FROM IndSemClienteXFrenteXFincaXEquipo
-        WHERE id_Cliente IN (${idList})
-        ORDER BY new_calendario DESC, Periodo DESC, SemanaZafra DESC
-    `, { type: QueryTypes.SELECT });
-
-        semanales.forEach(row => {
-            insertString += `INSERT INTO dbo.Actividad_maquina_semana (
-            finca_id, frente_id, maquina_id, new_calendario, Periodo, SemanaZafra, 
-            Efi_Correctivo, Efi_Correctivo_Kpi, Efi_Cuchillas, Efi_Daño_Maquinaria, 
-            Efi_Planificado, Efi_Predictivo, Efi_Preventivo, UtilizacionAcumulada, 
-            UtilizacionHorasxDia, EntregaDiariaCoseChadora, IngresoTotal, Eficiencia, 
-            Porc_Utilizacion_Equipos, Porc_Disponibilidad, Porc_DispoTecRent, 
-            MetaDisponibilidad, UtilizacionProgramada, Horas, HorasDisponibles, 
-            HorasTecrent, Efi_Otros, KPI_Confiabilidad, KPI_Daño_Maquinaria, 
-            KPI_MTBD_Equipo, MTTR_HORAS, MTBF_HORAS, KPI_No_Planeados, KPI_PMRS, 
-            HorasNODisponibles, Cant_Casos_Daño_Maquinaria, Cant_Casos_Correctivo, 
-            ConteoEquipos, KPI_MTBF_Flota
-        ) VALUES (
-            '${row.id_Finca}', 
-            (SELECT frente_id FROM Frente WHERE nombre_frente = '${row.Frente}' AND ingenio_id = '${row.id_Cliente}'), 
-            '${row.Productid}', 
-            ${row.new_calendario}, ${row.Periodo}, ${row.SemanaZafra},
-            ${row.Efi_Correctivo ?? 'NULL'}, ${row.Efi_Correctivo_Kpi ?? 'NULL'}, ${row.Efi_Cuchillas ?? 'NULL'},
-            ${row.Efi_Daño_Maquinaria ?? 'NULL'}, ${row.Efi_Planificado ?? 'NULL'}, ${row.Efi_Predictivo ?? 'NULL'},
-            ${row.Efi_Preventivo ?? 'NULL'}, ${row.UtilizacionAcumulada ?? 'NULL'}, ${row.UtilizacionHorasxDia ?? 'NULL'},
-            ${row.EntregaDiariaCoseChadora ?? 'NULL'}, ${row.IngresoTotal ?? 'NULL'}, ${row.Eficiencia ?? 'NULL'},
-            ${row.Porc_Utilizacion_Equipos ?? 'NULL'}, ${row.Porc_Disponibilidad ?? 'NULL'}, ${row.Porc_DispoTecRent ?? 'NULL'},
-            ${row.MetaDisponibilidad ?? 'NULL'}, ${row.UtilizacionProgramada ?? 'NULL'}, ${row.Horas ?? 'NULL'},
-            ${row.HorasDisponibles ?? 'NULL'}, ${row.HorasTecrent ?? 'NULL'}, ${row.Efi_Otros ?? 'NULL'},
-            ${row.KPI_Confiabilidad ?? 'NULL'}, ${row.KPI_Daño_Maquinaria ?? 'NULL'}, ${row.KPI_MTBD_Equipo ?? 'NULL'},
-            ${row.MTTR_HORAS ?? 'NULL'}, ${row.MTBF_HORAS ?? 'NULL'}, ${row.KPI_No_Planeados ?? 'NULL'},
-            ${row.KPI_PMRS ?? 'NULL'}, ${row.HorasNODisponibles ?? 'NULL'}, ${row.Cant_Casos_Daño_Maquinaria ?? 'NULL'},
-            ${row.Cant_Casos_Correctivo ?? 'NULL'}, ${row.ConteoEquipos ?? 'NULL'}, ${row.KPI_MTBF_Flota ?? 'NULL'}
-        );\n\N`;
         });*/
 
-        const diarios = await sequelize.query(`
+        // Asumiendo que ya tienes el arreglo de frentes con estructura:
+// frentes = [{ nombre_frente, ingenio_id, frente_id }, ...];
+
+        const semanales = await sequelize.query(`
             SELECT TOP 15000 *
-            FROM IndDiariosClienteXFrenteXFincaXEquipo
+            FROM IndSemClienteXFrenteXFincaXEquipo
             WHERE id_Cliente IN (${idList})
             ORDER BY new_calendario DESC, Periodo DESC, SemanaZafra DESC
         `, { type: QueryTypes.SELECT });
 
-        diarios.forEach(row => {
-            insertString += `INSERT INTO dbo.Actividad_maquina_dia ( 
-                finca_id, frente_id, maquina_id, new_calendario, Periodo, SemanaZafra, 
+        semanales.forEach(row => {
+
+            const frente = frentes.find(f => f.nombre_frente === row.Frente && f.ingenio_id === row.id_Cliente);
+            const frente_id = frente ? frente.frente_id : 'NULL';
+
+            insertString += `INSERT INTO dbo.Actividad_maquina_semana (
+                ingenio_id, finca_id, frente_id, maquina_id, new_calendario, Periodo, SemanaZafra, 
                 Efi_Correctivo, Efi_Correctivo_Kpi, Efi_Cuchillas, Efi_Daño_Maquinaria, 
                 Efi_Planificado, Efi_Predictivo, Efi_Preventivo, UtilizacionAcumulada, 
                 UtilizacionHorasxDia, EntregaDiariaCoseChadora, IngresoTotal, Eficiencia, 
@@ -536,8 +505,9 @@ controller.execQuerys = async (req, res) => {
                 HorasNODisponibles, Cant_Casos_Daño_Maquinaria, Cant_Casos_Correctivo, 
                 ConteoEquipos, KPI_MTBF_Flota
             ) VALUES (
+                '${row.id_Cliente}', 
                 '${row.id_Finca}', 
-                (SELECT frente_id FROM Frente WHERE nombre_frente = '${row.Frente}' AND ingenio_id = '${row.id_Cliente}'), 
+                ${frente_id}, 
                 '${row.Productid}', 
                 ${row.new_calendario}, ${row.Periodo}, ${row.SemanaZafra},
                 ${row.Efi_Correctivo ?? 'NULL'}, ${row.Efi_Correctivo_Kpi ?? 'NULL'}, ${row.Efi_Cuchillas ?? 'NULL'},
@@ -553,6 +523,7 @@ controller.execQuerys = async (req, res) => {
                 ${row.Cant_Casos_Correctivo ?? 'NULL'}, ${row.ConteoEquipos ?? 'NULL'}, ${row.KPI_MTBF_Flota ?? 'NULL'}
             );\n\n`;
         });
+        
     }
 
     res.status(200).send(insertString);
