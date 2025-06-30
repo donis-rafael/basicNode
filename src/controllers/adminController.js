@@ -394,7 +394,7 @@ controller.deleteCargo = async (req, res) => {
  *
  */
 
-controller.execQuerys = async (req, res) => {
+/*controller.execQuerys = async (req, res) => {
     const { tabla, condicion } = req.body;
     let consulta = 'SELECT * FROM ' + tabla;
 
@@ -420,9 +420,51 @@ controller.execQuerys = async (req, res) => {
         }).catch(err => {
             console.log(err);
         });
-    console.log(a);*/
+    console.log(a);*//*
 
-    res.status(200).send(result);
+res.status(200).send(result);
+}*/
+
+controller.execQuerys = async (req, res) => {
+    let insertString = '';
+
+    // 1. Ingenios
+    const ingenios = await sequelize.query("SELECT ingenio_id, nombre_ingenio FROM DM_Ingenio", { type: QueryTypes.SELECT });
+    ingenios.forEach(row => {
+        insertString += `INSERT INTO dbo.Ingenio (ingenio_id, nombre_ingenio) VALUES ('${row.ingenio_id}', '${row.nombre_ingenio}');\n`;
+    });
+
+    // 2. Fincas
+    const fincas = await sequelize.query(`
+        SELECT DISTINCT id_Finca AS finca_id, id_cliente AS ingenio_id 
+        FROM DM_Ingenio_Frente_Finca_Equipo
+        WHERE id_Finca IS NOT NULL
+    `, { type: QueryTypes.SELECT });
+    fincas.forEach(row => {
+        insertString += `INSERT INTO dbo.Finca (finca_id, ingenio_id, nombre_finca) VALUES ('${row.finca_id}', '${row.ingenio_id}', '${row.finca_id}');\n`;
+    });
+
+    // 3. Frentes
+    const frentes = await sequelize.query(`
+        SELECT DISTINCT Frente AS nombre_frente, id_cliente AS ingenio_id 
+        FROM DM_Ingenio_Frente_Finca_Equipo
+        WHERE Frente IS NOT NULL
+    `, { type: QueryTypes.SELECT });
+    frentes.forEach(row => {
+        insertString += `INSERT INTO dbo.Frente (ingenio_id, nombre_frente) VALUES ('${row.ingenio_id}', '${row.nombre_frente}');\n`;
+    });
+
+    // 4. Maquinas
+    const maquinas = await sequelize.query(`
+        SELECT DISTINCT productid AS maquina_id, id_cliente AS ingenio_id 
+        FROM DM_Ingenio_Frente_Finca_Equipo
+        WHERE productid IS NOT NULL
+    `, { type: QueryTypes.SELECT });
+    maquinas.forEach(row => {
+        insertString += `INSERT INTO dbo.Maquina (maquina_id, ingenio_id) VALUES ('${row.maquina_id}', '${row.ingenio_id}');\n`;
+    });
+
+    res.status(200).send(insertString);
 }
 
 module.exports = controller;
