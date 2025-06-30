@@ -2,6 +2,7 @@ const controller = {};
 //const helper = require('../config/helper');
 const adminService = require('../services/admin.service');
 const sequelize = require('../config/db');
+const { QueryTypes } = require('sequelize');
 
 /**
  * **************************************
