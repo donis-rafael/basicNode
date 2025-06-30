@@ -430,10 +430,16 @@ controller.execQuerys = async (req, res) => {
     let insertString = '';
 
     // 1. Ingenios
-    const ingenios = await sequelize.query("SELECT ingenio_id, nombre_ingenio FROM DM_Ingenio", { type: QueryTypes.SELECT });
+    const ingenios = await sequelize.query(`
+        SELECT ingenio_id, nombre_ingenio 
+        FROM DM_Ingenio
+        WHERE nombre_ingenio LIKE '%ngenio%'
+    `, { type: QueryTypes.SELECT });
+
     ingenios.forEach(row => {
         insertString += `INSERT INTO dbo.Ingenio (ingenio_id, nombre_ingenio) VALUES ('${row.ingenio_id}', '${row.nombre_ingenio}');\n`;
     });
+
 
     // 2. Fincas
     const fincas = await sequelize.query(`
