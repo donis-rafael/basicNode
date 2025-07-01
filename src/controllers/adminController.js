@@ -507,7 +507,7 @@ controller.execQuerys = async (req, res) => {
             ) VALUES (
                 '${row.id_Cliente}', 
                 '${row.id_Finca}', 
-                ${frente_id}, 
+                '${frente_id}', 
                 '${row.Productid}', 
                 ${row.new_calendario}, ${row.Periodo}, ${row.SemanaZafra},
                 ${row.Efi_Correctivo ?? 'NULL'}, ${row.Efi_Correctivo_Kpi ?? 'NULL'}, ${row.Efi_Cuchillas ?? 'NULL'},
