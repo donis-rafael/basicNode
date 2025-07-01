@@ -454,7 +454,7 @@ controller.execQuerys = async (req, res) => {
 
         fincas.forEach(row => {
             insertString += `INSERT INTO dbo.Finca (finca_id, ingenio_id, nombre_finca) VALUES ('${row.finca_id}', '${row.ingenio_id}', '${row.finca_id}');\n`;
-        });*/
+        });
 
         // Frentes
         const frentes = await sequelize.query(`
@@ -462,7 +462,7 @@ controller.execQuerys = async (req, res) => {
             FROM DM_Ingenio_Frente_Finca_Equipo
             WHERE Frente IS NOT NULL AND id_cliente IN (${idList})
         `, { type: QueryTypes.SELECT });
-/*
+
         frentes.forEach(row => {
             insertString += `INSERT INTO dbo.Frente (ingenio_id, nombre_frente) VALUES ('${row.ingenio_id}', '${row.nombre_frente}');\n`;
         });
@@ -490,9 +490,6 @@ controller.execQuerys = async (req, res) => {
 
         semanales.forEach(row => {
 
-            const frente = frentes.find(f => f.nombre_frente === row.Frente && f.ingenio_id === row.id_Cliente);
-            const frente_id = frente ? frente.nombre_frente : 'NULL';
-
             insertString += `INSERT INTO dbo.Actividad_maquina_semana (
                 ingenio_id, finca_id, frente_id, maquina_id, new_calendario, Periodo, SemanaZafra, 
                 Efi_Correctivo, Efi_Correctivo_Kpi, Efi_Cuchillas, Efi_Daño_Maquinaria, 
@@ -507,7 +504,7 @@ controller.execQuerys = async (req, res) => {
             ) VALUES (
                 '${row.id_Cliente}', 
                 '${row.id_Finca}', 
-                '${frente_id}', 
+                (SELECT frente_id FROM Frente WHERE nombre_frente = '${row.Frente}' AND ingenio_id = '${row.id_Cliente}'), 
                 '${row.Productid}', 
                 ${row.new_calendario}, ${row.Periodo}, ${row.SemanaZafra},
                 ${row.Efi_Correctivo ?? 'NULL'}, ${row.Efi_Correctivo_Kpi ?? 'NULL'}, ${row.Efi_Cuchillas ?? 'NULL'},
@@ -523,6 +520,7 @@ controller.execQuerys = async (req, res) => {
                 ${row.Cant_Casos_Correctivo ?? 'NULL'}, ${row.ConteoEquipos ?? 'NULL'}, ${row.KPI_MTBF_Flota ?? 'NULL'}
             );\n\n`;
         });
+
         
     }
 
