@@ -491,7 +491,7 @@ controller.execQuerys = async (req, res) => {
         semanales.forEach(row => {
 
             const frente = frentes.find(f => f.nombre_frente === row.Frente && f.ingenio_id === row.id_Cliente);
-            const frente_id = frente ? frente.frente_id : 'NULL';
+            const frente_id = frente ? frente.nombre_frente : 'NULL';
 
             insertString += `INSERT INTO dbo.Actividad_maquina_semana (
                 ingenio_id, finca_id, frente_id, maquina_id, new_calendario, Periodo, SemanaZafra, 
