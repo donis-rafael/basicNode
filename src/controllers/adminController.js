@@ -481,7 +481,7 @@ controller.execQuerys = async (req, res) => {
         // Asumiendo que ya tienes el arreglo de frentes con estructura:
 // frentes = [{ nombre_frente, ingenio_id, frente_id }, ...];
 
-        const semanales = await sequelize.query(`
+        /*const semanales = await sequelize.query(`
             SELECT TOP 15000 *
             FROM IndSemClienteXFrenteXFincaXEquipo
             WHERE id_Cliente IN (${idList})
@@ -519,7 +519,48 @@ controller.execQuerys = async (req, res) => {
                 ${row.KPI_PMRS ?? 'NULL'}, ${row.HorasNODisponibles ?? 'NULL'}, ${row.Cant_Casos_Daño_Maquinaria ?? 'NULL'},
                 ${row.Cant_Casos_Correctivo ?? 'NULL'}, ${row.ConteoEquipos ?? 'NULL'}, ${row.KPI_MTBF_Flota ?? 'NULL'}
             );\n\n`;
+        });*/
+
+        const diarios = await sequelize.query(`
+            SELECT TOP 15000 *
+            FROM IndDiariosClienteXFrenteXFincaXEquipo
+            WHERE id_Cliente IN (${idList})
+            ORDER BY new_calendario DESC, Periodo DESC, SemanaZafra DESC
+        `, { type: QueryTypes.SELECT });
+
+        diarios.forEach(row => {
+
+            insertString += `INSERT INTO dbo.Actividad_maquina_dia ( 
+                ingenio_id, finca_id, frente_id, maquina_id, new_calendario, Periodo, SemanaZafra, 
+                Efi_Correctivo, Efi_Correctivo_Kpi, Efi_Cuchillas, Efi_Daño_Maquinaria, 
+                Efi_Planificado, Efi_Predictivo, Efi_Preventivo, UtilizacionAcumulada, 
+                UtilizacionHorasxDia, EntregaDiariaCoseChadora, IngresoTotal, Eficiencia, 
+                Porc_Utilizacion_Equipos, Porc_Disponibilidad, Porc_DispoTecRent, 
+                MetaDisponibilidad, UtilizacionProgramada, Horas, HorasDisponibles, 
+                HorasTecrent, Efi_Otros, KPI_Confiabilidad, KPI_Daño_Maquinaria, 
+                KPI_MTBD_Equipo, MTTR_HORAS, MTBF_HORAS, KPI_No_Planeados, KPI_PMRS, 
+                HorasNODisponibles, Cant_Casos_Daño_Maquinaria, Cant_Casos_Correctivo, 
+                ConteoEquipos, KPI_MTBF_Flota
+            ) VALUES (
+                '${row.id_Cliente}', 
+                '${row.id_Finca}', 
+                (SELECT frente_id FROM Frente WHERE nombre_frente LIKE '%${row.Frente}%' AND ingenio_id = '${row.id_Cliente}'), 
+                '${row.Productid}', 
+                ${row.new_calendario}, ${row.Periodo}, ${row.SemanaZafra},
+                ${row.Efi_Correctivo ?? 'NULL'}, ${row.Efi_Correctivo_Kpi ?? 'NULL'}, ${row.Efi_Cuchillas ?? 'NULL'},
+                ${row.Efi_Daño_Maquinaria ?? 'NULL'}, ${row.Efi_Planificado ?? 'NULL'}, ${row.Efi_Predictivo ?? 'NULL'},
+                ${row.Efi_Preventivo ?? 'NULL'}, ${row.UtilizacionAcumulada ?? 'NULL'}, ${row.UtilizacionHorasxDia ?? 'NULL'},
+                ${row.EntregaDiariaCoseChadora ?? 'NULL'}, ${row.IngresoTotal ?? 'NULL'}, ${row.Eficiencia ?? 'NULL'},
+                ${row.Porc_Utilizacion_Equipos ?? 'NULL'}, ${row.Porc_Disponibilidad ?? 'NULL'}, ${row.Porc_DispoTecRent ?? 'NULL'},
+                ${row.MetaDisponibilidad ?? 'NULL'}, ${row.UtilizacionProgramada ?? 'NULL'}, ${row.Horas ?? 'NULL'},
+                ${row.HorasDisponibles ?? 'NULL'}, ${row.HorasTecrent ?? 'NULL'}, ${row.Efi_Otros ?? 'NULL'},
+                ${row.KPI_Confiabilidad ?? 'NULL'}, ${row.KPI_Daño_Maquinaria ?? 'NULL'}, ${row.KPI_MTBD_Equipo ?? 'NULL'},
+                ${row.MTTR_HORAS ?? 'NULL'}, ${row.MTBF_HORAS ?? 'NULL'}, ${row.KPI_No_Planeados ?? 'NULL'},
+                ${row.KPI_PMRS ?? 'NULL'}, ${row.HorasNODisponibles ?? 'NULL'}, ${row.Cant_Casos_Daño_Maquinaria ?? 'NULL'},
+                ${row.Cant_Casos_Correctivo ?? 'NULL'}, ${row.ConteoEquipos ?? 'NULL'}, ${row.KPI_MTBF_Flota ?? 'NULL'}
+            );\n\n`;
         });
+
 
         
     }
